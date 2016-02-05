@@ -1,0 +1,10 @@
+git status                  // view which files have been changed/staged since last commit
+
+git add .                   // stage all of the files that have been changed
+git commit -m "MESSAGE"     // commit the files to your local repository.
+                            // message should describe what features/functions you have added
+
+git push origin master      // push all changes to remote github repository
+
+
+git pull origin master      // get all of everyone elses code from github repo
