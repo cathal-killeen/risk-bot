@@ -65,9 +65,9 @@ public class Constants {
     public static final String[] CONTINENT_NAMES = {"N America","Europe","Asia","Australia","S America","Africa"};  // for reference
     public static final int[] CONTINENT_IDS = {0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,5,5};
     public static final int[] CONTINENT_VALUES = {5,5,7,2,2,3};
-    private static final int FRAME_WIDTH = 1000;    // must be even
-    private static final int FRAME_HEIGHT = 600;
-    private static final int[][] COUNTRY_COORD = {
+    public static final int FRAME_WIDTH = 1000;    // must be even
+    public static final int FRAME_HEIGHT = 600;
+    public static final int[][] COUNTRY_COORD = {
             {191,150},     // 0
             {255,161},
             {146,86},
