@@ -12,7 +12,31 @@ public class Main {
         JFrame myFrame = new JFrame("RISK");
         myFrame.setSize(1200,700);
         myFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+
+        panel1.setBackground(Color.blue);
+        panel2.setBackground(Color.red);
+
+        panel1.setOpaque(true);
+        panel2.setOpaque(true);
+
+        //panel1.set[Preferred/Maximum/Minimum]Size()
+
+        container.add(panel1);
+        container.add(panel2);
+
+
+        myFrame.setLayout(new BorderLayout());
+        myFrame.add(container, BorderLayout.CENTER);
+
         myFrame.setVisible(true);
+
+
 
     }
 
