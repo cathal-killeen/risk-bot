@@ -1,4 +1,3 @@
-import com.sun.tools.internal.jxc.ap.Const;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +9,17 @@ import java.awt.*;
  *  Adam Doran: 14325416
  */
 public class Main {
-    public static void main(String[] args){
-        GameFrame gameFrame = new GameFrame();
 
+    public static void main(String[] args){
+        JFrame gameFrame = new GameFrame();
+        JPanel mapPanel = new MapPanel();
+        JPanel sideBar = new SideBar();
+
+
+        gameFrame.add(mapPanel, BorderLayout.WEST);
+        gameFrame.add(sideBar, BorderLayout.EAST);
     }
+
+
 
 }
