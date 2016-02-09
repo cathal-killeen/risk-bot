@@ -10,25 +10,36 @@ import java.awt.*;
  */
 public class Main {
 
+    static JFrame gameFrame = new GameFrame();
+    static JPanel mapPanel = new MapPanel();
+    static JPanel sideBar = new SideBar();
+
+    static Country[] countries = createCountries();
+
+
     public static void main(String[] args){
-        JFrame gameFrame = new GameFrame();
-        JPanel mapPanel = new MapPanel();
-        JPanel sideBar = new SideBar();
+        initGame();
 
-        gameFrame.add(mapPanel, BorderLayout.WEST);
-        gameFrame.add(sideBar, BorderLayout.EAST);
-
-        Country[] countries = createCountries();
-
-        gameFrame.setVisible(true);
-
-        //tests
+        //TESTS
         for(int i = 0; i < countries.length; i++){
             System.out.println(countries[i].toString());
         }
 
     }
 
+    // initialise game - setup UI components, create default objects, assign countries to users
+    public static void initGame(){
+        gameFrame.add(mapPanel, BorderLayout.WEST);
+        gameFrame.add(sideBar, BorderLayout.EAST);
+
+
+
+        // done last when everything has been setup
+        gameFrame.setVisible(true);
+    }
+
+    // create all country objects
+    // NOTE: does not put country nodes on map, but Point2D coOrds can be accessed from each object
     public static Country[] createCountries(){
         Country[] countries = new Country[Constants.NUM_COUNTRIES];
 

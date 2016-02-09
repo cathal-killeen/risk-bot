@@ -19,6 +19,7 @@ public class Country {
         setTroops();
     }
 
+    // returns continents name from Constants class
     public String continentName(){
         return Constants.CONTINENT_NAMES[continent];
     }
@@ -37,6 +38,7 @@ public class Country {
         troops -= defeatedTroops;
     }
 
+    //set or reset troops to 0
     public void setTroops(){
         troops = 0;
     }
