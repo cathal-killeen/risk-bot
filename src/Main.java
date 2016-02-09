@@ -18,12 +18,27 @@ public class Main {
         gameFrame.add(mapPanel, BorderLayout.WEST);
         gameFrame.add(sideBar, BorderLayout.EAST);
 
+        Country[] countries = createCountries();
+
 
         //tests
-        Country c = new Country(5);
-        System.out.print(c.toString());
+        for(int i = 0; i < countries.length; i++){
+            System.out.println(countries[i].toString());
+        }
 
     }
+
+    public static Country[] createCountries(){
+        Country[] countries = new Country[Constants.NUM_COUNTRIES];
+
+        for(int i = 0; i < countries.length; i++){
+            countries[i] = new Country(i);
+        }
+
+        return countries;
+    }
+
+
 
 
 
