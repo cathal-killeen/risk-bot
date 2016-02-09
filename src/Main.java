@@ -15,9 +15,14 @@ public class Main {
         JPanel mapPanel = new MapPanel();
         JPanel sideBar = new SideBar();
 
-
         gameFrame.add(mapPanel, BorderLayout.WEST);
         gameFrame.add(sideBar, BorderLayout.EAST);
+
+
+        //tests
+        Country c = new Country(5);
+        System.out.print(c.toString());
+
     }
 
 

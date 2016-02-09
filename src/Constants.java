@@ -1,8 +1,6 @@
-import com.sun.tools.classfile.ConstantPool;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.lang.invoke.SwitchPoint;
 
 /**
  * Created by Cathal on 05/02/16.
@@ -78,7 +76,7 @@ public class Constants {
     private static final int SIDEBAR_WIDTH = 250;
     public static Dimension SIDEBAR_DIM = new Dimension(SIDEBAR_WIDTH, MAP_HEIGHT);
     public static Dimension FRAME_DIM = new Dimension(MAP_WIDTH + SIDEBAR_WIDTH, MAP_HEIGHT);
-    private static final int[][] COUNTRY_COORD = {
+    public static final int[][] COUNTRY_COORD = {
             {191, 150},     // 0
             {255, 161},
             {146, 86},
@@ -122,10 +120,6 @@ public class Constants {
             {547, 432},        // 40
             {586, 545}
     };
-    public Point2D COUNTRY_DIM(int index){
-            return new Point2D.Float((float)COUNTRY_COORD[index][0], (float)COUNTRY_COORD[index][1]);
-    }
-
 
 }
 
