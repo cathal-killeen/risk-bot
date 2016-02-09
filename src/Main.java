@@ -20,6 +20,7 @@ public class Main {
 
         Country[] countries = createCountries();
 
+        gameFrame.setVisible(true);
 
         //tests
         for(int i = 0; i < countries.length; i++){

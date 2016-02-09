@@ -9,7 +9,6 @@ public class GameFrame extends JFrame {
         super("RISK");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setVisible(true);
 
         //ensure fixed size of window
         setMinimumSize(Constants.FRAME_DIM);
