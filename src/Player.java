@@ -18,3 +18,6 @@ public abstract class Player {
 }
 
 
+//NOTE if(playerObj instanceOf NeutralPlayer){...}
+//OR if(playerObj instanceOf HumanPlayer{...}
+//can be used to distinguish between human and neutral players

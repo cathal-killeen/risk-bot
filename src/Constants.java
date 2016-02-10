@@ -121,6 +121,10 @@ public class Constants {
             {586, 545}
     };
 
+    public static Point2D COUNTRY_P2D(int index){
+        return new Point2D.Float((float)COUNTRY_COORD[index][0], (float)COUNTRY_COORD[index][1]);
+    }
+
 }
 
 

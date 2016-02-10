@@ -1,5 +1,4 @@
-import java.awt.*;
-import java.awt.datatransfer.StringSelection;
+
 import java.awt.geom.Point2D;
 
 /**
@@ -15,7 +14,7 @@ public class Country {
     public Country(int index){
         name = Constants.COUNTRY_NAMES[index];
         continent = Constants.CONTINENT_IDS[index];
-        coOrds = new Point2D.Float((float)Constants.COUNTRY_COORD[index][0], (float)Constants.COUNTRY_COORD[index][1]);
+        coOrds = Constants.COUNTRY_P2D(index);
         setTroops();
     }
 
@@ -54,6 +53,7 @@ public class Country {
             b.append("unowned");
         }
         b.append("\n");
+        b.append("Coords: ").append(coOrds.toString()).append("\n");
         return b.toString();
     }
 
