@@ -76,7 +76,7 @@ public class Constants {
     private static final int SIDEBAR_WIDTH = 250;
     public static Dimension SIDEBAR_DIM = new Dimension(SIDEBAR_WIDTH, MAP_HEIGHT);
     public static Dimension FRAME_DIM = new Dimension(MAP_WIDTH + SIDEBAR_WIDTH, MAP_HEIGHT);
-    public static final int[][] COUNTRY_COORD = {
+    private static final int[][] COUNTRY_COORD = {
             {191, 150},     // 0
             {255, 161},
             {146, 86},
