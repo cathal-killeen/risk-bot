@@ -8,11 +8,13 @@ import java.awt.event.ActionEvent;
  * Created by Cathal on 09/02/16.
  */
 public class SideBar extends JPanel {
-    public static CommandPrompt commandPrompt = new CommandPrompt();
+    public JPanel commandPrompt;
+    public JPanel playerNamesPanel;
 
     public SideBar(){
         super();
-        JPanel playerNamesPanel = new PlayerNamesPanel();
+        commandPrompt = new CommandPrompt();
+        playerNamesPanel = new PlayerNamesPanel();
 
         setPreferredSize(Constants.SIDEBAR_DIM);
         setLayout(new BorderLayout());
@@ -26,11 +28,13 @@ public class SideBar extends JPanel {
 //      - promptLabel: to prompt user what to do next
 //      - commandField: to take user input
 class CommandPrompt extends JPanel{
-    public static JLabel promptLabel = new JLabel("Welcome to RISK!");
-    public static JTextField commandField = new JTextField("Enter command here", 10);
+    public JLabel promptLabel;
+    public JTextField commandField;
 
     public CommandPrompt(){
         setLayout(new BorderLayout());
+        promptLabel = new JLabel("Welcome to RISK!");
+        commandField = new JTextField("Enter command here", 10);
 
         //Prompt label - tells user current state/prompts what to do
         promptLabel.setBorder(new EmptyBorder(10,10,10,10));
