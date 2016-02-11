@@ -1,15 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 /**
  * Created by Cathal on 05/02/16.
  */
 public class GameFrame extends JFrame {
-    public static JPanel mapPanel = new MapPanel();
-    public static JPanel sideBar = new SideBar();
+
+    public static JPanel mapPanel;
+    public static JPanel sideBar;
 
     public GameFrame(){
         super("RISK");
+        mapPanel = new MapPanel();
+        sideBar = new SideBar();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 

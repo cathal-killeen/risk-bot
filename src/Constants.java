@@ -125,4 +125,13 @@ public class Constants {
         return new Point2D.Double((double)COUNTRY_COORD[index][0], (double)COUNTRY_COORD[index][1]);
     }
 
+    public static Color[] PLAYER_COLORS = {
+            new Color(102,0,0),
+            new Color(102,102,0),
+            new Color(0,204,102),
+            new Color(0,102,102),
+            new Color(102,0,51),
+            new Color(51,0,102)
+    };
+
 }

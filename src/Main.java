@@ -14,22 +14,23 @@ public class Main {
     //array of all country objects
     public static ArrayList<Country> countries = createCountries();
 
-    //contains all UI components
+    //all UI components
     public static JFrame gameFrame = new GameFrame();
 
+    public static ArrayList<Player> players = createPlayers();
 
-    public static void main(String[] args){
 
-
+    public static void main(String[] args) {
 
         //TESTS
 
         //console log all countries
-        for(int i = 0; i < countries.size(); i++){
+        for (int i = 0; i < countries.size(); i++) {
             System.out.println(countries.get(i).toString());
         }
 
     }
+
 
     // create all country objects -- possibly relocate to another file
     // NOTE: does not put country nodes on map, but Point2D coOrds can be accessed from each object
@@ -41,6 +42,21 @@ public class Main {
         }
 
         return countries;
+    }
+
+    public static ArrayList createPlayers(){
+        ArrayList<Integer> availableCountries = new ArrayList<>();
+        for(int i=0; i < countries.size(); i++){
+            availableCountries.add(i);
+        }
+
+        ArrayList<Player> players = new ArrayList<>();
+
+        for(int i = 0; i < 6; i++){
+            players.add(new NeutralPlayer("Player" + (i + 1), i));
+        }
+
+        return players;
     }
 
 }

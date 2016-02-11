@@ -1,3 +1,5 @@
+import com.sun.javafx.collections.ElementObservableListDecorator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -8,6 +10,12 @@ import java.util.ArrayList;
  * Created by Cathal on 09/02/16.
  */
 public class MapPanel extends JPanel {
+
+    private static Boolean nodesPainted = false;
+    private static Boolean linksPainted = false;
+
+    private static Country countryToPaint;
+
     public MapPanel() {
         super();
         setPreferredSize(Constants.MAP_DIM);
@@ -15,13 +23,33 @@ public class MapPanel extends JPanel {
         setBackground(Color.WHITE);
     }
 
+    public void paintCountryOwner(Country country){
+        if(country.owner != null){
+            countryToPaint = country;
+            repaint();
+        }
+    }
+
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;
 
-        drawLinks(g2d, Main.countries);
-        drawCountryNodes(g2d, Main.countries);
+        if(!linksPainted){ drawLinks(g2d, Main.countries); }
+        if(!nodesPainted){ drawCountryNodes(g2d, Main.countries); }
+        if(countryToPaint != null){ paintOwnerNode(g2d, countryToPaint); }
+    }
 
+    private void paintOwnerNode(Graphics2D g2d, Country country){
+        if(country.owner != null){
+            Ellipse2D circle = new Ellipse2D.Double();
+            g2d.setPaint(country.owner.color);
+            circle.setFrameFromCenter(
+                    country.coOrds.getX(),
+                    country.coOrds.getY(),
+                    country.coOrds.getX() + 15,
+                    country.coOrds.getY() + 15);
+            g2d.fill(circle);
+        }
 
     }
 
@@ -37,6 +65,8 @@ public class MapPanel extends JPanel {
                     country.coOrds.getY() + 25);
             g2d.fill(circle);
         }
+
+        nodesPainted = true;
     }
 
     //draw links between countries
@@ -73,6 +103,8 @@ public class MapPanel extends JPanel {
                 g2d.draw(link);
             }
         }
+
+        linksPainted = true;
     }
 
 

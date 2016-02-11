@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
  * Created by Cathal on 09/02/16.
  */
 public class Country {
+    public int index;
     public String name;
     public Player owner;
     public int continent;
@@ -16,6 +17,7 @@ public class Country {
 
 
     public Country(int index){
+        this.index = index;
         name = Constants.COUNTRY_NAMES[index];
         continent = Constants.CONTINENT_IDS[index];
         coOrds = Constants.COUNTRY_P2D(index);
@@ -30,6 +32,7 @@ public class Country {
 
     public void setOwner(Player player){
         owner = player;
+        //Main.gameFrame.sideBar
     }
 
     public int getTroopCount(){ return troops; }

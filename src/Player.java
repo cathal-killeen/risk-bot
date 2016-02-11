@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by Cathal on 07/02/16.
@@ -9,12 +11,21 @@ public abstract class Player {
     public String name;
     public Color color;
 
-    public void setName(String name){this.name = name;}
-
-
-    public void allocateTerritory(Country country){
+    public void allocateTerritory(Country country) {
         country.setOwner(this);
     }
+
+    public ArrayList initialTerritories(ArrayList<Integer> availableCountries){
+        int countryIndex;
+        for(int i = 0; i < 4; i++){
+            countryIndex = availableCountries.remove(0);
+            Main.countries.get(countryIndex).setOwner(this);
+        }
+
+        return availableCountries;
+    }
+
+
 }
 
 
