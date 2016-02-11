@@ -56,7 +56,7 @@ public class Country {
         b.append("Continent: ").append(continentName()).append("\n");
         b.append("Owned by: ");
         if(owner != null){
-            b.append(owner);
+            b.append(owner.name);
         }else{
             b.append("unowned");
         }

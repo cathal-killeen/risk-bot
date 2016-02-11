@@ -14,20 +14,11 @@ public class MapPanel extends JPanel {
     private static Boolean nodesPainted = false;
     private static Boolean linksPainted = false;
 
-    private static Country countryToPaint;
-
     public MapPanel() {
         super();
         setPreferredSize(Constants.MAP_DIM);
         setOpaque(true);
         setBackground(Color.WHITE);
-    }
-
-    public void paintCountryOwner(Country country){
-        if(country.owner != null){
-            countryToPaint = country;
-            repaint();
-        }
     }
 
     protected void paintComponent(Graphics g){
@@ -36,20 +27,23 @@ public class MapPanel extends JPanel {
 
         if(!linksPainted){ drawLinks(g2d, Main.countries); }
         if(!nodesPainted){ drawCountryNodes(g2d, Main.countries); }
-        if(countryToPaint != null){ paintOwnerNode(g2d, countryToPaint); }
+        paintOwnerNode(g2d, Main.countries);
     }
 
-    private void paintOwnerNode(Graphics2D g2d, Country country){
-        if(country.owner != null){
-            Ellipse2D circle = new Ellipse2D.Double();
-            g2d.setPaint(country.owner.color);
-            circle.setFrameFromCenter(
-                    country.coOrds.getX(),
-                    country.coOrds.getY(),
-                    country.coOrds.getX() + 15,
-                    country.coOrds.getY() + 15);
-            g2d.fill(circle);
+    private void paintOwnerNode(Graphics2D g2d, ArrayList<Country> countries){
+        for(Country country: countries){
+            if(country.owner != null){
+                Ellipse2D circle = new Ellipse2D.Double();
+                g2d.setPaint(country.owner.color);
+                circle.setFrameFromCenter(
+                        country.coOrds.getX(),
+                        country.coOrds.getY(),
+                        country.coOrds.getX() + 15,
+                        country.coOrds.getY() + 15);
+                g2d.fill(circle);
+            }
         }
+
 
     }
 

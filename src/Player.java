@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 //ABSTRACT ClASS - players will be constructed differently depending on if they are human or neutral
 public abstract class Player {
+    public int index;
     public String name;
     public Color color;
 
@@ -15,17 +16,13 @@ public abstract class Player {
         country.setOwner(this);
     }
 
-    public ArrayList initialTerritories(ArrayList<Integer> availableCountries){
-        int countryIndex;
-        for(int i = 0; i < 4; i++){
-            countryIndex = availableCountries.remove(0);
-            Main.countries.get(countryIndex).setOwner(this);
-        }
-
-        return availableCountries;
+    public Player(String name, int index){
+        this.index = index;
+        this.name = name;
+        color = Constants.PLAYER_COLORS[index];
     }
 
-
+    public abstract ArrayList initialTerritories(ArrayList<Integer> availableCountries);
 }
 
 
