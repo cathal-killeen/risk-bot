@@ -32,7 +32,7 @@ public class Country {
 
     public void setOwner(Player player){
         owner = player;
-        //Main.gameFrame.sideBar
+        setTroops();
     }
 
     public int getTroopCount(){ return troops; }
