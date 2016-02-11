@@ -1,4 +1,6 @@
 
+import com.sun.tools.classfile.ConstantPool;
+
 import java.awt.geom.Point2D;
 
 /**
@@ -9,12 +11,15 @@ public class Country {
     public Player owner;
     public int continent;
     public Point2D coOrds;
+    public int[] adjacents;
     private int troops;
+
 
     public Country(int index){
         name = Constants.COUNTRY_NAMES[index];
         continent = Constants.CONTINENT_IDS[index];
         coOrds = Constants.COUNTRY_P2D(index);
+        adjacents = Constants.ADJACENT[index];
         setTroops();
     }
 

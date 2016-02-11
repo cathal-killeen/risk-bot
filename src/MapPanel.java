@@ -25,6 +25,7 @@ public class MapPanel extends JPanel {
 
     }
 
+    //draw country nodes with continent colors
     private void drawCountryNodes(Graphics2D g2d, ArrayList<Country> countries){
         for(Country country: countries){
             Ellipse2D circle = new Ellipse2D.Double();
@@ -32,46 +33,46 @@ public class MapPanel extends JPanel {
             circle.setFrameFromCenter(
                     country.coOrds.getX(),
                     country.coOrds.getY(),
-                    country.coOrds.getX() + 20,
-                    country.coOrds.getY() + 20);
+                    country.coOrds.getX() + 25,
+                    country.coOrds.getY() + 25);
             g2d.fill(circle);
         }
     }
 
-    private void drawLinks(Graphics2D g2d, ArrayList<Country> countries){
+    //draw links between countries
+    private void drawLinks(Graphics2D g2d, ArrayList<Country> countries) {
         g2d.setColor(Color.GRAY);
         g2d.setStroke(new BasicStroke(2));
 
-        for(int i = 0; i < Constants.ADJACENT.length; i++){
-            for(int j = 0; j < Constants.ADJACENT[i].length; j++){
+        for (Country country : countries) {
+            for (int i = 0; i < country.adjacents.length; i++) {
                 Line2D link = new Line2D.Double();
-                int otherCountry = Constants.ADJACENT[i][j];
-                if(i == 8 && otherCountry == 22){
-                    link.setLine(
-                            countries.get(i).coOrds.getX(),
-                            countries.get(i).coOrds.getY(),
-                            0,
-                            countries.get(otherCountry).coOrds.getY()
-                    );
-                }else if(i == 22 && otherCountry == 8){
-                    link.setLine(
-                            countries.get(i).coOrds.getX(),
-                            countries.get(i).coOrds.getY(),
-                            1000,
-                            countries.get(otherCountry).coOrds.getY()
+                Country otherCountry = countries.get(country.adjacents[i]);
 
-                    );
-                }else{
+                if (country.name == "Alaska" && otherCountry.name == "Kamchatka") {
                     link.setLine(
-                            countries.get(i).coOrds,
-                            countries.get(Constants.ADJACENT[i][j]).coOrds
+                            country.coOrds.getX(),
+                            country.coOrds.getY(),
+                            0,
+                            otherCountry.coOrds.getY()
+                    );
+                } else if (country.name == "Kamchatka" && otherCountry.name == "Alaska") {
+                    link.setLine(
+                            country.coOrds.getX(),
+                            country.coOrds.getY(),
+                            1000,
+                            otherCountry.coOrds.getY()
+                    );
+                } else {
+                    link.setLine(
+                            country.coOrds,
+                            otherCountry.coOrds
                     );
                 }
 
                 g2d.draw(link);
             }
         }
-
     }
 
 
