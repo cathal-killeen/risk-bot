@@ -2,6 +2,7 @@
 import com.sun.tools.classfile.ConstantPool;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 /**
  * Created by Cathal on 09/02/16.
@@ -63,6 +64,21 @@ public class Country {
         b.append("\n");
         b.append("Coords: ").append(coOrds.toString()).append("\n");
         return b.toString();
+    }
+
+
+
+
+    // create all country objects -- possibly relocate to another file
+    // NOTE: does not put country nodes on map, but Point2D coOrds can be accessed from each object
+    public static ArrayList createCountries(){
+        ArrayList<Country> countries = new ArrayList<>();
+
+        for(int i = 0; i < Constants.NUM_COUNTRIES; i++){
+            countries.add(new Country(i));
+        }
+
+        return countries;
     }
 
 }

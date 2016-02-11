@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Main {
 
     //array of all country objects
-    public static ArrayList<Country> countries = createCountries();
+    public static ArrayList<Country> countries = Country.createCountries();
     public static ArrayList<Player> players;
 
     //all UI components
@@ -37,17 +37,7 @@ public class Main {
     }
 
 
-    // create all country objects -- possibly relocate to another file
-    // NOTE: does not put country nodes on map, but Point2D coOrds can be accessed from each object
-    public static ArrayList createCountries(){
-        ArrayList<Country> countries = new ArrayList<>();
 
-        for(int i = 0; i < Constants.NUM_COUNTRIES; i++){
-            countries.add(new Country(i));
-        }
-
-        return countries;
-    }
 
     public static ArrayList createPlayers(){
         ArrayList<Integer> availableCountries = new ArrayList<>();
