@@ -71,6 +71,8 @@ public class Map extends JPanel{
             }
             g.drawOval(nodes.get(i).x, nodes.get(i).y, 30, 30);
             g.fillOval(nodes.get(i).x, nodes.get(i).y, 30, 30);
+            g.setColor(Color.BLACK);
+            g.drawString(Integer.toString(nodes.get(i).armies),nodes.get(i).x+12, nodes.get(i).y+20);
         }
         g.setColor(Color.BLACK);
         for(int i = 0; i < Constants.NUM_COUNTRIES; i++){

@@ -14,7 +14,7 @@ public class RiskMap {
         Frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel Panel = new Map();
-        Panel.setPreferredSize(new Dimension(10, 10));
+        Panel.setPreferredSize(new Dimension(1000, 700));
         Panel.setBackground(Color.white);
         Panel.setLayout(null);
         Frame.setContentPane(Panel);
