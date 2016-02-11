@@ -1,4 +1,4 @@
-import com.sun.javafx.collections.ElementObservableListDecorator;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,12 +14,14 @@ public class MapPanel extends JPanel {
     private Boolean nodesPainted = false;
     private Boolean linksPainted = false;
 
+
     public MapPanel() {
         super();
         setPreferredSize(Constants.MAP_DIM);
         setOpaque(true);
         setBackground(Color.WHITE);
     }
+
 
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -43,8 +45,6 @@ public class MapPanel extends JPanel {
                 g2d.fill(circle);
             }
         }
-
-
     }
 
     //draw country nodes with continent colors
@@ -55,8 +55,8 @@ public class MapPanel extends JPanel {
             circle.setFrameFromCenter(
                     country.coOrds.getX(),
                     country.coOrds.getY(),
-                    country.coOrds.getX() + 25,
-                    country.coOrds.getY() + 25);
+                    country.coOrds.getX() + 30,
+                    country.coOrds.getY() + 30);
             g2d.fill(circle);
         }
 
@@ -100,7 +100,5 @@ public class MapPanel extends JPanel {
 
         linksPainted = true;
     }
-
-
 
 }
