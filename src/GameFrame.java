@@ -7,8 +7,8 @@ import java.util.HashMap;
  */
 public class GameFrame extends JFrame {
 
-    public static JPanel mapPanel;
-    public static JPanel sideBar;
+    public JPanel mapPanel;
+    public JPanel sideBar;
 
     public GameFrame(){
         super("RISK");

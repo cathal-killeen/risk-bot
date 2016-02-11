@@ -21,7 +21,6 @@ public class Main {
     public static void main(String[] args) {
         init();
 
-
         //TESTS
 
         //console log all countries

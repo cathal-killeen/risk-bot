@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class MapPanel extends JPanel {
 
-    private static Boolean nodesPainted = false;
-    private static Boolean linksPainted = false;
+    private Boolean nodesPainted = false;
+    private Boolean linksPainted = false;
 
     public MapPanel() {
         super();
