@@ -21,6 +21,8 @@ public class Main {
 
     public static void main(String[] args) {
         init();
+
+
         //TESTS
 
         //console log all countries
@@ -57,13 +59,16 @@ public class Main {
 
         String[] playerNames = getPlayerNames();
 
+
+
         for(int i = 0; i < 6; i++){
             if(i >= 0 && i <= 1){
-                players.add(new HumanPlayer(playerNames[i], i));
+                players.add(new Player(playerNames[i], i));
+                availableCountries = players.get(i).initialTerritories(availableCountries, 9);
             }else{
-                players.add(new NeutralPlayer(playerNames[i], i));
+                players.add(new Player(playerNames[i], i));
+                availableCountries = players.get(i).initialTerritories(availableCountries, 6);
             }
-            availableCountries = players.get(i).initialTerritories(availableCountries);
         }
 
         return players;

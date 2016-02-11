@@ -69,7 +69,6 @@ public class Constants {
     public static final String[] CONTINENT_NAMES = {"N America", "Europe", "Asia", "Australia", "S America", "Africa"};  // for reference
     public static final int[] CONTINENT_IDS = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5};
     public static final int[] CONTINENT_VALUES = {5, 5, 7, 2, 2, 3};
-    public static final Color[] CONTINTENT_COLORS = {Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.RED};
     private static final int MAP_WIDTH = 1000;    // must be even
     private static final int MAP_HEIGHT = 600;
     public static Dimension MAP_DIM = new Dimension(MAP_WIDTH, MAP_HEIGHT);
@@ -126,12 +125,21 @@ public class Constants {
     }
 
     public static Color[] PLAYER_COLORS = {
-            new Color(102,0,0),
-            new Color(102,102,0),
-            new Color(0,204,102),
-            new Color(0,102,102),
-            new Color(102,0,51),
+            new Color(204,0,0),
+            new Color(255,128,0),
+            new Color(0,204,0),
+            new Color(0,102,204),
+            new Color(255,0,255),
             new Color(51,0,102)
+    };
+
+    public static Color[] CONTINTENT_COLORS = {
+            new Color(255,255,153),
+            new Color(153,204,255),
+            new Color(153,255,153),
+            new Color(255,153,255),
+            new Color(255,178,102),
+            new Color(255,102,102)
     };
 
 }

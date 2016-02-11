@@ -12,9 +12,12 @@ public class SideBar extends JPanel {
 
     public SideBar(){
         super();
+        JPanel playerNamesPanel = new PlayerNamesPanel();
+
         setPreferredSize(Constants.SIDEBAR_DIM);
         setLayout(new BorderLayout());
 
+        add(playerNamesPanel, BorderLayout.NORTH);
         add(commandPrompt, BorderLayout.SOUTH);
     }
 }
@@ -49,4 +52,17 @@ class CommandPrompt extends JPanel{
             System.out.println(commandField.getText());
         }
     };
+}
+
+class PlayerNamesPanel extends JPanel{
+    public PlayerNamesPanel(){
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        for(Player player: Main.players){
+            JLabel nameLabel = new JLabel(player.name);
+            nameLabel.setForeground(player.color);
+            nameLabel.setBorder(new EmptyBorder(10,10,10,10));
+            add(nameLabel);
+        }
+    }
 }
