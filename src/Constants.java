@@ -122,7 +122,7 @@ public class Constants {
     };
 
     public static Point2D COUNTRY_P2D(int index){
-        return new Point2D.Float((float)COUNTRY_COORD[index][0], (float)COUNTRY_COORD[index][1]);
+        return new Point2D.Double((double)COUNTRY_COORD[index][0], (double)COUNTRY_COORD[index][1]);
     }
 
 }
