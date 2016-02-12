@@ -77,7 +77,11 @@ class PlayerNamesPanel extends JPanel{
                 public void mouseClicked(MouseEvent e) {
                     // you can open a new frame here as
                     // i have assumed you have declared "frame" as instance variable
-                    JOptionPane.showMessageDialog(null, "Hello", player.name, JOptionPane.INFORMATION_MESSAGE);
+                    String territories = "OWNED COUNTRIES:\n";
+                    for(Country country: Main.players.get(player.index).getOwnedTerritories()){
+                        territories += country.name + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
                 }
             });
         }

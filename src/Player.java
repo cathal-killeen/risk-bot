@@ -32,6 +32,18 @@ public class Player {
         return availableCountries;
     }
 
+    public ArrayList<Country> getOwnedTerritories(){
+        ArrayList<Country> ownedTerritories = new ArrayList<>();
+
+        for(Country country: Main.countries){
+            if(country.owner == this){
+                ownedTerritories.add(country);
+            }
+        }
+
+        return ownedTerritories;
+    }
+
 
     public static ArrayList createPlayers(){
         ArrayList<Integer> availableCountries = new ArrayList<>();

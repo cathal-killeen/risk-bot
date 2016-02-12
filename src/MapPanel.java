@@ -1,7 +1,12 @@
 
 
+import com.sun.javafx.collections.ElementObservableListDecorator;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -57,6 +62,7 @@ public class MapPanel extends JPanel {
                     country.coOrds.getY(),
                     country.coOrds.getX() + 30,
                     country.coOrds.getY() + 30);
+
             g2d.fill(circle);
         }
 
