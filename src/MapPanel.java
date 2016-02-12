@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +26,30 @@ public class MapPanel extends JPanel {
         setPreferredSize(Constants.MAP_DIM);
         setOpaque(true);
         setBackground(Color.WHITE);
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                super.mouseClicked(me);
+                for (Country country: Main.countries) {
+
+                    if (country.mapNode.contains(me.getPoint())) {//check if mouse is clicked within shape
+                        //or check the shape class we are dealing with using instance of with nested if
+                        if (country.mapNode instanceof Ellipse2D) {
+                            JOptionPane.showMessageDialog(null, "Owned by " + country.owner.name, country.name, JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println("Clicked a circle");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                //todo: change cursor when hover over a node on map
+            }
+
+
+        });
     }
 
 
@@ -55,15 +80,8 @@ public class MapPanel extends JPanel {
     //draw country nodes with continent colors
     private void drawCountryNodes(Graphics2D g2d, ArrayList<Country> countries){
         for(Country country: countries){
-            Ellipse2D circle = new Ellipse2D.Double();
             g2d.setPaint(Constants.CONTINTENT_COLORS[country.continent]);
-            circle.setFrameFromCenter(
-                    country.coOrds.getX(),
-                    country.coOrds.getY(),
-                    country.coOrds.getX() + 30,
-                    country.coOrds.getY() + 30);
-
-            g2d.fill(circle);
+            g2d.fill(country.mapNode);
         }
 
         nodesPainted = true;
@@ -108,3 +126,6 @@ public class MapPanel extends JPanel {
     }
 
 }
+
+
+

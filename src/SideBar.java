@@ -37,7 +37,7 @@ class CommandPrompt extends JPanel{
 
     public CommandPrompt(){
         setLayout(new BorderLayout());
-        promptLabel = new JLabel("Welcome to RISK!");
+        promptLabel = new JLabel("Click on a country or name");
         commandField = new JTextField("Enter command here", 10);
 
         //Prompt label - tells user current state/prompts what to do
