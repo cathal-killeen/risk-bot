@@ -1,6 +1,6 @@
 
 
-import com.sun.javafx.collections.ElementObservableListDecorator;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class MapPanel extends JPanel {
 
+    private int xx, yy;
     private Boolean nodesPainted = false;
     private Boolean linksPainted = false;
 
@@ -33,10 +34,10 @@ public class MapPanel extends JPanel {
                 super.mouseClicked(me);
                 for (Country country: Main.countries) {
 
-                    if (country.mapNode.contains(me.getPoint())) {//check if mouse is clicked within shape
+                    if (country.getMapNode().contains(me.getPoint())) {//check if mouse is clicked within shape
                         //or check the shape class we are dealing with using instance of with nested if
-                        if (country.mapNode instanceof Ellipse2D) {
-                            JOptionPane.showMessageDialog(null, "Owned by " + country.owner.name, country.name, JOptionPane.INFORMATION_MESSAGE);
+                        if (country.getMapNode() instanceof Ellipse2D) {
+                            JOptionPane.showMessageDialog(null, "Owned by " + country.getOwner().name, country.getName(), JOptionPane.INFORMATION_MESSAGE);
                             System.out.println("Clicked a circle");
                         }
                     }
@@ -64,14 +65,18 @@ public class MapPanel extends JPanel {
 
     private void paintOwnerNode(Graphics2D g2d, ArrayList<Country> countries){
         for(Country country: countries){
-            if(country.owner != null){
+            if(country.getOwner() != null){
                 Ellipse2D circle = new Ellipse2D.Double();
-                g2d.setPaint(country.owner.color);
+                g2d.setPaint(country.getOwner().color);
                 circle.setFrameFromCenter(
-                        country.coOrds.getX(),
-                        country.coOrds.getY(),
-                        country.coOrds.getX() + 15,
-                        country.coOrds.getY() + 15);
+                        country.getCoOrds().getX(),
+                        country.getCoOrds().getY(),
+                        country.getCoOrds().getX() + 15,
+                        country.getCoOrds().getY() + 15);
+                xx = (int)country.getCoOrds().getX();
+                yy = (int)country.getCoOrds().getY();
+
+                g2d.drawString(country.getName(), xx - 20, yy - 20);
                 g2d.fill(circle);
             }
         }
@@ -80,8 +85,8 @@ public class MapPanel extends JPanel {
     //draw country nodes with continent colors
     private void drawCountryNodes(Graphics2D g2d, ArrayList<Country> countries){
         for(Country country: countries){
-            g2d.setPaint(Constants.CONTINTENT_COLORS[country.continent]);
-            g2d.fill(country.mapNode);
+            g2d.setPaint(Constants.CONTINTENT_COLORS[country.getContinent()]);
+            g2d.fill(country.getMapNode());
         }
 
         nodesPainted = true;
@@ -93,28 +98,28 @@ public class MapPanel extends JPanel {
         g2d.setStroke(new BasicStroke(2));
 
         for (Country country : countries) {
-            for (int i = 0; i < country.adjacents.length; i++) {
+            for (int i = 0; i < country.getAdjacents().length; i++) {
                 Line2D link = new Line2D.Double();
-                Country otherCountry = countries.get(country.adjacents[i]);
+                Country otherCountry = countries.get(country.getAdjacents()[i]);
 
-                if (country.name.equals("Alaska") && otherCountry.name.equals("Kamchatka")) {
+                if (country.getName().equals("Alaska") && otherCountry.getName().equals("Kamchatka")) {
                     link.setLine(
-                            country.coOrds.getX(),
-                            country.coOrds.getY(),
+                            country.getCoOrds().getX(),
+                            country.getCoOrds().getY(),
                             0,
-                            otherCountry.coOrds.getY()
+                            otherCountry.getCoOrds().getY()
                     );
-                } else if (country.name.equals("Kamchatka") && otherCountry.name.equals("Alaska")) {
+                } else if (country.getName().equals("Kamchatka") && otherCountry.getName().equals("Alaska")) {
                     link.setLine(
-                            country.coOrds.getX(),
-                            country.coOrds.getY(),
+                            country.getCoOrds().getX(),
+                            country.getCoOrds().getY(),
                             1000,
-                            otherCountry.coOrds.getY()
+                            otherCountry.getCoOrds().getY()
                     );
                 } else {
                     link.setLine(
-                            country.coOrds,
-                            otherCountry.coOrds
+                            country.getCoOrds(),
+                            otherCountry.getCoOrds()
                     );
                 }
 

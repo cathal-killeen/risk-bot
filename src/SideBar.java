@@ -1,6 +1,4 @@
 
-import com.sun.codemodel.internal.JOp;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -37,7 +35,7 @@ class CommandPrompt extends JPanel{
 
     public CommandPrompt(){
         setLayout(new BorderLayout());
-        promptLabel = new JLabel("Click on a country or name");
+        promptLabel = new JLabel("Welcome to RISK!");
         commandField = new JTextField("Enter command here", 10);
 
         //Prompt label - tells user current state/prompts what to do
@@ -79,7 +77,7 @@ class PlayerNamesPanel extends JPanel{
                     // i have assumed you have declared "frame" as instance variable
                     String territories = "OWNED COUNTRIES:\n";
                     for(Country country: Main.players.get(player.index).getOwnedTerritories()){
-                        territories += country.name + "\n";
+                        territories += country.getName() + "\n";
                     }
                     JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
                 }

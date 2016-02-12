@@ -36,7 +36,7 @@ public class Player {
         ArrayList<Country> ownedTerritories = new ArrayList<>();
 
         for(Country country: Main.countries){
-            if(country.owner == this){
+            if(country.getOwner() == this){
                 ownedTerritories.add(country);
             }
         }

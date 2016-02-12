@@ -1,6 +1,4 @@
 
-import com.sun.tools.classfile.ConstantPool;
-
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -11,13 +9,13 @@ import java.util.ArrayList;
 public class Country {
     public static final int nodeRadius = 30;
 
-    public int index;
-    public String name;
-    public Player owner;
-    public int continent;
-    public Point2D coOrds;
-    public Ellipse2D mapNode;
-    public int[] adjacents;
+    private int index;
+    private String name;
+    private Player owner;
+    private int continent;
+    private Point2D coOrds;
+    private Ellipse2D mapNode;
+    private int[] adjacents;
     private int troops;
 
 
@@ -48,6 +46,34 @@ public class Country {
     public void setOwner(Player player){
         owner = player;
         setTroops();
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public int getContinent() {
+        return continent;
+    }
+
+    public Point2D getCoOrds() {
+        return coOrds;
+    }
+
+    public Ellipse2D getMapNode() {
+        return mapNode;
+    }
+
+    public int[] getAdjacents() {
+        return adjacents;
     }
 
     public int getTroopCount(){ return troops; }
