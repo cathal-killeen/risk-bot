@@ -1,6 +1,7 @@
 /**
  * Created by Cathal on 05/02/16.
  */
+ package core;
 public class Constants {
     public static final int NUM_PLAYERS = 2;
     public static final int NUM_NEUTRALS = 4;
@@ -65,6 +66,7 @@ public class Constants {
     public static final String[] CONTINENT_NAMES = {"N America","Europe","Asia","Australia","S America","Africa"};  // for reference
     public static final int[] CONTINENT_IDS = {0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,5,5};
     public static final int[] CONTINENT_VALUES = {5,5,7,2,2,3};
+	public static final Color[] CONTINENT_COLORS = {BLUE, RED, PINK, YELLOW, GREEN, GREY};
     private static final int FRAME_WIDTH = 1000;    // must be even
     private static final int FRAME_HEIGHT = 600;
     private static final int[][] COUNTRY_COORD = {
