@@ -1,8 +1,12 @@
 
+import com.sun.codemodel.internal.JOp;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by Cathal on 09/02/16.
@@ -66,7 +70,19 @@ class PlayerNamesPanel extends JPanel{
             JLabel nameLabel = new JLabel(player.name);
             nameLabel.setForeground(player.color);
             nameLabel.setBorder(new EmptyBorder(10,10,10,10));
+            nameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             add(nameLabel);
+
+            nameLabel.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    // you can open a new frame here as
+                    // i have assumed you have declared "frame" as instance variable
+                    JOptionPane.showMessageDialog(null, "Hello", player.name, JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
         }
     }
+
+
+
 }
