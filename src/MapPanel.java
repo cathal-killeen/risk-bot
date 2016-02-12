@@ -79,14 +79,14 @@ public class MapPanel extends JPanel {
                 Line2D link = new Line2D.Double();
                 Country otherCountry = countries.get(country.adjacents[i]);
 
-                if (country.name == "Alaska" && otherCountry.name == "Kamchatka") {
+                if (country.name.equals("Alaska") && otherCountry.name.equals("Kamchatka")) {
                     link.setLine(
                             country.coOrds.getX(),
                             country.coOrds.getY(),
                             0,
                             otherCountry.coOrds.getY()
                     );
-                } else if (country.name == "Kamchatka" && otherCountry.name == "Alaska") {
+                } else if (country.name.equals("Kamchatka") && otherCountry.name.equals("Alaska")) {
                     link.setLine(
                             country.coOrds.getX(),
                             country.coOrds.getY(),
