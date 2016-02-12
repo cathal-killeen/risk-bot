@@ -34,13 +34,9 @@ public class MapPanel extends JPanel {
                 for (Country country: Main.countries) {
 
                     if (country.mapNode.contains(me.getPoint())) {//check if mouse is clicked within shape
-
-                        //we can either just print out the object class name
-                        System.out.println("Clicked a " + country.mapNode.getClass().getName());
-
                         //or check the shape class we are dealing with using instance of with nested if
                         if (country.mapNode instanceof Ellipse2D) {
-                            JOptionPane.showMessageDialog(null, "hello", "clicked a country", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Owned by " + country.owner.name, country.name, JOptionPane.INFORMATION_MESSAGE);
                             System.out.println("Clicked a circle");
                         }
                     }
