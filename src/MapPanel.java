@@ -2,14 +2,19 @@
 
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -20,14 +25,14 @@ public class MapPanel extends JPanel {
     private int xx, yy;
     private Boolean nodesPainted = false;
     private Boolean linksPainted = false;
-
+    private Boolean backgroundDrawn = false;
+    private Image backgroundImage = null;
 
     public MapPanel() {
         super();
         setPreferredSize(Constants.MAP_DIM);
-        setOpaque(true);
-        setBackground(Color.WHITE);
-
+       setOpaque(true);
+ 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -37,7 +42,7 @@ public class MapPanel extends JPanel {
                     if (country.getMapNode().contains(me.getPoint())) {//check if mouse is clicked within shape
                         //or check the shape class we are dealing with using instance of with nested if
                         if (country.getMapNode() instanceof Ellipse2D) {
-                            JOptionPane.showMessageDialog(null, "Owned by " + country.getOwner().name, country.getName(), JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Owned by " + country.getOwner().name + "\nTroops: " + country.getTroopCount(), country.getName(), JOptionPane.INFORMATION_MESSAGE);
                             System.out.println("Clicked a circle");
                         }
                     }
@@ -57,12 +62,30 @@ public class MapPanel extends JPanel {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;
-
+           
+        if(!backgroundDrawn){ drawBackground(g2d); }
         if(!linksPainted){ drawLinks(g2d, Main.countries); }
         if(!nodesPainted){ drawCountryNodes(g2d, Main.countries); }
         paintOwnerNode(g2d, Main.countries);
     }
-
+    
+	//function that takes a risk map image, scales it and sets it as the JPanel background
+    private void drawBackground(Graphics2D g2d){
+    	//read in image file. 
+	
+		try {
+			backgroundImage = ImageIO.read((getClass().getResourceAsStream("/map_grey.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+       //scale image to fit coordinates of nodes
+    	backgroundImage = backgroundImage.getScaledInstance(1100, 600, Image.SCALE_DEFAULT);
+    	
+    	g2d.drawImage(backgroundImage, 0, 0, null);
+    	
+    	backgroundDrawn = true;
+    }
+    
     private void paintOwnerNode(Graphics2D g2d, ArrayList<Country> countries){
         for(Country country: countries){
             if(country.getOwner() != null){
@@ -78,8 +101,8 @@ public class MapPanel extends JPanel {
 
                 g2d.drawString(country.getName(), xx - 20, yy - 20);
                 g2d.fill(circle);
-				
-				//Display Troop Counts
+                
+                //Display Troop Counts
                 g2d.setPaint(Color.WHITE);
                 g2d.drawString(Integer.toString(country.getTroopCount()), xx-5, yy+5);
             }

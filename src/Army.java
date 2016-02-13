@@ -6,12 +6,12 @@
 public class Army{
 	
 	private int troopCount = 0;
-	
+/*	
 	public void reinforce(numReinforcements){
 		troopCount += numReinforcements;
 	}
-	
-	public int displayTroopCount{
+*/	
+	public int displayTroopCount(){
 		return troopCount;
 	}
 	

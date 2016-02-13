@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Cathal on 09/02/16.
  */
 public class Country {
-    public static final int nodeRadius = 30;
+    public static final int nodeRadius = 20;
 
     private int index;
     private String name;
@@ -76,7 +76,9 @@ public class Country {
         return adjacents;
     }
 
-    public int getTroopCount(){ return troops; }
+    public int getTroopCount(){ 
+    	return troops; 
+    }
 
     public void addTroops(int newTroops){
         troops += newTroops;
@@ -87,8 +89,9 @@ public class Country {
     }
 
     //set or reset troops to 0
+    //[Update (Adam) 13/2/16] troops should be initialised to 1 
     public void setTroops(){
-        troops = 0;
+        troops = 1;
     }
 
     public String toString(){
