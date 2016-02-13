@@ -78,6 +78,10 @@ public class MapPanel extends JPanel {
 
                 g2d.drawString(country.getName(), xx - 20, yy - 20);
                 g2d.fill(circle);
+				
+				//Display Troop Counts
+                g2d.setPaint(Color.WHITE);
+                g2d.drawString(Integer.toString(country.getTroopCount()), xx-5, yy+5);
             }
         }
     }

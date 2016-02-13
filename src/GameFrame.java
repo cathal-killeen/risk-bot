@@ -5,6 +5,7 @@ import java.util.HashMap;
 /**
  * Created by Cathal on 05/02/16.
  */
+package core;
 public class GameFrame extends JFrame {
 
     public JPanel mapPanel;
