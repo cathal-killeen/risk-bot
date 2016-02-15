@@ -12,7 +12,7 @@ public class GameFrame extends JFrame {
 
     public GameFrame(){
         super("RISK");
-        mapPanel = new MapPanel();
+        mapPanel = new Map();
         sideBar = new SideBar();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());

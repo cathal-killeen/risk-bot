@@ -13,6 +13,7 @@ public class Main {
     //array of all country objects
     public static ArrayList<Country> countries = Country.createCountries();
     public static ArrayList<Player> players;
+    public static Boolean initialisationComplete = false;
 
     //all UI components
     public static JFrame gameFrame;
@@ -33,6 +34,7 @@ public class Main {
     public static void init(){
         players = Player.createPlayers();
         gameFrame = new GameFrame();
+        initialisationComplete = true;
     }
 
 }

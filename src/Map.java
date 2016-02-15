@@ -1,73 +1,114 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.star;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.io.IOException;
+import java.util.ArrayList;
 
-package core;
 
 public class Map extends JPanel{
 	
+	//private static JFrame mapPanel = null;
+	private Boolean countryNodesDrawn = false;
+	private Boolean ownerNodesDrawn = false;
+	private Boolean backgroundDrawn = false;
+	private Boolean linksDrawn = false;
+	private Image backgroundImage = null;
+	
 	public Map(){
-		this = new JFrame(1000, 600);
-	}
-	public void populate(){
-		for (int i=0;i<42;i++){
-	
-			Graphics g;		
-			drawCountry(g);
+		super();
+		setPreferredSize(Constants.MAP_DIM);
+		setOpaque(true);
 		
+		
+	}
+	
+	protected void paintComponent(Graphics g){
+		 super.paintComponent(g);
+		 setOpaque(true);
+	     Graphics2D g2d = (Graphics2D)g;
+	     	     
+	     	if (!backgroundDrawn){
+	     		drawBackground(g2d);
+	     	}
+	     	if (!linksDrawn){
+	     		linkNodes(g2d, Main.countries);
+	     	}
+	     	if (!countryNodesDrawn){
+	     		drawCountryNodes(g2d, Main.countries);
+	     	}
+	     	if (!ownerNodesDrawn){
+	    		drawOwnerNodes(g2d, Main.countries);
+	     	}
+	     	
+	}
+	
+	private void drawBackground(Graphics2D g2d){
+    	//read in image file. 
+		try {
+			backgroundImage = ImageIO.read((getClass().getResourceAsStream("/map_grey.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-	}
-	public void drawCountry(Graphics g){
-		g.setColor(Color.CONTINENT_COLORS[CONTINENT_IDS[i]]);
-		g.fillOval(5, 5, COUNTRY_COORD[i][0], COUNTRY_COORD[i][1]);
+       //scale image to fit coordinates of nodes
+    	backgroundImage = backgroundImage.getScaledInstance(1100, 600, Image.SCALE_DEFAULT);
+    	
+    	g2d.drawImage(backgroundImage, 0, 0, null);
+    	
+    	backgroundDrawn = true;
+    }
+	
+	private void drawCountryNodes(Graphics2D g2d, ArrayList<Country> countries){
+		for(Country country: countries){
+            g2d.setColor(Constants.CONTINTENT_COLORS[country.getContinent()]);
+            g2d.fill(country.getMapNode());
+        }
+		countryNodesDrawn = true;
 	}
 	
-	private static final int[][] COUNTRY_COORD = {
-    		{191,150},     // 0
-            {255,161},
-            {146,86},
-            {123,144},
-            {314,61},
-            {205,235},
-            {135,219},
-            {140,299},
-            {45,89},
-            {370,199},
-            {398,280},      // 10
-            {465,270},
-            {547,180},
-            {460,200},
-            {393,127},
-            {463,122},
-            {628,227},
-            {679,332},
-            {572,338},
-            {861,213},
-            {645,152},      // 20
-            {763,70},
-            {827,94},
-            {751,360},
-            {750,140},
-            {695,108},
-            {760,216},
-            {735,277},
-            {889,537},
-            {850,429},
-            {813,526},       // 30
-            {771,454},
-            {213,352},
-            {221,426},
-            {289,415},
-            {233,523},
-            {496,462},
-            {440,393},
-            {510,532},
-            {499,354},
-            {547,432},        // 40
-            {586,545}
-    };
-	
-	public static void main(String[] args){
-		Map temp = new Map();
-		temp.populate();
+	private void drawOwnerNodes(Graphics2D g2d, ArrayList<Country> countries){
+		
+		for (Country country: countries){
+			g2d.setColor(country.getOwner().color);
+			g2d.fill(country.getOwnershipNode());
+		}
+		ownerNodesDrawn = true;
+		
+	}
+	private void linkNodes(Graphics2D g2d, ArrayList<Country> countries) {
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(2));
+		
+		for (Country node: countries){
+			for (int i=0; i<node.getAdjacents().length; i++){
+				Line2D link = new Line2D.Double();
+				Country adjacentNode = countries.get(node.getAdjacents()[i]);
+				if (node.getName().equals("Alaska") && adjacentNode.getName().equals("Kamchatka")){
+					link.setLine(
+						node.getCoOrds().getX(),
+						node.getCoOrds().getY(),
+						0,
+						adjacentNode.getCoOrds().getX()
+					);
+				} else if (node.getName().equals("Kamchatka") && adjacentNode.getName().equals("Alaska")){
+					link.setLine(
+						node.getCoOrds().getX(),
+						node.getCoOrds().getY(),
+						1000,
+						adjacentNode.getCoOrds().getX()
+					);
+				} else {
+					link.setLine(
+						node.getCoOrds(),
+						adjacentNode.getCoOrds()
+					);
+				}
+				g2d.draw(link);
+			}
+		}
+		linksDrawn = true;
 	}
 }

@@ -74,12 +74,12 @@ public class Player {
         JTextField field2 = new JTextField();
 
         String[] playerNames = {
-                "Player 6",
+                "Player 5.1",
                 "Player 5",
                 "Player 1",
                 "Player 2",
                 "Player 3",
-                "Player 4"
+                "Player 4.0"
         };
 
         Object[] message = {

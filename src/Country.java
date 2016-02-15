@@ -1,4 +1,5 @@
 
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Country {
     private int continent;
     private Point2D coOrds;
     private Ellipse2D mapNode;
+    private Ellipse2D ownershipNode;
     private int[] adjacents;
     private int troops;
 
@@ -25,6 +27,7 @@ public class Country {
         continent = Constants.CONTINENT_IDS[index];
         coOrds = Constants.COUNTRY_P2D(index);
         setMapNode();
+        setOwnershipNode();
         adjacents = Constants.ADJACENT[index];
         setTroops();
     }
@@ -36,6 +39,15 @@ public class Country {
                 coOrds.getY(),
                 coOrds.getX() + nodeRadius,
                 coOrds.getY() + nodeRadius);
+    }
+    
+    public void setOwnershipNode(){
+        ownershipNode = new Ellipse2D.Float();
+        ownershipNode.setFrameFromCenter(
+                coOrds.getX(),
+                coOrds.getY(),
+                coOrds.getX() + nodeRadius/2,
+                coOrds.getY() + nodeRadius/2);
     }
 
     // returns continents name from Constants class
@@ -70,6 +82,10 @@ public class Country {
 
     public Ellipse2D getMapNode() {
         return mapNode;
+    }
+    
+    public Ellipse2D getOwnershipNode() {
+        return ownershipNode;
     }
 
     public int[] getAdjacents() {

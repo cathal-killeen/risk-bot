@@ -8,12 +8,8 @@ import java.awt.*;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,7 +27,7 @@ public class MapPanel extends JPanel {
     public MapPanel() {
         super();
         setPreferredSize(Constants.MAP_DIM);
-       setOpaque(true);
+        setOpaque(true);
  
         addMouseListener(new MouseAdapter() {
             @Override
