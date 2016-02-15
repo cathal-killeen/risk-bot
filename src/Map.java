@@ -17,6 +17,7 @@ public class Map extends JPanel{
 	private Boolean backgroundDrawn = false;
 	private Boolean linksDrawn = false;
 	private Image backgroundImage = null;
+	private int x, y;
 	
 	public Map(){
 		super();
@@ -65,6 +66,12 @@ public class Map extends JPanel{
 		for(Country country: countries){
             g2d.setColor(Constants.CONTINTENT_COLORS[country.getContinent()]);
             g2d.fill(country.getMapNode());
+            x = (int)country.getCoOrds().getX();
+            y = (int)country.getCoOrds().getY();
+            
+            g2d.setPaint(Color.BLACK);
+            g2d.drawString(country.getName(), x-20, y-20);
+            
         }
 		countryNodesDrawn = true;
 	}
@@ -74,6 +81,11 @@ public class Map extends JPanel{
 		for (Country country: countries){
 			g2d.setColor(country.getOwner().color);
 			g2d.fill(country.getOwnershipNode());
+			
+			x = (int)country.getCoOrds().getX();
+	        y = (int)country.getCoOrds().getY();
+			g2d.setPaint(Color.WHITE);
+            g2d.drawString(Integer.toString(country.getTroopCount()), x-5, y+5);
 		}
 		ownerNodesDrawn = true;
 		
