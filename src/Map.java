@@ -5,6 +5,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,7 +18,6 @@ public class Map extends JPanel{
 	private Boolean ownerNodesDrawn = false;
 	private Boolean backgroundDrawn = false;
 	private Boolean linksDrawn = false;
-	private Image backgroundImage = null;
 	private int x, y;
 	
 	public Map(){
@@ -48,18 +49,27 @@ public class Map extends JPanel{
 	}
 	
 	private void drawBackground(Graphics2D g2d){
-    	//read in image file. 
+    	//read in image file.
+		Boolean gotImage = false;
+		BufferedImage buffBackgroundImage = null;
 		try {
-			backgroundImage = ImageIO.read((getClass().getResourceAsStream("/map_grey.jpg")));
+			buffBackgroundImage = ImageIO.read(new File("./images/map_grey.jpg"));
+			gotImage = true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-       //scale image to fit coordinates of nodes
-    	backgroundImage = backgroundImage.getScaledInstance(1100, 600, Image.SCALE_DEFAULT);
-    	
-    	g2d.drawImage(backgroundImage, 0, 0, null);
-    	
-    	backgroundDrawn = true;
+       	//scale image to fit coordinates of nodes
+		if(gotImage){
+			Image backgroundImage = buffBackgroundImage;
+			backgroundImage = backgroundImage.getScaledInstance(1100, 600, Image.SCALE_DEFAULT);
+
+			g2d.drawImage(backgroundImage, 0, 0, null);
+
+			backgroundDrawn = true;
+		}else{
+			System.out.println("Error getting image");
+		}
+
     }
 	
 	private void drawCountryNodes(Graphics2D g2d, ArrayList<Country> countries){
@@ -103,14 +113,14 @@ public class Map extends JPanel{
 						node.getCoOrds().getX(),
 						node.getCoOrds().getY(),
 						0,
-						adjacentNode.getCoOrds().getX()
+						adjacentNode.getCoOrds().getY()
 					);
 				} else if (node.getName().equals("Kamchatka") && adjacentNode.getName().equals("Alaska")){
 					link.setLine(
 						node.getCoOrds().getX(),
 						node.getCoOrds().getY(),
 						1000,
-						adjacentNode.getCoOrds().getX()
+						adjacentNode.getCoOrds().getY()
 					);
 				} else {
 					link.setLine(
