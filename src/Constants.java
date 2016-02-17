@@ -120,10 +120,10 @@ public class Constants {
     public static final String[] CONTINENT_NAMES = {"N America", "Europe", "Asia", "Australia", "S America", "Africa"};  // for reference
     public static final int[] CONTINENT_IDS = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5};
     public static final int[] CONTINENT_VALUES = {5, 5, 7, 2, 2, 3};
-    private static final int MAP_WIDTH = 1000;    // must be even
+    private static final int MAP_WIDTH = 950;    // must be even
     private static final int MAP_HEIGHT = 600;
-    public static Dimension MAP_DIM = new Dimension(MAP_WIDTH - 50, MAP_HEIGHT);
-    private static final int SIDEBAR_WIDTH = 250;
+    public static Dimension MAP_DIM = new Dimension(MAP_WIDTH, MAP_HEIGHT);
+    private static final int SIDEBAR_WIDTH = 300;
     public static Dimension SIDEBAR_DIM = new Dimension(SIDEBAR_WIDTH, MAP_HEIGHT);
     public static Dimension FRAME_DIM = new Dimension(MAP_WIDTH + SIDEBAR_WIDTH, MAP_HEIGHT);
 

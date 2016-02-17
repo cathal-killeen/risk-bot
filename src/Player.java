@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * Created by Cathal on 07/02/16.
  */
 
-//ABSTRACT ClASS - players will be constructed differently depending on if they are human or neutral
 public class Player {
     public int index;
     public String name;
