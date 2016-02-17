@@ -75,7 +75,7 @@ class PlayerNamesPanel extends JPanel{
                 public void mouseClicked(MouseEvent e) {
                     // you can open a new frame here as
                     // i have assumed you have declared "frame" as instance variable
-                    String territories = "OWNED COUNTRIES:\n";
+                  1  String territories = "OWNED COUNTRIES:\n";
                     for(Country country: Main.players.get(player.index).getOwnedTerritories()){
                         territories += country.getName() + "\n";
                     }
