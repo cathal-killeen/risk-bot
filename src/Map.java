@@ -48,7 +48,7 @@ public class Map extends JPanel{
 		Boolean gotImage = false;
 		BufferedImage buffBackgroundImage = null;
 		try {
-			buffBackgroundImage = ImageIO.read(new File("./images/map_grey.jpg"));
+			buffBackgroundImage = ImageIO.read(new File("./src/images/map_grey.jpg"));
 			gotImage = true;
 		} catch (IOException e) {
 			e.printStackTrace();
