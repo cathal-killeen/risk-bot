@@ -28,18 +28,18 @@ public class Map extends JPanel{
 		setOpaque(true);
 		Graphics2D g2d = (Graphics2D)g;
 
-		if (!backgroundDrawn){
+		//if (!backgroundDrawn){
 			drawBackground(g2d);
-		}
-		if (!linksDrawn){
+		//}
+		//if (!linksDrawn){
 			linkNodes(g2d, Main.countries);
-		}
-		if (!countryNodesDrawn){
+		//}
+		//if (!countryNodesDrawn){
 			drawCountryNodes(g2d, Main.countries);
-		}
-		if (!ownerNodesDrawn){
+		//}
+		//if (!ownerNodesDrawn){
 			drawOwnerNodes(g2d, Main.countries);
-		}
+		//}
 
 	}
 

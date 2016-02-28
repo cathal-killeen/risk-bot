@@ -11,50 +11,70 @@ import java.awt.event.MouseEvent;
  */
 public class SideBar extends JPanel {
     public JPanel commandPrompt;
+    public JPanel commandLog;
     public JPanel playerNamesPanel;
 
     public SideBar(){
         super();
         commandPrompt = new CommandPrompt();
         playerNamesPanel = new PlayerNamesPanel();
+        commandLog = new CommandLog();
 
         setPreferredSize(Constants.SIDEBAR_DIM);
         setLayout(new BorderLayout());
 
         add(playerNamesPanel, BorderLayout.NORTH);
+        add(commandLog, BorderLayout.CENTER);
         add(commandPrompt, BorderLayout.SOUTH);
     }
 }
 
+class CommandLog extends JPanel{
+    public static JTextArea log;
+
+    public CommandLog() {
+        setLayout(new BorderLayout());
+        log = new JTextArea();
+        log.setEditable(false);
+        log.setLineWrap(true);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(Color.WHITE);
+        panel.add(log, BorderLayout.SOUTH);
+        JScrollPane scroll = new JScrollPane(panel);
+        add(scroll, BorderLayout.CENTER);
+    }
+}
+
 // Command prompt class contains:
-//      - promptLabel: to prompt user what to do next
-//      - commandField: to take user input
+//     - commandField: to take user input
 class CommandPrompt extends JPanel{
-    public JLabel promptLabel;
+    public JPanel commandWrapper;
     public JTextField commandField;
+    public JButton sendButton;
+    public JTextArea chatBox;
+
 
     public CommandPrompt(){
         setLayout(new BorderLayout());
-        promptLabel = new JLabel("Welcome to RISK!");
-        commandField = new JTextField("Enter command here", 10);
-
-        //Prompt label - tells user current state/prompts what to do
-        promptLabel.setBorder(new EmptyBorder(10,10,10,10));
-        promptLabel.setBackground(Color.GRAY);
-        promptLabel.setOpaque(true);
-
-        //prompt text field - allows user input
+        setPreferredSize(new Dimension(300,25));
+        commandField = new JTextField("Enter command here", 20);
         commandField.addActionListener(enterKeyPressed);
+        sendButton = new JButton("Enter");
+        sendButton.addActionListener(enterKeyPressed);
 
 
-        add(promptLabel, BorderLayout.NORTH);
-        add(commandField, BorderLayout.SOUTH);
+        add(commandField, BorderLayout.WEST);
+        add(sendButton, BorderLayout.EAST);
+
+        add(new JScrollPane(chatBox), BorderLayout.CENTER);
     }
 
     //listener for when user presses enter key in commandField
     private Action enterKeyPressed = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
+            CommandLog.log.append(commandField.getText() + "\n");
+            commandField.setText("");
             System.out.println(commandField.getText());
         }
     };
@@ -63,6 +83,8 @@ class CommandPrompt extends JPanel{
 class PlayerNamesPanel extends JPanel{
     public PlayerNamesPanel(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setPreferredSize(new Dimension(300, 220));
+        setBackground(Color.LIGHT_GRAY);
 
         for(Player player: Main.players){
             JLabel nameLabel = new JLabel(player.name);
