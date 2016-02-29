@@ -98,7 +98,7 @@ public class Country {
 
     public void addTroops(int newTroops){
         troops += newTroops;
-        Main.gameFrame.mapPanel.repaint();
+        Main.gameFrame.Map.repaint();
     }
 
     public void removeTroops(int defeatedTroops){

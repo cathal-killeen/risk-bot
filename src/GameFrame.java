@@ -7,12 +7,12 @@ import java.util.HashMap;
  */
 public class GameFrame extends JFrame {
 
-    public JPanel mapPanel;
+    public JPanel Map;
     public JPanel sideBar;
 
     public GameFrame(){
         super("RISK");
-        mapPanel = new Map();
+        Map = new Map();
         sideBar = new SideBar();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -21,7 +21,7 @@ public class GameFrame extends JFrame {
         setMinimumSize(Constants.FRAME_DIM);
         setMaximumSize(Constants.FRAME_DIM);
 
-        add(mapPanel, BorderLayout.WEST);
+        add(Map, BorderLayout.WEST);
         add(sideBar, BorderLayout.EAST);
 
         // done last when everything has been setup

@@ -125,7 +125,7 @@ public class Constants {
     public static Dimension MAP_DIM = new Dimension(MAP_WIDTH, MAP_HEIGHT);
     private static final int SIDEBAR_WIDTH = 300;
     public static Dimension SIDEBAR_DIM = new Dimension(SIDEBAR_WIDTH, MAP_HEIGHT);
-    public static Dimension FRAME_DIM = new Dimension(MAP_WIDTH + SIDEBAR_WIDTH + 15, MAP_HEIGHT);
+    public static Dimension FRAME_DIM = new Dimension(MAP_WIDTH + SIDEBAR_WIDTH, MAP_HEIGHT);
 
     public static Point2D COUNTRY_P2D(int index){
         return new Point2D.Double((double)COUNTRY_COORD[index][0], (double)COUNTRY_COORD[index][1]);

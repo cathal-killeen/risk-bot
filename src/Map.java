@@ -10,13 +10,6 @@ import java.util.ArrayList;
 
 public class Map extends JPanel{
 
-	//private static JFrame mapPanel = null;
-	private Boolean countryNodesDrawn = false;
-	private Boolean ownerNodesDrawn = false;
-	private Boolean backgroundDrawn = false;
-	private Boolean linksDrawn = false;
-	private int x, y;
-
 	public Map(){
 		super();
 		setPreferredSize(Constants.MAP_DIM);
@@ -27,19 +20,10 @@ public class Map extends JPanel{
 		super.paintComponent(g);
 		setOpaque(true);
 		Graphics2D g2d = (Graphics2D)g;
-
-		//if (!backgroundDrawn){
-			drawBackground(g2d);
-		//}
-		//if (!linksDrawn){
-			linkNodes(g2d, Main.countries);
-		//}
-		//if (!countryNodesDrawn){
-			drawCountryNodes(g2d, Main.countries);
-		//}
-		//if (!ownerNodesDrawn){
-			drawOwnerNodes(g2d, Main.countries);
-		//}
+		drawBackground(g2d);
+		drawNodeLinks(g2d, Main.countries);
+		drawCountryNodes(g2d, Main.countries);
+		drawOwnerNodes(g2d, Main.countries);
 
 	}
 
@@ -59,8 +43,6 @@ public class Map extends JPanel{
 			backgroundImage = backgroundImage.getScaledInstance(1100, 600, Image.SCALE_DEFAULT);
 
 			g2d.drawImage(backgroundImage, 0, 0, null);
-
-			backgroundDrawn = true;
 		}else{
 			System.out.println("Error getting image");
 		}
@@ -71,14 +53,13 @@ public class Map extends JPanel{
 		for(Country country: countries){
 			g2d.setColor(Constants.CONTINTENT_COLORS[country.getContinent()]);
 			g2d.fill(country.getMapNode());
-			x = (int)country.getCoOrds().getX();
-			y = (int)country.getCoOrds().getY();
+			int x = (int)country.getCoOrds().getX();
+			int y = (int)country.getCoOrds().getY();
 
 			g2d.setPaint(Color.BLACK);
 			g2d.drawString(country.getName(), x-20, y-20);
 
 		}
-		countryNodesDrawn = true;
 	}
 
 	private void drawOwnerNodes(Graphics2D g2d, ArrayList<Country> countries){
@@ -87,15 +68,14 @@ public class Map extends JPanel{
 			g2d.setColor(country.getOwner().color);
 			g2d.fill(country.getOwnershipNode());
 
-			x = (int)country.getCoOrds().getX();
-			y = (int)country.getCoOrds().getY();
+			int x = (int)country.getCoOrds().getX();
+			int y = (int)country.getCoOrds().getY();
 			g2d.setPaint(Color.WHITE);
 			g2d.drawString(Integer.toString(country.getTroopCount()), x-5, y+5);
 		}
-		ownerNodesDrawn = true;
 
 	}
-	private void linkNodes(Graphics2D g2d, ArrayList<Country> countries) {
+	private void drawNodeLinks(Graphics2D g2d, ArrayList<Country> countries) {
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(2));
 
@@ -126,6 +106,5 @@ public class Map extends JPanel{
 				g2d.draw(link);
 			}
 		}
-		linksDrawn = true;
 	}
 }
