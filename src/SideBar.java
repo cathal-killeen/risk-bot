@@ -1,4 +1,7 @@
 
+import com.sun.tools.internal.jxc.ap.Const;
+import sun.tools.jconsole.BorderedComponent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,70 +10,36 @@ import java.awt.event.ActionEvent;
  * Created by Cathal on 09/02/16.
  */
 public class SideBar extends JPanel {
-    public JPanel commandPrompt;
-    public JPanel commandLog;
+    public JScrollPane ChatBoxScrollPane;
+    public JTextArea ChatBox = new JTextArea();
+    public JTextField CommandField = new JTextField();
 
-    public SideBar(){
+    public SideBar() {
         super();
-        commandPrompt = new CommandPrompt();
-        commandLog = new CommandLog();
-
         setPreferredSize(Constants.SIDEBAR_DIM);
         setLayout(new BorderLayout());
 
-        add(commandLog, BorderLayout.CENTER);
-        add(commandPrompt, BorderLayout.SOUTH);
-    }
-}
+        ChatBox.setEditable(false);
+        ChatBox.setLineWrap(true);
+        ChatBoxScrollPane = new JScrollPane(ChatBox);
+        ChatBoxScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        ChatBoxScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-class CommandLog extends JPanel{
-    public static JTextArea log;
+        CommandField.addActionListener(enterKeyPressed);
 
-    public CommandLog() {
-        setLayout(new BorderLayout());
-        log = new JTextArea();
-        log.setEditable(false);
-        log.setLineWrap(true);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(Color.WHITE);
-        panel.add(log, BorderLayout.SOUTH);
-        JScrollPane scroll = new JScrollPane(panel);
-        add(scroll, BorderLayout.CENTER);
-    }
-}
-
-// Command prompt class contains:
-//     - commandField: to take user input
-class CommandPrompt extends JPanel{
-    public JPanel commandWrapper;
-    public JTextField commandField;
-    public JButton sendButton;
-    public JTextArea chatBox;
-
-
-    public CommandPrompt(){
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(300,25));
-        commandField = new JTextField("Enter command here", 20);
-        commandField.addActionListener(enterKeyPressed);
-        sendButton = new JButton("Enter");
-        sendButton.addActionListener(enterKeyPressed);
-
-
-        add(commandField, BorderLayout.WEST);
-        add(sendButton, BorderLayout.EAST);
-
-        add(new JScrollPane(chatBox), BorderLayout.CENTER);
+        add(ChatBoxScrollPane, BorderLayout.CENTER);
+        add(CommandField, BorderLayout.SOUTH);
     }
 
-    //listener for when user presses enter key in commandField
+    //listener for when user presses enter key in CommandField
     private Action enterKeyPressed = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
             Main.countries.get(0).addTroops(10);
-            CommandLog.log.append(commandField.getText() + "\n");
-            commandField.setText("");
-            System.out.println(commandField.getText());
+            String command = CommandField.getText();
+            ChatBox.append(command + "\n");
+            CommandField.setText("");
+            System.out.println(CommandField.getText());
         }
     };
 }
