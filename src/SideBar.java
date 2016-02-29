@@ -73,6 +73,7 @@ class CommandPrompt extends JPanel{
     private Action enterKeyPressed = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
+            Main.countries.get(0).addTroops(10);
             CommandLog.log.append(commandField.getText() + "\n");
             commandField.setText("");
             System.out.println(commandField.getText());

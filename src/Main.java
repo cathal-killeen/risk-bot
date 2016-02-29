@@ -16,7 +16,7 @@ public class Main {
     public static Boolean initialisationComplete = false;
 
     //all UI components
-    public static JFrame gameFrame;
+    public static GameFrame gameFrame;
 
 
     public static void main(String[] args) {
