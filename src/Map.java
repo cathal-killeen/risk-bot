@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,11 +11,16 @@ import java.util.ArrayList;
 
 
 public class Map extends JPanel{
+	public PlayerNamesBar PlayerNamesBar;
 
 	public Map(){
 		super();
 		setPreferredSize(Constants.MAP_DIM);
 		setOpaque(true);
+		PlayerNamesBar = new PlayerNamesBar(new GridLayout());
+		add(PlayerNamesBar);
+		PlayerNamesBar.setLocation(100,10);
+
 	}
 
 	protected void paintComponent(Graphics g){
@@ -56,7 +63,7 @@ public class Map extends JPanel{
 			int x = (int)country.getCoOrds().getX();
 			int y = (int)country.getCoOrds().getY();
 
-			g2d.setPaint(Color.BLACK);
+			g2d.setPaint(Color.DARK_GRAY);
 			g2d.drawString(country.getName(), x-20, y-20);
 
 		}
@@ -105,6 +112,40 @@ public class Map extends JPanel{
 				}
 				g2d.draw(link);
 			}
+		}
+	}
+}
+
+class PlayerNamesBar extends JPanel{
+	public PlayerNamesBar(GridLayout gridLayout){
+		super(gridLayout);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setPreferredSize(new Dimension(750, 22));
+		setBackground(Color.WHITE);
+		putPlayerNames();
+		setVisible(true);
+	}
+
+	public void putPlayerNames(){
+		int labelWidth = (750/Main.players.size());
+		this.removeAll();
+		for(Player player: Main.players){
+			JLabel nameLabel = new JLabel(player.name, SwingConstants.CENTER);
+			nameLabel.setMinimumSize(new Dimension(labelWidth, 15));
+			nameLabel.setMaximumSize(new Dimension(labelWidth, 15));
+			nameLabel.setForeground(player.color);
+			nameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			add(nameLabel);
+
+			nameLabel.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					String territories = "OWNED COUNTRIES:\n";
+					for(Country country: Main.players.get(player.index).getOwnedTerritories()){
+						territories += country.getName() + "\n";
+					}
+					JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
+				}
+			});
 		}
 	}
 }

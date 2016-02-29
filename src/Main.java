@@ -16,7 +16,7 @@ public class Main {
     public static Boolean initialisationComplete = false;
 
     //all UI components
-    public static GameFrame gameFrame;
+    public static GameFrame GameFrame;
 
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class Main {
 
     public static void init(){
         players = Player.createPlayers();
-        gameFrame = new GameFrame();
+        GameFrame = new GameFrame();
         initialisationComplete = true;
     }
 
