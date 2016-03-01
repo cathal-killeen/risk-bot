@@ -26,7 +26,7 @@ public class Player {
         int countryIndex;
         for(int i = 0; i < numCountries; i++){
             countryIndex = availableCountries.remove(0);
-            Main.countries.get(countryIndex).setOwner(this);
+            Country.countries.get(countryIndex).setOwner(this);
         }
 
         return availableCountries;
@@ -35,7 +35,7 @@ public class Player {
     public ArrayList<Country> getOwnedTerritories(){
         ArrayList<Country> ownedTerritories = new ArrayList<>();
 
-        for(Country country: Main.countries){
+        for(Country country: Country.countries){
             if(country.getOwner() == this){
                 ownedTerritories.add(country);
             }
@@ -53,7 +53,7 @@ public class Player {
 
     public static void createPlayers(){
         ArrayList<Integer> availableCountries = new ArrayList<>();
-        for(int i=0; i < Main.countries.size(); i++){
+        for(int i=0; i < Country.countries.size(); i++){
             availableCountries.add(i);
         }
         //ArrayList<Player> players = new ArrayList<>();

@@ -135,16 +135,15 @@ public class Country {
 
 
 
-    // create all country objects -- possibly relocate to another file
-    // NOTE: does not put country nodes on map, but Point2D coOrds can be accessed from each object
-    public static ArrayList createCountries(){
-        ArrayList<Country> countries = new ArrayList<>();
+    // STATIC CONTENT
 
+    public static ArrayList<Country> countries = new ArrayList<>();
+
+    // NOTE: does not put country nodes on map, but Point2D coOrds can be accessed from each object
+    public static void createCountries(){
         for(int i = 0; i < Constants.NUM_COUNTRIES; i++){
             countries.add(new Country(i));
         }
-
-        return countries;
     }
 
 }

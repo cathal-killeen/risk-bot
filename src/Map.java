@@ -28,10 +28,10 @@ public class Map extends JPanel{
 		setOpaque(true);
 		Graphics2D g2d = (Graphics2D)g;
 		drawBackground(g2d);
-		drawNodeLinks(g2d, Main.countries);
-		drawCountryNodes(g2d, Main.countries);
+		drawNodeLinks(g2d, Country.countries);
+		drawCountryNodes(g2d, Country.countries);
 		if(Player.players.size() != 0){
-			drawOwnerNodes(g2d, Main.countries);
+			drawOwnerNodes(g2d, Country.countries);
 		}
 
 

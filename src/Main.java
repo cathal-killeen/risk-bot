@@ -10,11 +10,11 @@ import java.util.ArrayList;
 public class Main {
 
     //array of all country objects
-    public static ArrayList<Country> countries = Country.createCountries();
+    //public static ArrayList<Country> countries = Country.createCountries();
     public static Boolean initialisationComplete = false;
 
     //all UI components
-    public static GameFrame GameFrame = new GameFrame();
+    public static GameFrame GameFrame;
 
 
     public static void main(String[] args) {
@@ -25,13 +25,15 @@ public class Main {
         //TESTS
 
         //console log all countries
-        for (int i = 0; i < countries.size(); i++) {
-            System.out.println(countries.get(i).toString());
+        for (int i = 0; i < Country.countries.size(); i++) {
+            System.out.println(Country.countries.get(i).toString());
         }
 
     }
 
     public static void init(){
+        Country.createCountries();
+        GameFrame = new GameFrame();
         Player.createPlayers();
         initialisationComplete = true;
     }

@@ -17,7 +17,7 @@ public class Commands {
         Boolean matchFound = false;
         Boolean multipleMatches = false;
         int index = -1;
-        for (Country country: Main.countries){
+        for (Country country: Country.countries){
             cName = country.getName();
             if (cName.toLowerCase().contains(input.toLowerCase())){
                 if (!matchFound){
