@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class GameFrame extends JFrame {
 
-    public JPanel Map;
+    public Map Map;
     public SideBar SideBar;
 
     public GameFrame(){

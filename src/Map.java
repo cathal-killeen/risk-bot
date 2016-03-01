@@ -30,7 +30,10 @@ public class Map extends JPanel{
 		drawBackground(g2d);
 		drawNodeLinks(g2d, Main.countries);
 		drawCountryNodes(g2d, Main.countries);
-		drawOwnerNodes(g2d, Main.countries);
+		if(Main.players.size() != 0){
+			drawOwnerNodes(g2d, Main.countries);
+		}
+
 
 	}
 
@@ -122,12 +125,11 @@ class PlayerNamesBar extends JPanel{
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setPreferredSize(new Dimension(750, 22));
 		setBackground(Color.WHITE);
-		putPlayerNames();
-		setVisible(true);
 	}
 
 	public void putPlayerNames(){
 		int labelWidth = (750/Main.players.size());
+
 		this.removeAll();
 		for(Player player: Main.players){
 			JLabel nameLabel = new JLabel(player.name, SwingConstants.CENTER);
@@ -147,5 +149,8 @@ class PlayerNamesBar extends JPanel{
 				}
 			});
 		}
+
+		setVisible(true);
+		revalidate();
 	}
 }

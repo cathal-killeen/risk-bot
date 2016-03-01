@@ -58,9 +58,11 @@ public class Player {
         for(int i = 0; i < 6; i++){
             if(i >= 0 && i <= 1){
                 players.add(new Player(playerNames[i], i));
+                Main.GameFrame.Map.repaint();
                 availableCountries = players.get(i).initialTerritories(availableCountries, 9);
             }else{
                 players.add(new Player(playerNames[i], i));
+                Main.GameFrame.Map.repaint();
                 availableCountries = players.get(i).initialTerritories(availableCountries, 6);
             }
         }
