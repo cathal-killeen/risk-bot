@@ -10,6 +10,7 @@ public class Player {
     public int index;
     public String name;
     public Color color;
+    public Boolean isNeutral;
 
     public void allocateTerritory(Country country) {
         country.setOwner(this);
@@ -79,6 +80,16 @@ public class Player {
         }
 
     }
+
+    for(int i = 0; i < 6; i++){
+        if(i <= 1){
+            players.get(i).isNeutral = false;
+        }
+        else{
+            players.get(i).isNeutral = true;
+        }
+    }
+
 
     public static String[] getPlayerNames(){
         String[] playerNames = {
