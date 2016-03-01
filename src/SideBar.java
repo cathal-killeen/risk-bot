@@ -1,10 +1,5 @@
-
-import com.sun.tools.internal.jxc.ap.Const;
-import sun.tools.jconsole.BorderedComponent;
-
 import javax.swing.*;
 import javax.swing.text.*;
-import javax.swing.text.html.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -18,10 +13,15 @@ public class SideBar extends JPanel {
     public JTextField CommandField = new JTextField();
     public StyledDocument styledDoc = ChatBox.getStyledDocument();
 
+    //all styles
+    Style error;
+
     public SideBar() {
         super();
         setPreferredSize(Constants.SIDEBAR_DIM);
         setLayout(new BorderLayout());
+
+        initStyles();
 
         ChatBox.setEditable(false);
         ChatBoxScrollPane = new JScrollPane(ChatBox);
@@ -34,20 +34,22 @@ public class SideBar extends JPanel {
         add(CommandField, BorderLayout.SOUTH);
     }
 
+    public void initStyles(){
+        error = ChatBox.addStyle("error",null);
+        StyleConstants.setForeground(error, Color.RED);
+    }
+
+    public void log(String message, Style style){
+        try { styledDoc.insertString(styledDoc.getLength(), message + "\n", style); }
+        catch (BadLocationException ex){}
+    }
+
     //listener for when user presses enter key in CommandField
     private Action enterKeyPressed = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
-            //Main.countries.get(0).addTroops(10);
-
-
-            String command = CommandField.getText() + "\n";
-            //ChatBox.setText(ChatBox.getText() + command);
-            Style style = ChatBox.addStyle("I'm a Style", null);
-            StyleConstants.setForeground(style, Color.red);
-            //example style color red 
-            try { styledDoc.insertString(styledDoc.getLength(), command, style); }
-            catch (BadLocationException ex){}
+            String command = CommandField.getText();
+            log(command, error);
 
             CommandField.setText("");
         }
