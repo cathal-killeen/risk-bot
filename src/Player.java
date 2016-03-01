@@ -71,29 +71,26 @@ public class Player {
     }
 
     public static String[] getPlayerNames(){
-        JTextField field1 = new JTextField();
-        JTextField field2 = new JTextField();
-
         String[] playerNames = {
-                "Player 5.1",
-                "Player 5",
+                "",
+                "",
                 "Player 1",
                 "Player 2",
                 "Player 3",
-                "Player 4.0"
+                "Player 4"
         };
-
-        Object[] message = {
-                "Player 1:", field1,
-                "Player 2:", field2,
-
-        };
-        int option = JOptionPane.showConfirmDialog(null, message, "Player names", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION){
-            playerNames[0] = field1.getText();
-            playerNames[1] = field2.getText();
+        Main.GameFrame.SideBar.log("Enter name for player 1: ", Main.GameFrame.SideBar.prompt);
+        while(playerNames[0].length() == 0){
+            playerNames[0] = Main.GameFrame.SideBar.getCommand();
         }
+        Main.GameFrame.SideBar.log(playerNames[0], Main.GameFrame.SideBar.userInput);
 
+        Main.GameFrame.SideBar.log("Enter name for player 2: ", Main.GameFrame.SideBar.prompt);
+        while(playerNames[1].length() == 0){
+            playerNames[1] = Main.GameFrame.SideBar.getCommand();
+        }
+        Main.GameFrame.SideBar.log(playerNames[1], Main.GameFrame.SideBar.userInput);
+        
         return playerNames;
     }
 
