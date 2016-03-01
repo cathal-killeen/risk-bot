@@ -20,6 +20,7 @@ public class SideBar extends JPanel {
     Style error;
     Style prompt;
     Style userInput;
+    Style info;
 
     public SideBar() {
         super();
@@ -43,12 +44,12 @@ public class SideBar extends JPanel {
         error = ChatBox.addStyle("error",null);
         prompt = ChatBox.addStyle("prompt",null);
         userInput = ChatBox.addStyle("userInput", null);
-
-
+        info = ChatBox.addStyle("info", null);
 
         StyleConstants.setForeground(error, Color.RED);
         StyleConstants.setForeground(prompt, new Color(0, 77, 0));
         StyleConstants.setForeground(userInput, new Color(115, 115, 115));
+        StyleConstants.setForeground(info, Color.BLUE);
     }
 
     public void log(String message, Style style){

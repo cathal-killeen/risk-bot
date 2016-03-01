@@ -70,49 +70,31 @@ public class Player {
                 // human players
                 players.add(new Player(getPlayerName(i+1), i));
                 availableCountries = players.get(i).initialTerritories(availableCountries, 9);
+                Main.GameFrame.SideBar.log("Creating player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
             }else{
                 // neutral players
                 players.add(new Player(neutralPlayerNames[i-2], i));
                 availableCountries = players.get(i).initialTerritories(availableCountries, 6);
+                Main.GameFrame.SideBar.log("Creating neutral player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
             }
+            String territories = "";
+            for(Country country: players.get(i).getOwnedTerritories()){
+                territories += "> " +country.getName() + "\n";
+            }
+            Main.GameFrame.SideBar.log("Initialising territories for "
+                                        + players.get(i).name + "\n"
+                                        + territories, Main.GameFrame.SideBar.info);
             Main.GameFrame.Map.repaint();
             Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
+
+            //timeout not necessary, just looks cool!
+            try {
+                Thread.sleep(750);
+            } catch(InterruptedException ex) {
+
+            }
         }
 
-    }
-
-    for(int i = 0; i < 6; i++){
-        if(i <= 1){
-            players.get(i).isNeutral = false;
-        }
-        else{
-            players.get(i).isNeutral = true;
-        }
-    }
-
-
-    public static String[] getPlayerNames(){
-        String[] playerNames = {
-                "",
-                "",
-                "Player 1",
-                "Player 2",
-                "Player 3",
-                "Player 4"
-        };
-        Main.GameFrame.SideBar.log("Enter name for player 1: ", Main.GameFrame.SideBar.prompt);
-        while(playerNames[0].length() == 0){
-            playerNames[0] = Main.GameFrame.SideBar.getCommand();
-        }
-        Main.GameFrame.SideBar.log(playerNames[0], Main.GameFrame.SideBar.userInput);
-
-        Main.GameFrame.SideBar.log("Enter name for player 2: ", Main.GameFrame.SideBar.prompt);
-        while(playerNames[1].length() == 0){
-            playerNames[1] = Main.GameFrame.SideBar.getCommand();
-        }
-        Main.GameFrame.SideBar.log(playerNames[1], Main.GameFrame.SideBar.userInput);
-
-        return playerNames;
     }
 
     public static String getPlayerName(int playerNum){
