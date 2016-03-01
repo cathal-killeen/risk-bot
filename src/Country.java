@@ -19,6 +19,13 @@ public class Country {
     private int[] adjacents;
     private int troops;
 
+    public boolean hasOwner(){
+        if(owner == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
     public Country(int index){
         this.index = index;

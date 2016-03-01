@@ -44,30 +44,40 @@ public class Player {
     }
 
 
-    public static ArrayList createPlayers(){
+    //
+    // STATIC CONTENT
+    //
+
+    public static ArrayList<Player> players = new ArrayList<>();
+
+    public static void createPlayers(){
         ArrayList<Integer> availableCountries = new ArrayList<>();
         for(int i=0; i < Main.countries.size(); i++){
             availableCountries.add(i);
         }
-        ArrayList<Player> players = new ArrayList<>();
+        //ArrayList<Player> players = new ArrayList<>();
 
-        String[] playerNames = getPlayerNames();
-
-
+        String[] neutralPlayerNames = {
+                "Player 1",
+                "Player 2",
+                "Player 3",
+                "Player 4"
+        };
 
         for(int i = 0; i < 6; i++){
             if(i >= 0 && i <= 1){
-                players.add(new Player(playerNames[i], i));
-                Main.GameFrame.Map.repaint();
+                // human players
+                players.add(new Player(getPlayerName(i+1), i));
                 availableCountries = players.get(i).initialTerritories(availableCountries, 9);
             }else{
-                players.add(new Player(playerNames[i], i));
-                Main.GameFrame.Map.repaint();
+                // neutral players
+                players.add(new Player(neutralPlayerNames[i-2], i));
                 availableCountries = players.get(i).initialTerritories(availableCountries, 6);
             }
+            Main.GameFrame.Map.repaint();
+            Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
         }
 
-        return players;
     }
 
     public static String[] getPlayerNames(){
@@ -90,8 +100,18 @@ public class Player {
             playerNames[1] = Main.GameFrame.SideBar.getCommand();
         }
         Main.GameFrame.SideBar.log(playerNames[1], Main.GameFrame.SideBar.userInput);
-        
+
         return playerNames;
+    }
+
+    public static String getPlayerName(int playerNum){
+        String name = "";
+        Main.GameFrame.SideBar.log("Enter name for player " + playerNum + ":", Main.GameFrame.SideBar.prompt);
+        while(name.length() == 0){
+            name = Main.GameFrame.SideBar.getCommand();
+        }
+        Main.GameFrame.SideBar.log(name, Main.GameFrame.SideBar.userInput);
+        return name;
     }
 
 

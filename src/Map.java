@@ -30,7 +30,7 @@ public class Map extends JPanel{
 		drawBackground(g2d);
 		drawNodeLinks(g2d, Main.countries);
 		drawCountryNodes(g2d, Main.countries);
-		if(Main.players.size() != 0){
+		if(Player.players.size() != 0){
 			drawOwnerNodes(g2d, Main.countries);
 		}
 
@@ -75,13 +75,15 @@ public class Map extends JPanel{
 	private void drawOwnerNodes(Graphics2D g2d, ArrayList<Country> countries){
 
 		for (Country country: countries){
-			g2d.setColor(country.getOwner().color);
-			g2d.fill(country.getOwnershipNode());
+			if(country.hasOwner()) {
+				g2d.setColor(country.getOwner().color);
+				g2d.fill(country.getOwnershipNode());
 
-			int x = (int)country.getCoOrds().getX();
-			int y = (int)country.getCoOrds().getY();
-			g2d.setPaint(Color.WHITE);
-			g2d.drawString(Integer.toString(country.getTroopCount()), x-5, y+5);
+				int x = (int) country.getCoOrds().getX();
+				int y = (int) country.getCoOrds().getY();
+				g2d.setPaint(Color.WHITE);
+				g2d.drawString(Integer.toString(country.getTroopCount()), x - 5, y + 5);
+			}
 		}
 
 	}
@@ -128,10 +130,10 @@ class PlayerNamesBar extends JPanel{
 	}
 
 	public void putPlayerNames(){
-		int labelWidth = (750/Main.players.size());
+		int labelWidth = (750/Player.players.size());
 
 		this.removeAll();
-		for(Player player: Main.players){
+		for(Player player: Player.players){
 			JLabel nameLabel = new JLabel(player.name, SwingConstants.CENTER);
 			nameLabel.setMinimumSize(new Dimension(labelWidth, 15));
 			nameLabel.setMaximumSize(new Dimension(labelWidth, 15));
@@ -142,7 +144,7 @@ class PlayerNamesBar extends JPanel{
 			nameLabel.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					String territories = "OWNED COUNTRIES:\n";
-					for(Country country: Main.players.get(player.index).getOwnedTerritories()){
+					for(Country country: Player.players.get(player.index).getOwnedTerritories()){
 						territories += country.getName() + "\n";
 					}
 					JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);

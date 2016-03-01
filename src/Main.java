@@ -12,7 +12,7 @@ public class Main {
 
     //array of all country objects
     public static ArrayList<Country> countries = Country.createCountries();
-    public static ArrayList<Player> players = new ArrayList<>();
+    //public static ArrayList<Player> players = new ArrayList<>();
     public static Boolean initialisationComplete = false;
 
     //all UI components
@@ -34,8 +34,8 @@ public class Main {
     }
 
     public static void init(){
-        players = Player.createPlayers();
-        GameFrame.Map.PlayerNamesBar.putPlayerNames();
+        Player.createPlayers();
+        //GameFrame.Map.PlayerNamesBar.putPlayerNames();
 
         initialisationComplete = true;
     }
