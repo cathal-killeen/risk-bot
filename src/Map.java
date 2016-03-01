@@ -1,8 +1,9 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.html.FormView;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,7 +22,39 @@ public class Map extends JPanel{
 		add(PlayerNamesBar);
 		PlayerNamesBar.setLocation(100,10);
 
+        addMouseListener(myMouseAdapter);
+        addMouseMotionListener(mouseMotionListener);
 	}
+
+    private MouseAdapter myMouseAdapter = new MouseAdapter() {
+
+        public void mouseClicked(MouseEvent e){
+            for(Country country: Country.countries){
+                if(country.getMapNode().contains(e.getX(), e.getY())){
+                    Main.GameFrame.SideBar.CommandField.setText(country.getName());
+                }
+            }
+        }
+    };
+
+    private MouseMotionListener mouseMotionListener = new MouseMotionListener() {
+        @Override
+        public void mouseDragged(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            for (Country country : Country.countries) {
+                if (country.getMapNode().contains(e.getX(), e.getY())) {
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+                if (!country.getMapNode().contains(e.getX(), e.getY())){
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                }
+            }
+        }
+    };
 
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -33,8 +66,6 @@ public class Map extends JPanel{
 		if(Player.players.size() != 0){
 			drawOwnerNodes(g2d, Country.countries);
 		}
-
-
 	}
 
 	private void drawBackground(Graphics2D g2d){
@@ -62,13 +93,12 @@ public class Map extends JPanel{
 	private void drawCountryNodes(Graphics2D g2d, ArrayList<Country> countries){
 		for(Country country: countries){
 			g2d.setColor(Constants.CONTINTENT_COLORS[country.getContinent()]);
-			g2d.fill(country.getMapNode());
+            g2d.fill(country.getMapNode());
 			int x = (int)country.getCoOrds().getX();
 			int y = (int)country.getCoOrds().getY();
 
 			g2d.setPaint(Color.DARK_GRAY);
 			g2d.drawString(country.getName(), x-20, y-20);
-
 		}
 	}
 
@@ -78,7 +108,6 @@ public class Map extends JPanel{
 			if(country.hasOwner()) {
 				g2d.setColor(country.getOwner().color);
 				g2d.fill(country.getOwnershipNode());
-
 				int x = (int) country.getCoOrds().getX();
 				int y = (int) country.getCoOrds().getY();
 				g2d.setPaint(Color.WHITE);
@@ -122,9 +151,9 @@ public class Map extends JPanel{
 }
 
 class PlayerNamesBar extends JPanel{
-	public PlayerNamesBar(GridLayout gridLayout){
-		super(gridLayout);
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+	public PlayerNamesBar(GridLayout gridLayout) {
+        super(gridLayout);
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setPreferredSize(new Dimension(750, 22));
 		setBackground(Color.WHITE);
 	}
