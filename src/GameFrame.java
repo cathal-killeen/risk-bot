@@ -8,12 +8,12 @@ import java.util.HashMap;
 public class GameFrame extends JFrame {
 
     public JPanel Map;
-    public JPanel sideBar;
+    public SideBar SideBar;
 
     public GameFrame(){
         super("RISK");
         Map = new Map();
-        sideBar = new SideBar();
+        SideBar = new SideBar();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -22,7 +22,7 @@ public class GameFrame extends JFrame {
         setMaximumSize(Constants.FRAME_DIM);
 
         add(Map, BorderLayout.WEST);
-        add(sideBar, BorderLayout.EAST);
+        add(SideBar, BorderLayout.EAST);
 
         // done last when everything has been setup
         setVisible(true);

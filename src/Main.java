@@ -22,6 +22,8 @@ public class Main {
     public static void main(String[] args) {
         init();
 
+        System.out.println(GameFrame.SideBar.getCommand());
+
         //TESTS
 
         //console log all countries

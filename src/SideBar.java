@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
 
 /**
@@ -12,6 +13,8 @@ public class SideBar extends JPanel {
     public JTextPane ChatBox = new JTextPane();
     public JTextField CommandField = new JTextField();
     public StyledDocument styledDoc = ChatBox.getStyledDocument();
+
+    public LinkedList<String> commandBuffer = new LinkedList<>();
 
     //all styles
     Style error;
@@ -48,10 +51,31 @@ public class SideBar extends JPanel {
     private Action enterKeyPressed = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
-            String command = CommandField.getText();
-            log(command, error);
+            synchronized (commandBuffer){
+                String command = CommandField.getText();
+                //log(command, error);
 
-            CommandField.setText("");
+                commandBuffer.add(command);
+                CommandField.setText("");
+                commandBuffer.notify();
+            }
         }
     };
+
+    public String getCommand(){
+        String command;
+        synchronized (commandBuffer){
+            while(commandBuffer.isEmpty()){
+                try{
+                    commandBuffer.wait();
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+            command = commandBuffer.pop();
+        }
+        return command;
+    }
+
+
 }
