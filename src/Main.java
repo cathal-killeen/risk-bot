@@ -1,6 +1,4 @@
 
-import java.util.ArrayList;
-
 /**
  * SuckyBeigeFish
  *  Cathal Killeen: 14300066
@@ -9,18 +7,12 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    //array of all country objects
-    //public static ArrayList<Country> countries = Country.createCountries();
     public static Boolean initialisationComplete = false;
 
-    //all UI components
     public static GameFrame GameFrame;
-
 
     public static void main(String[] args) {
         init();
-
-        System.out.println(GameFrame.SideBar.getCommand());
 
         //TESTS
 
@@ -34,8 +26,16 @@ public class Main {
     public static void init(){
         Country.createCountries();
         GameFrame = new GameFrame();
+        printWelcomeMessage();
         Player.createPlayers();
         initialisationComplete = true;
+    }
+
+    public static void printWelcomeMessage(){
+        GameFrame.SideBar.log("**************************************************\n"
+                            + "                    WELCOME TO RISK!\n"
+                            + "**************************************************\n",
+                            GameFrame.SideBar.info);
     }
 
 }
