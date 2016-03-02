@@ -4,7 +4,7 @@
 public class Commands {
     private static String input;
     private static int playerIndex;
-
+    private int update;
     public Commands(String s, int Player){
         input = s;
         playerIndex = Player;
