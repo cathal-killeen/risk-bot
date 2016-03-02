@@ -7,7 +7,7 @@ import javax.swing.*;
 // For rolling dice
 public class Dice{
 	
-	public int RollTheDice(){
+	public int roll(){
 		int min = 1;
 		int max = 6;
 		int Rolled;

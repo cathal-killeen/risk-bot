@@ -49,7 +49,47 @@ public class Player {
     // STATIC CONTENT
     //
 
+    //array list of all players
     public static ArrayList<Player> players = new ArrayList<>();
+
+    //for storing the index of the current player
+    public static int currentPlayer = -1;
+
+    public static void setPlayerOrder(){
+        int[] diceRolls = new int[6];
+        Dice dice = new Dice();
+
+        for(int i = 0; i < 6; i++) {
+            diceRolls[i] = dice.roll();
+            if (i >= 0 && i <= 1) {
+                // human players
+                Main.GameFrame.SideBar.log(players.get(i).name + ", press enter to roll dice", Main.GameFrame.SideBar.prompt);
+                Main.GameFrame.SideBar.getCommand();
+                Main.GameFrame.SideBar.log("" + diceRolls[i] + "\n", Main.GameFrame.SideBar.info);
+            } else {
+                // neutral players
+                Main.GameFrame.SideBar.log(players.get(i).name + " rolled " + diceRolls[i], Main.GameFrame.SideBar.info);
+            }
+
+            try {
+                Thread.sleep(400);
+            } catch(InterruptedException ex) {
+
+            }
+        }
+
+        int highest = 0;
+        for(int i=0; i<diceRolls.length;i++){
+            if(diceRolls[i] > highest){
+                highest = diceRolls[i];
+                currentPlayer = i;
+            }
+        }
+
+        Main.GameFrame.SideBar.log("\n" + players.get(currentPlayer).name + " goes first\n", Main.GameFrame.SideBar.info);
+        Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
+
+    }
 
     public static void createPlayers(){
         String[] neutralPlayerNames = {

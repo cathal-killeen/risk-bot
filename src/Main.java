@@ -28,6 +28,7 @@ public class Main {
         GameFrame = new GameFrame();
         printWelcomeMessage();
         Player.createPlayers();
+        Player.setPlayerOrder();
         initialisationComplete = true;
     }
 
