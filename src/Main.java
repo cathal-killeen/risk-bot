@@ -17,7 +17,7 @@ public class Main {
         //TESTS
 
         //test nextPlayer function
-        for(int i = 0; i<100; i++){
+        for(ingt i = 0; i<100; i++){
             //waits 2 seconds so the name changing can be seen
             try {
                 Thread.sleep(2000);
