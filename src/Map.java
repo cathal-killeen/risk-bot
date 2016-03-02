@@ -160,11 +160,10 @@ class PlayerNamesBar extends JPanel{
 		int labelWidth = (750/Player.players.size());
 
 		this.removeAll();
-		for (int i=0; i < Constants.PLAYER_ORDER.length; i++){
-			Player player = Player.players.get(Constants.PLAYER_ORDER[i]);
-			JLabel nameLabel = new JLabel(player.name, SwingConstants.CENTER);
-			nameLabel.setMinimumSize(new Dimension(labelWidth, 22));
-			nameLabel.setMaximumSize(new Dimension(labelWidth, 22));
+        for(Player player: Player.players){
+            JLabel nameLabel = new JLabel(player.name, SwingConstants.CENTER);
+            nameLabel.setMinimumSize(new Dimension(labelWidth, 22));
+            nameLabel.setMaximumSize(new Dimension(labelWidth, 22));
             if(player.index == Player.currentPlayer){
                 nameLabel.setOpaque(true);
                 nameLabel.setBackground(player.color);
@@ -172,19 +171,19 @@ class PlayerNamesBar extends JPanel{
             }else{
                 nameLabel.setForeground(player.color);
             }
-			nameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			add(nameLabel);
+            nameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            add(nameLabel);
 
-			nameLabel.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					String territories = "OWNED COUNTRIES:\n";
-					for(Country country: Player.players.get(player.index).getOwnedTerritories()){
-						territories += country.getName() + "\n";
-					}
-					JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
-				}
-			});
-		}
+            nameLabel.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    String territories = "OWNED COUNTRIES:\n";
+                    for(Country country: Player.players.get(player.index).getOwnedTerritories()){
+                        territories += country.getName() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+        }
 
 		setVisible(true);
 		revalidate();
