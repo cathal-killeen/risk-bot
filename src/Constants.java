@@ -7,6 +7,8 @@ import java.awt.geom.Point2D;
  */
 //package core;
 public class Constants {
+    public static int[] PLAYER_ORDER = new int[6];
+
     public static final int NUM_PLAYERS = 2;
     public static final int NUM_NEUTRALS = 4;
     public static final int NUM_PLAYERS_PLUS_NEUTRALS = NUM_PLAYERS + NUM_NEUTRALS;

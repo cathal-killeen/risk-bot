@@ -69,39 +69,42 @@ public class Player {
     }
 
     public static void setPlayerOrder(){
-        int[] diceRolls = new int[6];
+
         Dice dice = new Dice();
-
-        for(int i = 0; i < 6; i++) {
-            diceRolls[i] = dice.roll();
-            if (i >= 0 && i <= 1) {
-                // human players
-                Main.GameFrame.SideBar.log(players.get(i).name + ", press enter to roll dice", Main.GameFrame.SideBar.prompt);
-                Main.GameFrame.SideBar.getCommand();
-                Main.GameFrame.SideBar.log("" + diceRolls[i] + "\n", Main.GameFrame.SideBar.info);
-            } else {
-                // neutral players
-                Main.GameFrame.SideBar.log(players.get(i).name + " rolled " + diceRolls[i], Main.GameFrame.SideBar.info);
+        int p1Roll = -1;
+        int p2Roll = -2;
+        do {
+            //if repeated, print a prompt that notifies them of the problem
+            if (p1Roll == p2Roll){
+                Main.GameFrame.SideBar.log("Both players rolled the same value. Please go again\n", Main.GameFrame.SideBar.prompt);
             }
+            //get p1 to roll
+            Main.GameFrame.SideBar.log(players.get(0).name + ", press enter to roll dice", Main.GameFrame.SideBar.prompt);
+            Main.GameFrame.SideBar.getCommand();
+            p1Roll = dice.roll();
+            Main.GameFrame.SideBar.log("You rolled a " + p1Roll + "\n", Main.GameFrame.SideBar.info);
 
-            try {
-                Thread.sleep(400);
-            } catch(InterruptedException ex) {
+            //get p2 to roll
+            Main.GameFrame.SideBar.log(players.get(1).name + ", press enter to roll dice", Main.GameFrame.SideBar.prompt);
+            Main.GameFrame.SideBar.getCommand();
+            p2Roll = dice.roll();
+            Main.GameFrame.SideBar.log("You rolled a " + p2Roll + "\n", Main.GameFrame.SideBar.info);
+        } while (p1Roll == p2Roll);
 
-            }
+        if (p1Roll > p2Roll){
+            Constants.PLAYER_ORDER[0] = 0;
+            Constants.PLAYER_ORDER[1] = 1;
+        } else {
+            Constants.PLAYER_ORDER[0] = 1;
+            Constants.PLAYER_ORDER[1] = 0;
         }
+        Constants.PLAYER_ORDER[2] = 2;
+        Constants.PLAYER_ORDER[3] = 3;
+        Constants.PLAYER_ORDER[4] = 4;
+        Constants.PLAYER_ORDER[5] = 5;
 
-        int highest = 0;
-        for(int i=0; i<diceRolls.length;i++){
-            if(diceRolls[i] > highest){
-                highest = diceRolls[i];
-                currentPlayer = i;
-            }
-        }
-
-        Main.GameFrame.SideBar.log("\n" + players.get(currentPlayer).name + " goes first\n", Main.GameFrame.SideBar.info);
+        Main.GameFrame.SideBar.log(players.get(Constants.PLAYER_ORDER[0]).name + " goes first", Main.GameFrame.SideBar.info);
         Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
-
     }
 
     public static void createPlayers(){
