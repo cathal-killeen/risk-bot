@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Cathal on 07/02/16.
@@ -22,14 +23,13 @@ public class Player {
         color = Constants.PLAYER_COLORS[index];
     }
 
-    public ArrayList initialTerritories(ArrayList<Integer> availableCountries, int numCountries){
+    public void initialTerritories(int numCountries){
         int countryIndex;
+        Random random = new Random();
         for(int i = 0; i < numCountries; i++){
-            countryIndex = availableCountries.remove(0);
+            countryIndex = Country.availableCountries.remove(random.nextInt(Country.availableCountries.size()));
             Country.countries.get(countryIndex).setOwner(this);
         }
-
-        return availableCountries;
     }
 
     public ArrayList<Country> getOwnedTerritories(){
@@ -52,12 +52,6 @@ public class Player {
     public static ArrayList<Player> players = new ArrayList<>();
 
     public static void createPlayers(){
-        ArrayList<Integer> availableCountries = new ArrayList<>();
-        for(int i=0; i < Country.countries.size(); i++){
-            availableCountries.add(i);
-        }
-        //ArrayList<Player> players = new ArrayList<>();
-
         String[] neutralPlayerNames = {
                 "Player 1",
                 "Player 2",
@@ -69,12 +63,12 @@ public class Player {
             if(i >= 0 && i <= 1){
                 // human players
                 players.add(new Player(getPlayerName(i+1), i));
-                availableCountries = players.get(i).initialTerritories(availableCountries, 9);
+                players.get(i).initialTerritories(9);
                 Main.GameFrame.SideBar.log("Creating player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
             }else{
                 // neutral players
                 players.add(new Player(neutralPlayerNames[i-2], i));
-                availableCountries = players.get(i).initialTerritories(availableCountries, 6);
+                players.get(i).initialTerritories(6);
                 Main.GameFrame.SideBar.log("Creating neutral player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
             }
             String territories = "";
