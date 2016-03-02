@@ -9,18 +9,18 @@ import java.util.LinkedList;
  * Created by Cathal on 09/02/16.
  */
 public class SideBar extends JPanel {
-    public JScrollPane ChatBoxScrollPane;
-    public JTextPane ChatBox = new JTextPane();
-    public JTextField CommandField = new JTextField();
-    public StyledDocument styledDoc = ChatBox.getStyledDocument();
+    public static JScrollPane ChatBoxScrollPane;
+    public static JTextPane ChatBox = new JTextPane();
+    public static JTextField CommandField = new JTextField();
+    public static StyledDocument styledDoc = ChatBox.getStyledDocument();
 
     public LinkedList<String> commandBuffer = new LinkedList<>();
 
     //all styles
-    Style error;
-    Style prompt;
-    Style userInput;
-    Style info;
+    static Style error;
+    static Style prompt;
+    static Style userInput;
+    static Style info;
 
     public SideBar() {
         super();
@@ -53,7 +53,7 @@ public class SideBar extends JPanel {
         StyleConstants.setForeground(info, Color.BLUE);
     }
 
-    public void log(String message, Style style){
+    public static void log(String message, Style style){
         try {
             message += "\n";
             styledDoc.insertString(styledDoc.getLength(), message, style);

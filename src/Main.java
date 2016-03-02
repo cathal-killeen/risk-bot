@@ -10,7 +10,6 @@ public class Main {
     public static Boolean initialisationComplete = false;
 
     public static GameFrame GameFrame;
-
     public static void main(String[] args) {
         init();
 
@@ -19,11 +18,8 @@ public class Main {
         //test nextPlayer function
         for(int i = 0; i<100; i++){
             //waits 2 seconds so the name changing can be seen
-            try {
-                Thread.sleep(2000);
-            } catch(InterruptedException ex) {
-
-            }
+            try { Thread.sleep(2000);}
+            catch(InterruptedException ex) {}
 
             System.out.println("Current player: " + Player.players.get(Player.nextPlayer()).name);
         }
@@ -36,12 +32,25 @@ public class Main {
     }
 
     public static void init(){
+        Boolean troopsLeft = true;
+        String output = "";
         Country.createCountries();
         GameFrame = new GameFrame();
         printWelcomeMessage();
         Player.createPlayers();
         Player.setPlayerOrder();
+        //while (troopsLeft){
+            //ask for country
+            //SideBar.log(Player.players.get(Player.currentPlayer), SideBar.prompt);
+            //check if valid
+            //ask for troops (if not for neutral)
+            //place troops
+            //get next neutral, OR end turn
+        //}
         initialisationComplete = true;
+
+
+
     }
 
     public static void printWelcomeMessage(){

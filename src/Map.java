@@ -160,7 +160,8 @@ class PlayerNamesBar extends JPanel{
 		int labelWidth = (750/Player.players.size());
 
 		this.removeAll();
-		for(Player player: Player.players){
+		for(int i=0;i < Constants.PLAYER_ORDER.length; i++){
+			Player player = Player.players.get(Constants.PLAYER_ORDER[i]);
 			JLabel nameLabel = new JLabel(player.name, SwingConstants.CENTER);
 			nameLabel.setMinimumSize(new Dimension(labelWidth, 22));
 			nameLabel.setMaximumSize(new Dimension(labelWidth, 22));
