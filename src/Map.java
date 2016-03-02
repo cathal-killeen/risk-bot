@@ -1,9 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.html.FormView;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;

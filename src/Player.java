@@ -55,6 +55,19 @@ public class Player {
     //for storing the index of the current player
     public static int currentPlayer = -1;
 
+    //sets currentPlayer to the next player, and returns the index of the next player
+    public static int nextPlayer(){
+        if(currentPlayer == players.size()-1){
+            currentPlayer = 0;
+        }else{
+            currentPlayer++;
+        }
+
+        //redraw player name bar
+        Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
+        return currentPlayer;
+    }
+
     public static void setPlayerOrder(){
         int[] diceRolls = new int[6];
         Dice dice = new Dice();

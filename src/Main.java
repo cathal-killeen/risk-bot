@@ -16,6 +16,18 @@ public class Main {
 
         //TESTS
 
+        //test nextPlayer function
+        for(int i = 0; i<100; i++){
+            //waits 2 seconds so the name changing can be seen
+            try {
+                Thread.sleep(2000);
+            } catch(InterruptedException ex) {
+
+            }
+
+            System.out.println("Current player: " + Player.players.get(Player.nextPlayer()).name);
+        }
+
         //console log all countries
         for (int i = 0; i < Country.countries.size(); i++) {
             System.out.println(Country.countries.get(i).toString());
