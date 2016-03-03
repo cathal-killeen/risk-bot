@@ -165,7 +165,7 @@ class PlayerNamesBar extends JPanel{
 			JLabel nameLabel = new JLabel(player.name, SwingConstants.CENTER);
 			nameLabel.setMinimumSize(new Dimension(labelWidth, 22));
 			nameLabel.setMaximumSize(new Dimension(labelWidth, 22));
-            if(player.index == Player.currentPlayer){
+            if(i == Player.currentPlayer){
                 nameLabel.setOpaque(true);
                 nameLabel.setBackground(player.color);
                 nameLabel.setForeground(Color.WHITE);

@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class GameFrame extends JFrame {
 
     public Map Map;
-    public SideBar SideBar;
+    public static SideBar SideBar;
 
     public GameFrame(){
         super("RISK");

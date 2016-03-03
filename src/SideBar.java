@@ -63,7 +63,7 @@ public class SideBar extends JPanel {
         public void actionPerformed(ActionEvent e){
             synchronized (commandBuffer){
                 String command = CommandField.getText();
-                //log(command, error);
+                log(command, error);
 
                 commandBuffer.add(command);
                 CommandField.setText("");

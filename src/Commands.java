@@ -2,17 +2,10 @@
  * Created by adamdoran on 01/03/2016.
  */
 public class Commands {
-    private static String input;
-    private static int playerIndex;
-    private int update;
-    public Commands(String s, int Player){
-        input = s;
-        playerIndex = Player;
-    }
 
     //returns the index of the selected country if it is a valid input.
     //returns -1 if
-    public int isCountry(){
+    public static int isCountry(String input){
         String cName = "";
         Boolean matchFound = false;
         Boolean multipleMatches = false;
@@ -24,8 +17,8 @@ public class Commands {
                     index = country.getIndex();
                     matchFound = true;
                 } else {
-                    //message: sorry, your input is ambiguous. Please enter more information
-                    return -1;
+                    GameFrame.SideBar.log("Sorry, your entry was ambiguous. Try entering a unique portion of the name next time.\n", GameFrame.SideBar.error);
+                    return -2;
                 }
             }
         }
@@ -33,7 +26,7 @@ public class Commands {
         return index;
     }
 
-    public Boolean isOwned(Country country){
+    public Boolean isOwned(Country country, int playerIndex){
         if (country.getOwner().index == playerIndex){
             return true;
         } else {

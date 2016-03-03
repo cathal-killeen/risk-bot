@@ -12,9 +12,20 @@ public class Player {
     public String name;
     public Color color;
     public Boolean isNeutral;
+    public int reinforcements = 0;
 
     public void allocateTerritory(Country country) {
         country.setOwner(this);
+    }
+
+    public void addReinforcements(int num) {
+        reinforcements += num;
+    }
+
+    public void reinforceCountry(Country country, int troops){
+        country.addTroops(troops);
+        reinforcements -= troops;
+        Main.GameFrame.Map.repaint();
     }
 
     public Player(String name, int index){
@@ -53,7 +64,7 @@ public class Player {
     public static ArrayList<Player> players = new ArrayList<>();
 
     //for storing the index of the current player
-    public static int currentPlayer = -1;
+    public static int currentPlayer = 0;
 
     //sets currentPlayer to the next player, and returns the index of the next player
     public static int nextPlayer(){
