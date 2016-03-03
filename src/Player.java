@@ -64,7 +64,7 @@ public class Player {
     public static ArrayList<Player> players = new ArrayList<>();
 
     //for storing the index of the current player
-    public static int currentPlayer = 0;
+    public static int currentPlayer = -1;
 
     //sets currentPlayer to the next player, and returns the index of the next player
     public static int nextPlayer(){
