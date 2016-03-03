@@ -51,16 +51,6 @@ public class Main {
     }
 
     public static void initReinforcements(){
-        //allocate armies to each player/neutral
-        for (int i=0;i<Constants.PLAYER_ORDER.length; i++) {
-            int troops;
-            if (i < 2){
-                troops = 36;
-            } else {
-                troops = 24;
-            }
-            Player.players.get(Constants.PLAYER_ORDER[i]).addReinforcements(troops);
-        }
         tempTurnFlag = 0;
         Player.currentPlayer = tempTurnFlag;
         while (Player.players.get(Constants.PLAYER_ORDER[5]).reinforcements > 0) {

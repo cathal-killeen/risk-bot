@@ -11,8 +11,26 @@ public class Player {
     public int index;
     public String name;
     public Color color;
-    public Boolean isNeutral;
-    public int reinforcements = 0;
+    public int reinforcements;
+
+    public Player(String name, int index){
+        this.index = index;
+        this.name = name;
+        color = Constants.PLAYER_COLORS[index];
+        if(isHuman()){
+            reinforcements = 36;
+        }else{
+            reinforcements = 24;
+        }
+    }
+
+    public Boolean isHuman(){
+        if(index < 2){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public void allocateTerritory(Country country) {
         country.setOwner(this);
@@ -26,12 +44,6 @@ public class Player {
         country.addTroops(troops);
         reinforcements -= troops;
         Main.GameFrame.Map.repaint();
-    }
-
-    public Player(String name, int index){
-        this.index = index;
-        this.name = name;
-        color = Constants.PLAYER_COLORS[index];
     }
 
     public void initialTerritories(int numCountries){
@@ -102,6 +114,8 @@ public class Player {
             Main.GameFrame.SideBar.log("You rolled a " + p2Roll + "\n", Main.GameFrame.SideBar.info);
         } while (p1Roll == p2Roll);
 
+        Main.GameFrame.SideBar.log(players.get(Constants.PLAYER_ORDER[0]).name + " goes first", Main.GameFrame.SideBar.info);
+
         if (p1Roll > p2Roll){
             Constants.PLAYER_ORDER[0] = 0;
             Constants.PLAYER_ORDER[1] = 1;
@@ -114,7 +128,6 @@ public class Player {
         Constants.PLAYER_ORDER[4] = 4;
         Constants.PLAYER_ORDER[5] = 5;
 
-        Main.GameFrame.SideBar.log(players.get(Constants.PLAYER_ORDER[0]).name + " goes first", Main.GameFrame.SideBar.info);
         Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
     }
 
