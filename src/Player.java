@@ -1,6 +1,9 @@
+import org.omg.CORBA.CODESET_INCOMPATIBLE;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 /**
@@ -80,10 +83,17 @@ public class Player {
 
     //sets currentPlayer to the next player, and returns the index of the next player
     public static int nextPlayer(){
-        if(currentPlayer == players.size()-1){
-            currentPlayer = 0;
+        int arrayIndex = -1;
+        for(int i = 0; i < Constants.PLAYER_ORDER.length; i++){
+            if(Constants.PLAYER_ORDER[i] == currentPlayer){
+                arrayIndex = i;
+            }
+        }
+
+        if(arrayIndex == Constants.PLAYER_ORDER.length-1){
+            currentPlayer = Constants.PLAYER_ORDER[0];
         }else{
-            currentPlayer++;
+            currentPlayer = Constants.PLAYER_ORDER[arrayIndex+1];
         }
 
         //redraw player name bar
@@ -114,8 +124,6 @@ public class Player {
             Main.GameFrame.SideBar.log("You rolled a " + p2Roll + "\n", Main.GameFrame.SideBar.info);
         } while (p1Roll == p2Roll);
 
-        Main.GameFrame.SideBar.log(players.get(Constants.PLAYER_ORDER[0]).name + " goes first", Main.GameFrame.SideBar.info);
-
         if (p1Roll > p2Roll){
             Constants.PLAYER_ORDER[0] = 0;
             Constants.PLAYER_ORDER[1] = 1;
@@ -128,7 +136,11 @@ public class Player {
         Constants.PLAYER_ORDER[4] = 4;
         Constants.PLAYER_ORDER[5] = 5;
 
-        Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
+        nextPlayer();
+        System.out.println("initial player:" + currentPlayer);
+
+        Main.GameFrame.SideBar.log(players.get(currentPlayer).name + " goes first", Main.GameFrame.SideBar.info);
+        //Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
     }
 
     public static void createPlayers(){

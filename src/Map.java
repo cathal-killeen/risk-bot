@@ -161,6 +161,7 @@ class PlayerNamesBar extends JPanel{
 
 		this.removeAll();
         for(Player player: Player.players){
+            System.out.println("Index: " + player.index);
             String text = player.name + " (" + player.reinforcements + ")";
 			JLabel nameLabel = new JLabel(text, SwingConstants.CENTER);
 			nameLabel.setMinimumSize(new Dimension(labelWidth, 22));

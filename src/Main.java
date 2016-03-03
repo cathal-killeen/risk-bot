@@ -10,7 +10,6 @@ public class Main {
     public static Boolean initialisationComplete = false;
 
     public static GameFrame GameFrame;
-    public static int tempTurnFlag;
 
     public static void main(String[] args) {
         init();
@@ -51,27 +50,23 @@ public class Main {
     }
 
     public static void initReinforcements(){
-        tempTurnFlag = 0;
-        Player.currentPlayer = tempTurnFlag;
         while (Player.players.get(Constants.PLAYER_ORDER[5]).reinforcements > 0) {
-            GameFrame.Map.PlayerNamesBar.putPlayerNames();
-            GameFrame.SideBar.log(Player.players.get(Constants.PLAYER_ORDER[tempTurnFlag]).name + "'s turn\n", GameFrame.SideBar.prompt);
+            GameFrame.SideBar.log(Player.players.get(Player.currentPlayer).name + "'s turn\n", GameFrame.SideBar.info);
             int x;
             int troopsToAllocate = 3;
-
             while (troopsToAllocate > 0) {
                 Boolean isCountry = false;
                 while (!isCountry) {
                     GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to\n", GameFrame.SideBar.prompt);
                     String input = GameFrame.SideBar.getCommand();
                     if ((x=Commands.isCountry(input)) >= 0) {
-                        if (Country.countries.get(x).getOwner().index == Constants.PLAYER_ORDER[tempTurnFlag]) {
+                        if (Country.countries.get(x).getOwner().index == Player.currentPlayer) {
                             GameFrame.SideBar.log("You can allocate up to "+troopsToAllocate+" troops. How many would you like to allocate?\n", GameFrame.SideBar.prompt);
                             int numTroops;
                             do {
                                 numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
                                 if (numTroops <= troopsToAllocate && numTroops > 0) {
-                                    Player.players.get(Constants.PLAYER_ORDER[tempTurnFlag]).reinforceCountry(Country.countries.get(x), numTroops);
+                                    Player.players.get(Player.currentPlayer).reinforceCountry(Country.countries.get(x), numTroops);
                                     isCountry = true;
                                     troopsToAllocate -= numTroops;
                                 } else {
@@ -86,7 +81,6 @@ public class Main {
                     }
                 }
             }
-            Player.currentPlayer = 2;
             for (int i=2; i<6; i++){
                 GameFrame.SideBar.log("Please allocate a reinforcement on behalf of "+Player.players.get(Constants.PLAYER_ORDER[i]).name+"\n", GameFrame.SideBar.prompt);
                 Boolean isCountry = false;
@@ -105,8 +99,6 @@ public class Main {
                 }
                 Player.currentPlayer++;
             }
-            if (tempTurnFlag == 0){ tempTurnFlag = 1; }
-            else { tempTurnFlag = 0; }
         }
     }
 
