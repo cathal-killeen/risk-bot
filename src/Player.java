@@ -193,5 +193,13 @@ public class Player {
         return name;
     }
 
+    public static int totalTroopsToAllocate(){
+        int total = 0;
+        for(Player player: players){
+            total += player.reinforcements;
+        }
+        return total;
+    }
+
 
 }
