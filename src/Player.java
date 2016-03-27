@@ -139,7 +139,7 @@ public class Player {
         nextPlayer();
         System.out.println("initial player:" + currentPlayer);
 
-        Main.GameFrame.SideBar.log(players.get(currentPlayer).name + " goes first", Main.GameFrame.SideBar.info);
+        GameFrame.SideBar.log(players.get(currentPlayer).name + " goes first", GameFrame.SideBar.info);
         //Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
     }
 
@@ -156,18 +156,18 @@ public class Player {
                 // human players
                 players.add(new Player(getPlayerName(i+1), i));
                 players.get(i).initialTerritories(9);
-                Main.GameFrame.SideBar.log("Creating player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
+                GameFrame.SideBar.log("Creating player " + players.get(i).name + "\n", GameFrame.SideBar.info);
             }else{
                 // neutral players
                 players.add(new Player(neutralPlayerNames[i-2], i));
                 players.get(i).initialTerritories(6);
-                Main.GameFrame.SideBar.log("Creating neutral player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
+                GameFrame.SideBar.log("Creating neutral player " + players.get(i).name + "\n", GameFrame.SideBar.info);
             }
             String territories = "";
             for(Country country: players.get(i).getOwnedTerritories()){
                 territories += "> " +country.getName() + "\n";
             }
-            Main.GameFrame.SideBar.log("Initialising territories for "
+            GameFrame.SideBar.log("Initialising territories for "
                                         + players.get(i).name + "\n"
                                         + territories, Main.GameFrame.SideBar.info);
             Main.GameFrame.Map.repaint();
@@ -185,20 +185,46 @@ public class Player {
 
     public static String getPlayerName(int playerNum){
         String name = "";
-        Main.GameFrame.SideBar.log("Enter name for player " + playerNum + ":", Main.GameFrame.SideBar.prompt);
+        GameFrame.SideBar.log("Enter name for player " + playerNum + ":", GameFrame.SideBar.prompt);
         while(name.length() == 0){
-            name = Main.GameFrame.SideBar.getCommand();
+            name = GameFrame.SideBar.getCommand();
         }
-        Main.GameFrame.SideBar.log(name, Main.GameFrame.SideBar.userInput);
+        GameFrame.SideBar.log(name, GameFrame.SideBar.userInput);
         return name;
     }
 
+    //gets the total number of troops that are to be allocated by all players
     public static int totalTroopsToAllocate(){
         int total = 0;
         for(Player player: players){
             total += player.reinforcements;
         }
         return total;
+    }
+
+    public static void initReinforcements(){
+        while(totalTroopsToAllocate() > 0){
+            Player currPlayer = players.get(currentPlayer);
+            int troopsToAllocate = 0;
+
+            //set troopsToAllocate, 3 by default, but remainder of reinforcements if total is less than 3
+            if(currPlayer.reinforcements >= 3){
+                troopsToAllocate = 3;
+            }else{
+                troopsToAllocate = currPlayer.reinforcements;
+            }
+
+            //NOTE: this also handles case where one player finishes allocation before others
+            while(troopsToAllocate > 0){
+                GameFrame.SideBar.log(players.get(currentPlayer).name + "'s turn\n", GameFrame.SideBar.info);
+                if(currPlayer.isHuman()){
+                    GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to\n", GameFrame.SideBar.prompt);
+                    String territoryInput = GameFrame.SideBar.getCommand();
+                }
+            }
+
+
+        }
     }
 
 

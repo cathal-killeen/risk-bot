@@ -152,4 +152,26 @@ public class Country {
         }
     }
 
+
+    public static int getCountry(String input){
+        String cName = "";
+        Boolean matchFound = false;
+        Boolean multipleMatches = false;
+        int index = -1;
+        for (Country country: countries){
+            cName = country.getName();
+            if (cName.toLowerCase().contains(input.toLowerCase())){
+                if (!matchFound){
+                    index = country.getIndex();
+                    matchFound = true;
+                } else {
+                    GameFrame.SideBar.log("Sorry, your entry was ambiguous. Try entering a unique portion of the name next time.\n", GameFrame.SideBar.error);
+                    return -2;
+                }
+            }
+        }
+
+        return index;
+    }
+
 }
