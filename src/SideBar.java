@@ -83,6 +83,7 @@ public class SideBar extends JPanel {
             }
             command = commandBuffer.pop();
         }
+        log(command + "\n", userInput);
         return command;
     }
 
