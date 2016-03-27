@@ -47,6 +47,7 @@ public class Player {
         country.addTroops(troops);
         reinforcements -= troops;
         Main.GameFrame.Map.repaint();
+        Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
     }
 
     public void initialTerritories(int numCountries){
@@ -218,12 +219,57 @@ public class Player {
             while(troopsToAllocate > 0){
                 GameFrame.SideBar.log(players.get(currentPlayer).name + "'s turn\n", GameFrame.SideBar.info);
                 if(currPlayer.isHuman()){
-                    GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to\n", GameFrame.SideBar.prompt);
-                    String territoryInput = GameFrame.SideBar.getCommand();
+                    //repeat while troopsToAllocate is > 0
+                    do {
+                        GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to\n", GameFrame.SideBar.prompt);
+                        String territoryInput = GameFrame.SideBar.getCommand();
+                        int countryIndex = Country.getCountry(territoryInput);
+                        if (countryIndex >= 0) {
+                            if (Country.countries.get(countryIndex).getOwner().index == currentPlayer) {
+                                GameFrame.SideBar.log("You can allocate up to " + troopsToAllocate + " troops. How many would you like to allocate?\n", GameFrame.SideBar.prompt);
+                                int numTroops = 0;
+                                while(numTroops == 0) {
+                                    numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                                    if (numTroops <= troopsToAllocate && numTroops > 0) {
+                                        players.get(currentPlayer).reinforceCountry(Country.countries.get(countryIndex), numTroops);
+                                        Country.countries.get(countryIndex).addTroops(numTroops);
+                                        troopsToAllocate -= numTroops;
+                                    } else {
+                                        GameFrame.SideBar.log("That is an invalid number of troops. Please enter number between 1 and " + troopsToAllocate + "\n", GameFrame.SideBar.error);
+                                        numTroops = 0;
+                                    }
+                                }
+                            } else {
+                                GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control\n", GameFrame.SideBar.error);
+                            }
+                        } else {
+                            GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name\n", GameFrame.SideBar.error);
+                        }
+                    }while(troopsToAllocate > 0);
+                //else if player is neutral
+                }else{
+                    do{
+                        //timeout
+                        try {
+                            Thread.sleep(1200);
+                        } catch(InterruptedException ex) {
+
+                        }
+
+                        ArrayList<Country> ownedTerritories = currPlayer.getOwnedTerritories();
+                        int randomTerritory = (int)(Math.random() * ownedTerritories.size());
+                        int randomTerritoryIndex = ownedTerritories.get(randomTerritory).index;
+
+                        int randomTroopNum = 1 + (int)(Math.random() * troopsToAllocate);
+
+                        players.get(currentPlayer).reinforceCountry(Country.countries.get(randomTerritoryIndex), randomTroopNum);
+                        troopsToAllocate -= randomTroopNum;
+                        GameFrame.SideBar.log(currPlayer.name + " reinforced " + Country.countries.get(randomTerritoryIndex).name + " with " + randomTroopNum + " troops.\n", GameFrame.SideBar.info);
+                    }while(troopsToAllocate > 0);
                 }
             }
-
-
+            //go to next player
+            nextPlayer();
         }
     }
 

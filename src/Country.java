@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Country {
     public static final int nodeRadius = 20;
 
-    private int index;
-    private String name;
+    public int index;
+    public String name;
     private Player owner;
     private int continent;
     private Point2D coOrds;
