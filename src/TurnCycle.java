@@ -14,7 +14,7 @@ public class TurnCycle {
         allocateReinforcements();
 
         //combat
-
+        attackSequence();
     }
 
 
@@ -84,5 +84,46 @@ public class TurnCycle {
         }
     }
 
+    public static void attackSequence(){
+        String input;
+        int x;
+        while ((input = GameFrame.SideBar.getCommand().toLowerCase()) != "skip"){
+            GameFrame.SideBar.log("Please enter a territory name you wish to attack from.\n", GameFrame.SideBar.prompt);
+            String attacker = GameFrame.SideBar.getCommand();
+            //check if input is a country
+            if ((x=Commands.isCountry(input)) >= 0) {
+                //check if player owns the country
+                if (Country.countries.get(x).getOwner().index == Player.currentPlayer) {
+                    //check if country has sufficient troops
+                    if (Country.countries.get(x).getTroopCount() > 1) {
+
+                        GameFrame.SideBar.log("Please enter a territory name you wish to attack from.\n", GameFrame.SideBar.prompt);
+                        String attackee = GameFrame.SideBar.getCommand();
+                        //check is attackee a country
+                        if ((x=Commands.isCountry(input)) >= 0) {
+                            //check if attacker owns attackee
+                            if (Country.countries.get(x).getOwner().index != Player.currentPlayer) {
+
+                                
+
+
+
+                            } else {
+                                GameFrame.SideBar.log("You own this territory. Please select one that you do not currently control.\n", GameFrame.SideBar.error);
+                            }
+                        } else {
+                            GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
+                        }
+                    } else {
+                        GameFrame.SideBar.log("This territory does not have sufficient troops to launch an attack. Please choose another, or type 'skip' to proceed. \n", GameFrame.SideBar.error);
+                    }
+                } else {
+                    GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control.\n", GameFrame.SideBar.error);
+                }
+            } else {
+                GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
+            }
+        }
+    }
 
 }
