@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Country {
     public static final int nodeRadius = 20;
 
-    private int index;
-    private String name;
+    public int index;
+    public String name;
     private Player owner;
     private int continent;
     private Point2D coOrds;
@@ -150,6 +150,28 @@ public class Country {
         for(int i=0; i < Country.countries.size(); i++){
             availableCountries.add(i);
         }
+    }
+
+
+    public static int getCountry(String input){
+        String cName = "";
+        Boolean matchFound = false;
+        Boolean multipleMatches = false;
+        int index = -1;
+        for (Country country: countries){
+            cName = country.getName();
+            if (cName.toLowerCase().contains(input.toLowerCase())){
+                if (!matchFound){
+                    index = country.getIndex();
+                    matchFound = true;
+                } else {
+                    GameFrame.SideBar.log("Sorry, your entry was ambiguous. Try entering a unique portion of the name next time.\n", GameFrame.SideBar.error);
+                    return -2;
+                }
+            }
+        }
+
+        return index;
     }
 
 }

@@ -47,6 +47,7 @@ public class Player {
         country.addTroops(troops);
         reinforcements -= troops;
         Main.GameFrame.Map.repaint();
+        Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
     }
 
     public void initialTerritories(int numCountries){
@@ -139,7 +140,7 @@ public class Player {
         nextPlayer();
         System.out.println("initial player:" + currentPlayer);
 
-        Main.GameFrame.SideBar.log(players.get(currentPlayer).name + " goes first", Main.GameFrame.SideBar.info);
+        GameFrame.SideBar.log(players.get(currentPlayer).name + " goes first", GameFrame.SideBar.info);
         //Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
     }
 
@@ -156,18 +157,18 @@ public class Player {
                 // human players
                 players.add(new Player(getPlayerName(i+1), i));
                 players.get(i).initialTerritories(9);
-                Main.GameFrame.SideBar.log("Creating player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
+                GameFrame.SideBar.log("Creating player " + players.get(i).name + "\n", GameFrame.SideBar.info);
             }else{
                 // neutral players
                 players.add(new Player(neutralPlayerNames[i-2], i));
                 players.get(i).initialTerritories(6);
-                Main.GameFrame.SideBar.log("Creating neutral player " + players.get(i).name + "\n", Main.GameFrame.SideBar.info);
+                GameFrame.SideBar.log("Creating neutral player " + players.get(i).name + "\n", GameFrame.SideBar.info);
             }
             String territories = "";
             for(Country country: players.get(i).getOwnedTerritories()){
                 territories += "> " +country.getName() + "\n";
             }
-            Main.GameFrame.SideBar.log("Initialising territories for "
+            GameFrame.SideBar.log("Initialising territories for "
                                         + players.get(i).name + "\n"
                                         + territories, Main.GameFrame.SideBar.info);
             Main.GameFrame.Map.repaint();
@@ -185,12 +186,92 @@ public class Player {
 
     public static String getPlayerName(int playerNum){
         String name = "";
-        Main.GameFrame.SideBar.log("Enter name for player " + playerNum + ":", Main.GameFrame.SideBar.prompt);
+        GameFrame.SideBar.log("Enter name for player " + playerNum + ":", GameFrame.SideBar.prompt);
         while(name.length() == 0){
-            name = Main.GameFrame.SideBar.getCommand();
+            name = GameFrame.SideBar.getCommand();
         }
-        Main.GameFrame.SideBar.log(name, Main.GameFrame.SideBar.userInput);
         return name;
+    }
+
+    //gets the total number of troops that are to be allocated by all players
+    public static int totalTroopsToAllocate(){
+        int total = 0;
+        for(Player player: players){
+            total += player.reinforcements;
+        }
+        return total;
+    }
+
+    public static void initReinforcements(){
+        while(totalTroopsToAllocate() > 0) {
+            Player currPlayer = players.get(currentPlayer);
+
+            if (currPlayer.isHuman()) {
+                int troopsToAllocate = 0;
+
+                //set troopsToAllocate, 3 by default, but remainder of reinforcements if total is less than 3
+                if (currPlayer.reinforcements >= 3) {
+                    troopsToAllocate = 3;
+                } else {
+                    troopsToAllocate = currPlayer.reinforcements;
+                }
+
+                //NOTE: this also handles case where one player finishes allocation before others
+                if (troopsToAllocate > 0) {
+                    GameFrame.SideBar.log(players.get(currentPlayer).name + "'s turn\n", GameFrame.SideBar.info);
+                    //repeat while troopsToAllocate is > 0
+                    do {
+                        GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to", GameFrame.SideBar.prompt);
+                        String territoryInput = GameFrame.SideBar.getCommand();
+                        int countryIndex = Country.getCountry(territoryInput);
+                        if (countryIndex >= 0) {
+                            if (Country.countries.get(countryIndex).getOwner().index == currentPlayer) {
+                                GameFrame.SideBar.log("You can allocate up to " + troopsToAllocate + " troops. How many would you like to allocate?", GameFrame.SideBar.prompt);
+                                int numTroops = 0;
+                                while (numTroops == 0) {
+                                    numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                                    if (numTroops <= troopsToAllocate && numTroops > 0) {
+                                        players.get(currentPlayer).reinforceCountry(Country.countries.get(countryIndex), numTroops);
+                                        troopsToAllocate -= numTroops;
+                                    } else {
+                                        GameFrame.SideBar.log("That is an invalid number of troops. Please enter number between 1 and " + troopsToAllocate + "\n", GameFrame.SideBar.error);
+                                        numTroops = 0;
+                                    }
+                                }
+                            } else {
+                                GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control\n", GameFrame.SideBar.error);
+                            }
+                        } else {
+                            GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name\n", GameFrame.SideBar.error);
+                        }
+                    } while (troopsToAllocate > 0);
+                }
+                //check if neutral players have reinforcements
+                if(players.get(5).reinforcements > 0){
+                    for(int i = 2; i<6; i++){
+                        GameFrame.SideBar.log("Select a territory belonging to Player " + (i-1) + " to reinforce with 1 troop", GameFrame.SideBar.prompt);
+                        int countryIndex = -1;
+                        do {
+                            String territoryInput = GameFrame.SideBar.getCommand();
+                            countryIndex = Country.getCountry(territoryInput);
+                            if(countryIndex >= 0){
+                                if(Country.countries.get(countryIndex).getOwner().index == i){
+                                    players.get(i).reinforceCountry(Country.countries.get(countryIndex), 1);
+                                    GameFrame.SideBar.log(currPlayer.name + " reinforced " + Country.countries.get(countryIndex).name + " on behalf of Player " + (i-1) + "\n", GameFrame.SideBar.info);
+                                }else{
+                                    GameFrame.SideBar.log("Player " + (i-1) + " does not own " + Country.countries.get(countryIndex).name + ". Please select a territory owned by Player " + (i-1) + "\n", GameFrame.SideBar.error);
+                                    countryIndex = -1;
+                                }
+                            }else{
+                                GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name\n", GameFrame.SideBar.error);
+                            }
+                        }while(countryIndex <= 0);
+                    }
+                }
+            }
+            //go to next player
+            nextPlayer();
+        }
     }
 
 
