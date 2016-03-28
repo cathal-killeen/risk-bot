@@ -30,7 +30,7 @@ public class Player {
     public Boolean isHuman(){
         if(index < 2){
             return true;
-        }else{
+        } else{
             return false;
         }
     }
