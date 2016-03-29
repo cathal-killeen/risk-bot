@@ -71,7 +71,7 @@ public class TurnCycle {
         GameFrame.SideBar.log("ATTACK!\nIf you do not wish to attack, type skip\n", GameFrame.SideBar.info);
         GameFrame.SideBar.log("Select a country to attack from\n",GameFrame.SideBar.prompt);
         String attackerName = GameFrame.SideBar.getCommand();
-        if(attackerName.toLowerCase() != "skip"){
+        if(!attackerName.toLowerCase().contains("skip")){
             while(attackIndex < 0){
                 attackIndex = Country.getCountry(attackerName);
                 //if user entered correct country
