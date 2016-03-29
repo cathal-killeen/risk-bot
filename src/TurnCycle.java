@@ -11,7 +11,7 @@ public class TurnCycle {
         //while a winner doesnt exist
         while(!Player.doesWinnerExist()){
             Player currPlayer = Player.players.get(Player.currentPlayer);
-            int reinforcements = 7;
+            int reinforcements = calculateReinforcements();
             currPlayer.reinforcements = reinforcements;
             Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
             GameFrame.SideBar.log(currPlayer.name + "'s turn\n", GameFrame.SideBar.info);
@@ -23,18 +23,7 @@ public class TurnCycle {
             Player.nextPlayer();
         }
     }
-
-    public static void cycleManager(){
-
-        //reinforcement phase
-        Player.players.get(Player.currentPlayer).addReinforcements(calculateReinforcements());
-
-        //combat
-        attackSequence();
-    }
-
-
-
+    
     public static int calculateReinforcements(){
         int reinforcementsToAllocate = 0;
         int[] continentsControlled = {0, 0, 0, 0, 0, 0};
