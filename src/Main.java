@@ -39,7 +39,14 @@ public class Main {
         printWelcomeMessage();
         Player.createPlayers();
         Player.setPlayerOrder();
-        Player.randomInitReinforcements();
+        GameFrame.SideBar.log("Would you like to randomly add initial reinforcements? (Y/n)", GameFrame.SideBar.prompt);
+        String input = GameFrame.SideBar.getCommand();
+        if(input.toLowerCase() == "y" || input.toLowerCase() == "yes"){
+            Player.randomInitReinforcements();
+        }else{
+            Player.initReinforcements();
+        }
+
         initialisationComplete = true;
     }
 
