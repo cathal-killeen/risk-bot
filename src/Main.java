@@ -41,7 +41,7 @@ public class Main {
         Player.setPlayerOrder();
         GameFrame.SideBar.log("Would you like to randomly add initial reinforcements? (Y/n)", GameFrame.SideBar.prompt);
         String input = GameFrame.SideBar.getCommand();
-        if(input.toLowerCase() == "y" || input.toLowerCase() == "yes"){
+        if(input.toLowerCase().contains("y")){
             Player.randomInitReinforcements();
         }else{
             Player.initReinforcements();
