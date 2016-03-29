@@ -27,6 +27,30 @@ public class Player {
         }
     }
 
+    public Boolean isLoser(){
+        if(getOwnedTerritories().size() <= 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Boolean isWinner(){
+        //if the other human isLoser, then this player is the winner
+        if(isHuman()){
+            for(Player player: players){
+                if(player.index != index){
+                    if(player.isHuman()){
+                        if(player.isLoser()){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public Boolean isHuman(){
         if(index < 2){
             return true;

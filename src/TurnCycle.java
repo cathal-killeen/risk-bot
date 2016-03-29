@@ -7,6 +7,7 @@ import java.util.ArrayList;
 /** Manages the sequence of players, as well as the different phases of each turn*/
 public class TurnCycle {
 
+
     public static void cycleManager(){
 
         //reinforcement phase
