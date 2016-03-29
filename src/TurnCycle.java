@@ -59,7 +59,7 @@ public class TurnCycle {
         return reinforcementsToAllocate;
     }
 
-    public static void attack(){
+    public static void attackSequence(){
         Player currPlayer = Player.players.get(Player.currentPlayer);
         int attackIndex = -1;
         int defendIndex = -1;
@@ -75,10 +75,11 @@ public class TurnCycle {
                     Country attackCountry = Country.countries.get(attackIndex);
                     //if the current player owns the country
                     if(attackCountry.getOwner() == currPlayer){
-                        //check if country has sufficient troops
+                        //check if country has sufficient troops.
                         if(attackCountry.troops > 1){
                             GameFrame.SideBar.log("Please select the territory you wish to attack\n", GameFrame.SideBar.prompt);
                             String defenderName = GameFrame.SideBar.getCommand();
+                            defendIndex = -1;
                             while(defendIndex < 0){
                                 defendIndex = Country.getCountry(defenderName);
                                 //if user entered a country
@@ -86,7 +87,25 @@ public class TurnCycle {
                                     Country defendCountry = Country.countries.get(defendIndex);
                                     //check that player DOESNT own defendCountry
                                     if(defendCountry.getOwner() != currPlayer){
-
+                                        //if countries are adjacent
+                                        if(attackCountry.isAdjacent(defendCountry)){
+                                            int numTroops = -1;
+                                            GameFrame.SideBar.log("How many troops would you like to attack with?.\n", GameFrame.SideBar.prompt);
+                                            while(numTroops < 0){
+                                                numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                                                //numTroops must be less than the number of troops on the territory (as at least one has to stay behindg
+                                                if(numTroops > 1 && numTroops <= 3 && numTroops < attackCountry.troops){
+                                                    //attack stuff here
+                                                }else{
+                                                    GameFrame.SideBar.log("That is an invalid number of troops to attack with. Please try again.\n", GameFrame.SideBar.error);
+                                                    numTroops = -1;
+                                                }
+                                            }
+                                        }else{
+                                            GameFrame.SideBar.log("These territories are not adjacent. Please select two territories that are.\n", GameFrame.SideBar.error);
+                                            attackIndex = -1; // go back to beginning - select attacker country
+                                            GameFrame.SideBar.log("Select a country to attack from", GameFrame.SideBar.prompt);
+                                        }
                                     }else{
                                         GameFrame.SideBar.log("You own this territory. Please select one that you do not currently control.\n", GameFrame.SideBar.error);
                                         defendIndex = -1;
@@ -111,69 +130,6 @@ public class TurnCycle {
                     GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
                     GameFrame.SideBar.getCommand();
                 }
-            }
-        }
-    }
-
-    public static void attackSequence(){
-
-
-        String input;
-        int x;
-        int y;
-        while ((input = GameFrame.SideBar.getCommand().toLowerCase()) != "skip"){
-            GameFrame.SideBar.log("Please enter a territory name you wish to attack from.\n", GameFrame.SideBar.prompt);
-            String attacker = GameFrame.SideBar.getCommand();
-            //check if input is a country
-            if ((x=Commands.isCountry(attacker)) >= 0) {
-                //check if player owns the country
-                if (Country.countries.get(x).getOwner().index == Player.currentPlayer) {
-                    //check if country has sufficient troops
-                    if (Country.countries.get(x).getTroopCount() > 1) {
-
-                        GameFrame.SideBar.log("Please enter a territory name you wish to attack from.\n", GameFrame.SideBar.prompt);
-                        String attackee = GameFrame.SideBar.getCommand();
-                        //check is attackee a country
-                        if ((y=Commands.isCountry(attackee)) >= 0) {
-                            //check if attacker owns attackee
-                            if (Country.countries.get(y).getOwner().index != Player.currentPlayer) {
-                                boolean isAdjacent = false;
-                                //check are countries adjacent
-                                for (int i=0; i< Constants.ADJACENT.length; i++) {
-                                    if (Country.countries.get(y).index == Constants.ADJACENT[x][i]){
-                                        isAdjacent = true;
-                                    }
-                                }
-                                //if adjacent
-                                if (isAdjacent){
-                                    GameFrame.SideBar.log("How many troops would you like to attack with?.\n", GameFrame.SideBar.prompt);
-                                    int numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
-
-                                    //check if the number of troops is valid
-                                    if (numTroops > 1 && numTroops <= 3 && numTroops >= Country.countries.get(x).getTroopCount()){
-
-                                        //DO ATTACK STUFF HERE
-
-                                    } else {
-                                        GameFrame.SideBar.log("That is an invalid number of troops to attack with. Please try again.\n", GameFrame.SideBar.error);
-                                    }
-                                } else {
-                                    GameFrame.SideBar.log("These territories are not adjacent. Please select two territories that are.\n", GameFrame.SideBar.error);
-                                }
-                            } else {
-                                GameFrame.SideBar.log("You own this territory. Please select one that you do not currently control.\n", GameFrame.SideBar.error);
-                            }
-                        } else {
-                            GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
-                        }
-                    } else {
-                        GameFrame.SideBar.log("This territory does not have sufficient troops to launch an attack. Please choose another, or type 'skip' to proceed. \n", GameFrame.SideBar.error);
-                    }
-                } else {
-                    GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control.\n", GameFrame.SideBar.error);
-                }
-            } else {
-                GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
             }
         }
     }
