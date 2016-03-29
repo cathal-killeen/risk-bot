@@ -65,7 +65,9 @@ public class TurnCycle {
     }
 
     public static void allocateReinforcements(){
-        int troopsToAllocate = Player.players.get(Player.currentPlayer).reinforcements;
+        Player currPlayer = Player.players.get(Player.currentPlayer);
+
+        int troopsToAllocate = currPlayer.reinforcements;
         while (Player.players.get(Player.currentPlayer).reinforcements > 0) {
             int x;
             while (troopsToAllocate > 0) {

@@ -36,7 +36,7 @@ public class Main {
         printWelcomeMessage();
         Player.createPlayers();
         Player.setPlayerOrder();
-        Player.randomInitReinforcements();
+        Player.initReinforcements();
         initialisationComplete = true;
     }
 
