@@ -36,7 +36,7 @@ public class Dice{
 		for(int i=0;i<values.size();i++){
 			if(values.get(i) > secondHighest){
 				if(values.get(i) >= highest){
-					if(highestCount > 1){
+					if(highestCount > 0){
 						secondHighest = values.get(i);
 					}
 					highestCount++;
