@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * SuckyBeigeFish
@@ -46,6 +47,7 @@ public class Main {
         }else{
             Player.initReinforcements();
         }
+        //testCountryGroup();
 
         initialisationComplete = true;
     }
@@ -56,7 +58,27 @@ public class Main {
                             + "**************************************************\n",
                             GameFrame.SideBar.info);
     }
-    g
+
+    public static void testCountryGroup(){
+        GameFrame.SideBar.log("Select a territory to display group\n", GameFrame.SideBar.prompt);
+        int countryIndex = -1;
+        do {
+            String territoryInput = GameFrame.SideBar.getCommand();
+            countryIndex = Country.getCountry(territoryInput);
+            if(countryIndex >= 0){
+                ArrayList<Country> countryGroup = Country.countries.get(countryIndex).getCountryGroup();
+                String s = "";
+                for(Country country: countryGroup){
+                    s += country.name + "\n";
+                }
+                System.out.print(s);
+            }else{
+                GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name\n", GameFrame.SideBar.error);
+            }
+        }while(countryIndex <= 0);
+        try { Thread.sleep(2000);}
+        catch(InterruptedException ex) {}
+    }
 
 
 }

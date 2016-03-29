@@ -186,10 +186,12 @@ public class Country {
     }
 
     public ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
-        ArrayList<Country> countryGroup = new ArrayList<>();
-        countryGroup.add(this);
+        ArrayList<Country> thisCountry = new ArrayList<>();
+        thisCountry.add(this);
 
-        ArrayList<Country> ownedAdjacents = getOwnedAdjacents(countryGroup);
+        ArrayList<Country> countryGroup = mergeCountryGroups(new ArrayList<Country>(), thisCountry);
+
+        ArrayList<Country> ownedAdjacents = getOwnedAdjacents(excludeList);
         if(ownedAdjacents.size() > 0){
             countryGroup = mergeCountryGroups(countryGroup, ownedAdjacents);
             for(Country adj: ownedAdjacents){
