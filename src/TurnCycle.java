@@ -11,23 +11,21 @@ public class TurnCycle {
         //while a winner doesnt exist
         while(!Player.doesWinnerExist()){
             Player currPlayer = Player.players.get(Player.currentPlayer);
-            int reinforcements = calculateReinforcements();
-            currPlayer.reinforcements = reinforcements;
-            Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
-            GameFrame.SideBar.log(currPlayer.name + "'s turn\n", GameFrame.SideBar.info);
-            GameFrame.SideBar.log("You received " + reinforcements + " backup reinforcements\n", GameFrame.SideBar.info);
+            if(currPlayer.getOwnedTerritories().size() != 0){
+                int reinforcements = calculateReinforcements();
+                currPlayer.reinforcements = reinforcements;
+                Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
+                GameFrame.SideBar.log(currPlayer.name + "'s turn\n", GameFrame.SideBar.info);
+                GameFrame.SideBar.log("You received " + reinforcements + " backup reinforcements\n", GameFrame.SideBar.info);
 
-            currPlayer.allocateReinforcements(reinforcements);
-            //attack here
+                currPlayer.allocateReinforcements(reinforcements);
+                //attack here
 
-            if(currPlayer.isHuman()){
-                attackSequence();
-                fortifySequence();
+                if(currPlayer.isHuman()){
+                    attackSequence();
+                    fortifySequence();
+                }
             }
-
-
-
-
             Player.nextPlayer();
         }
     }

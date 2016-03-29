@@ -171,18 +171,24 @@ class PlayerNamesBar extends JPanel{
                 nameLabel.setBackground(player.color);
                 nameLabel.setForeground(Color.WHITE);
             }else{
-                nameLabel.setForeground(player.color);
+				if(player.getOwnedTerritories().size() == 0){
+					nameLabel.setForeground(Color.LIGHT_GRAY);
+
+				}else{
+					nameLabel.setForeground(player.color);
+				}
+
             }
             nameLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             add(nameLabel);
 
-            nameLabel.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    String territories = "OWNED COUNTRIES:\n";
-                    for(Country country: Player.players.get(player.index).getOwnedTerritories()){
-                        territories += country.getName() + "\n";
-                    }
-                    JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
+			nameLabel.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					String territories = "OWNED COUNTRIES:\n";
+					for (Country country : Player.players.get(player.index).getOwnedTerritories()) {
+						territories += country.getName() + "\n";
+					}
+					JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
                 }
             });
         }
