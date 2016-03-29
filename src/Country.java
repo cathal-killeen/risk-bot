@@ -67,6 +67,12 @@ public class Country {
         Main.GameFrame.Map.repaint();
     }
 
+    public void fortify(Country otherCountry, int numTroops){
+        removeTroops(numTroops);
+        otherCountry.addTroops(numTroops);
+        Main.GameFrame.Map.repaint();
+    }
+
     public int getIndex() {
         return index;
     }
@@ -204,6 +210,15 @@ public class Country {
 
     public ArrayList<Country> getCountryGroup(){
         return getCountryGroup(new ArrayList<Country>());
+    }
+
+    public Boolean doesLinkExist(Country country){
+        for(Country member: getCountryGroup()){
+            if(member == country){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static ArrayList<Country> mergeCountryGroups(ArrayList<Country> g1, ArrayList<Country> g2){
