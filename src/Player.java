@@ -223,6 +223,15 @@ public class Player {
         return false;
     }
 
+    public static Player getWinner(){
+        for(Player player: players){
+            if(player.isWinner()){
+                return player;
+            }
+        }
+        return null;
+    }
+
     public static void createPlayers(){
         String[] neutralPlayerNames = {
                 "Player 1",

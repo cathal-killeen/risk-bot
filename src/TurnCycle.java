@@ -2,6 +2,7 @@
  * Created by adam on 28/03/2016.
  */
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /** Manages the sequence of players, as well as the different phases of each turn*/
@@ -28,6 +29,13 @@ public class TurnCycle {
             }
             Player.nextPlayer();
         }
+        if(Player.doesWinnerExist()){
+            Player winner = Player.getWinner();
+            JOptionPane.showMessageDialog(null, "Congratulations " + winner.name + "! You won!", "Winner!", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+
+
     }
 
     public static int calculateReinforcements(){
