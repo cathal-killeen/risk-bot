@@ -107,8 +107,9 @@ public class Country {
         Main.GameFrame.Map.repaint();
     }
 
-    public void removeTroops(int defeatedTroops){
-        troops -= defeatedTroops;
+    public void removeTroop(){
+        troops -= 1;
+        Main.GameFrame.Map.repaint();
     }
 
     //set or reset troops to 0
@@ -145,9 +146,43 @@ public class Country {
     public void attack(Country defendCountry, int attackTroops){
         Player attackPlayer = getOwner();
         Player defendPlayer = defendCountry.getOwner();
+        Dice attackDice = new Dice();
+        Dice defendDice = new Dice();
+
+        int defendTroops;
+        if(defendCountry.troops <= 1 || attackTroops == 1){
+            defendTroops = 1;
+        }else{
+            defendTroops = 2;
+        }
 
         GameFrame.SideBar.log(attackPlayer.name + " initialised an attack on " + defendCountry.name + " from " + name + "\n", GameFrame.SideBar.info);
+        GameFrame.SideBar.log(defendPlayer.name + ", press enter to roll " + defendTroops + " dice", GameFrame.SideBar.prompt);
+        if(defendPlayer.isHuman()){
+            GameFrame.SideBar.getCommand();
+        }
+        defendDice.roll(defendTroops);
+        GameFrame.SideBar.log(defendDice.toString() + "\n", GameFrame.SideBar.userInput);
 
+        GameFrame.SideBar.log(attackPlayer.name + ", press enter to roll " + attackTroops + " dice", GameFrame.SideBar.prompt);
+        GameFrame.SideBar.getCommand();
+        attackDice.roll(attackTroops);
+        GameFrame.SideBar.log(attackDice.toString() + "\n", GameFrame.SideBar.userInput);
+
+        GameFrame.SideBar.log("Comparing highest dice\n" +
+                attackPlayer.name + ": [" + attackDice.highest() + "]\n" +
+                defendPlayer.name + ": [" + defendDice.highest() + "]\n", GameFrame.SideBar.info);
+
+        if(attackDice.highest() > defendDice.highest()){
+            GameFrame.SideBar.log(attackPlayer.name + " wins! " + defendCountry.name + " loses a troop\n", GameFrame.SideBar.info);
+            defendCountry.removeTroop();
+        }else if(attackDice.highest() == defendDice.highest()){
+            GameFrame.SideBar.log("Tie! " + name + " loses a troop\n", GameFrame.SideBar.info);
+            removeTroop();
+        }else{
+            GameFrame.SideBar.log(defendPlayer.name + " wins! " + name + " loses a troop\n", GameFrame.SideBar.info);
+            removeTroop();
+        }
     }
 
 

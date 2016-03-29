@@ -9,7 +9,15 @@ public class Dice{
 	public static final int min = 1;
 	public static final int max = 6;
 
-	public ArrayList<Integer> values;
+	public ArrayList<Integer> values = new ArrayList<>();
+
+	public String toString(){
+		String s = "";
+		for(int v: values){
+			s += "[" + v + "] ";
+		}
+		return s;
+	}
 
 	public int highest(){
 		int highest = 0;
@@ -34,7 +42,7 @@ public class Dice{
 
 	public void roll(int numDice){
 		for(int i = 0; i < numDice; i++){
-			values.add(roll());
+			values.add(new Integer(roll()));
 		}
 	}
 	

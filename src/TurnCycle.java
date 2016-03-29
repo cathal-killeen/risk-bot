@@ -95,7 +95,9 @@ public class TurnCycle {
                                                 numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
                                                 //numTroops must be less than the number of troops on the territory (as at least one has to stay behindg
                                                 if(numTroops > 1 && numTroops <= 3 && numTroops < attackCountry.troops){
-                                                    //attack stuff here
+                                                    attackCountry.attack(defendCountry, numTroops);
+
+
                                                 }else{
                                                     GameFrame.SideBar.log("That is an invalid number of troops to attack with. Please try again.\n", GameFrame.SideBar.error);
                                                     numTroops = -1;
@@ -105,6 +107,7 @@ public class TurnCycle {
                                             GameFrame.SideBar.log("These territories are not adjacent. Please select two territories that are.\n", GameFrame.SideBar.error);
                                             attackIndex = -1; // go back to beginning - select attacker country
                                             GameFrame.SideBar.log("Select a country to attack from", GameFrame.SideBar.prompt);
+                                            attackerName = GameFrame.SideBar.getCommand();
                                         }
                                     }else{
                                         GameFrame.SideBar.log("You own this territory. Please select one that you do not currently control.\n", GameFrame.SideBar.error);
