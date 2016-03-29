@@ -142,6 +142,14 @@ public class Country {
         return false;
     }
 
+    public void attack(Country defendCountry, int attackTroops){
+        Player attackPlayer = getOwner();
+        Player defendPlayer = defendCountry.getOwner();
+
+        GameFrame.SideBar.log(attackPlayer.name + " initialised an attack on " + defendCountry.name + " from " + name + "\n", GameFrame.SideBar.info);
+
+    }
+
 
 
 
