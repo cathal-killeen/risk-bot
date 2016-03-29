@@ -72,6 +72,7 @@ public class TurnCycle {
         GameFrame.SideBar.log("Select a country to attack from\n",GameFrame.SideBar.prompt);
         String attackerName = GameFrame.SideBar.getCommand();
         if(!attackerName.toLowerCase().contains("skip")){
+
             while(attackIndex < 0){
                 attackIndex = Country.getCountry(attackerName);
                 //if user entered correct country
@@ -84,6 +85,8 @@ public class TurnCycle {
                             GameFrame.SideBar.log("Please select the territory you wish to attack\n", GameFrame.SideBar.prompt);
                             String defenderName = GameFrame.SideBar.getCommand();
                             defendIndex = -1;
+
+
                             while(defendIndex < 0){
                                 defendIndex = Country.getCountry(defenderName);
                                 //if user entered a country
@@ -116,33 +119,41 @@ public class TurnCycle {
                                             GameFrame.SideBar.log("These territories are not adjacent. Please select two territories that are.\n", GameFrame.SideBar.error);
                                             attackIndex = -1; // go back to beginning - select attacker country
                                             GameFrame.SideBar.log("Select a country to attack from", GameFrame.SideBar.prompt);
-                                            attackerName = GameFrame.SideBar.getCommand();
                                         }
                                     }else{
                                         GameFrame.SideBar.log("You own this territory. Please select one that you do not currently control.\n", GameFrame.SideBar.error);
                                         defendIndex = -1;
-                                        attackerName = GameFrame.SideBar.getCommand();
                                     }
                                 }else{
                                     GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
+                                    defendIndex = -1;
+                                }
+
+                                if(defendIndex < 0){
+                                    defenderName = GameFrame.SideBar.getCommand();
                                 }
                             }
+
+
 
                         }else{
                             GameFrame.SideBar.log("This territory does not have sufficient troops to launch an attack. Please choose another, or type 'skip' to proceed. \n", GameFrame.SideBar.error);
                             attackIndex = -1;
-                            GameFrame.SideBar.getCommand();
                         }
                     }else{
                         GameFrame.SideBar.log("You do not own " + Country.countries.get(attackIndex).name + ". Please select one that you currently control.\n", GameFrame.SideBar.error);
                         attackIndex = -1; //to go through loop again
-                        GameFrame.SideBar.getCommand();
                     }
                 }else{
                     GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
-                    GameFrame.SideBar.getCommand();
+                }
+
+                if(attackIndex < 0){
+                    attackerName = GameFrame.SideBar.getCommand();
                 }
             }
+
+
         }
     }
 
