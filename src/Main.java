@@ -5,6 +5,8 @@
  *  Stan O'Neill: 14368166
  *  Adam Doran: 14325416
  */
+import java.util.Random;
+
 public class Main {
 
     public static Boolean initialisationComplete = false;
@@ -14,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         init();
 
-        //TESTS
+        //TEST
 
         //test nextPlayer function
         for(int i = 0; i<100; i++){
@@ -48,5 +50,8 @@ public class Main {
                             + "**************************************************\n",
                             GameFrame.SideBar.info);
     }
+
+
+}
 
 }
