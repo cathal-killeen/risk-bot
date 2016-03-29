@@ -32,9 +32,17 @@ public class Dice{
 	public int secondHighest(){
 		int highest = highest();
 		int secondHighest = 0;
+		int highestCount = 0;
 		for(int i=0;i<values.size();i++){
-			if(values.get(i) > secondHighest && values.get(i) <= highest){
-				secondHighest = values.get(i);
+			if(values.get(i) > secondHighest){
+				if(values.get(i) >= highest){
+					if(highestCount > 1){
+						secondHighest = values.get(i);
+					}
+					highestCount++;
+				}else{
+					secondHighest = values.get(i);
+				}
 			}
 		}
 		return secondHighest;

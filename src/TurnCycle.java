@@ -94,16 +94,21 @@ public class TurnCycle {
                                         //if countries are adjacent
                                         if(attackCountry.isAdjacent(defendCountry)){
                                             int numTroops = -1;
+                                            int maxAttackTroops;
+                                            if(attackCountry.troops <= 3){
+                                                maxAttackTroops = attackCountry.troops - 1;
+                                            }else{
+                                                maxAttackTroops = 3;
+                                            }
                                             GameFrame.SideBar.log("How many troops would you like to attack with?.\n", GameFrame.SideBar.prompt);
                                             while(numTroops < 0){
                                                 numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
                                                 //numTroops must be less than the number of troops on the territory (as at least one has to stay behindg
-                                                if(numTroops > 1 && numTroops <= 3 && numTroops < attackCountry.troops){
+                                                if(numTroops > 1 && numTroops <= maxAttackTroops && numTroops < attackCountry.troops){
                                                     attackCountry.attack(defendCountry, numTroops);
 
-
                                                 }else{
-                                                    GameFrame.SideBar.log("That is an invalid number of troops to attack with. Please try again.\n", GameFrame.SideBar.error);
+                                                    GameFrame.SideBar.log("That is an invalid number of troops to attack with. You can attack with a max of " + maxAttackTroops + " troops. Try again:\n", GameFrame.SideBar.error);
                                                     numTroops = -1;
                                                 }
                                             }

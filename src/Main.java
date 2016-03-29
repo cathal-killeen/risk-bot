@@ -56,6 +56,7 @@ public class Main {
                             + "**************************************************\n",
                             GameFrame.SideBar.info);
     }
+    g
 
 
 }

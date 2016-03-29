@@ -149,6 +149,84 @@ public class Country {
         return false;
     }
 
+    public ArrayList<Country> getAdjacentsList() {
+        ArrayList<Country> adjacentsList = new ArrayList<>();
+        for(int i=0; i<adjacents.length; i++){
+            adjacentsList.add(countries.get(adjacents[i]));
+        }
+        return adjacentsList;
+    }
+
+    public ArrayList<Country> getOwnedAdjacents() {
+        ArrayList<Country> adjacentsList = new ArrayList<>();
+        for(int i=0; i<adjacents.length; i++){
+            Country adj = countries.get(adjacents[i]);
+            if(adj.owner == owner){
+                adjacentsList.add(adj);
+            }
+        }
+        return adjacentsList;
+    }
+
+    public ArrayList<Country> getOwnedAdjacents(ArrayList<Country> excludeList) {
+        ArrayList<Country> adjacentsList = new ArrayList<>();
+        for(int i=0; i<adjacents.length; i++){
+            Country adj = countries.get(adjacents[i]);
+            Boolean excl = false;
+            for(Country excluded: excludeList){
+                if(excluded == adj){
+                    excl = true;
+                }
+            }
+            if(adj.owner == owner && excl == false){
+                adjacentsList.add(adj);
+            }
+        }
+        return adjacentsList;
+    }
+
+    public ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
+        ArrayList<Country> countryGroup = new ArrayList<>();
+        countryGroup.add(this);
+
+        ArrayList<Country> ownedAdjacents = getOwnedAdjacents(countryGroup);
+        if(ownedAdjacents.size() > 0){
+            countryGroup = mergeCountryGroups(countryGroup, ownedAdjacents);
+            for(Country adj: ownedAdjacents){
+                countryGroup = mergeCountryGroups(countryGroup, adj.getCountryGroup(countryGroup));
+            }
+        }
+
+        return countryGroup;
+    }
+
+    public ArrayList<Country> getCountryGroup(){
+        return getCountryGroup(new ArrayList<Country>());
+    }
+
+    public static ArrayList<Country> mergeCountryGroups(ArrayList<Country> g1, ArrayList<Country> g2){
+        for(Country member: g2){
+            //if g1 doesnt already contain member of g2
+            if(!groupHasCountry(g1,member)){
+                g1.add(member);
+            }
+        }
+
+        return g1;
+    }
+
+    //check if group of contries contains given country
+    public static Boolean groupHasCountry(ArrayList<Country> group, Country country){
+        for(Country member: group){
+            if(member == country){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     public void attack(Country defendCountry, int attackTroops){
         Player attackPlayer = getOwner();
         Player defendPlayer = defendCountry.getOwner();
