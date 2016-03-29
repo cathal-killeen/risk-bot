@@ -64,6 +64,7 @@ public class Country {
     public void setOwner(Player player){
         owner = player;
         setTroops();
+        Main.GameFrame.Map.repaint();
     }
 
     public int getIndex() {
@@ -187,6 +188,30 @@ public class Country {
         }else{
             GameFrame.SideBar.log(defendPlayer.name + " wins! " + name + " loses a troop\n", GameFrame.SideBar.info);
             removeTroop();
+        }
+
+        if(attackTroops > 1 && defendTroops > 1){
+            GameFrame.SideBar.log("Comparing second highest dice\n" +
+                    attackPlayer.name + ": [" + attackDice.secondHighest() + "]\n" +
+                    defendPlayer.name + ": [" + defendDice.secondHighest() + "]\n", GameFrame.SideBar.info);
+
+            if(attackDice.secondHighest() > defendDice.secondHighest()){
+                GameFrame.SideBar.log(attackPlayer.name + " wins! " + defendCountry.name + " loses a troop\n", GameFrame.SideBar.info);
+                defendCountry.removeTroop();
+            }else if(attackDice.secondHighest() == defendDice.secondHighest()){
+                GameFrame.SideBar.log("Tie! " + name + " loses a troop\n", GameFrame.SideBar.info);
+                removeTroop();
+            }else{
+                GameFrame.SideBar.log(defendPlayer.name + " wins! " + name + " loses a troop\n", GameFrame.SideBar.info);
+                removeTroop();
+            }
+        }
+
+        if(defendCountry.troops <= 0){
+            defendCountry.setOwner(attackPlayer);
+            //fortify conquered territory with 1 troop (setOwner adds a troop)
+            removeTroop();
+            GameFrame.SideBar.log(attackPlayer.name + " has conquered " + defendCountry.name + "!!!\n", GameFrame.SideBar.info);
         }
     }
 
