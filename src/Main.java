@@ -5,7 +5,6 @@
  *  Stan O'Neill: 14368166
  *  Adam Doran: 14325416
  */
-import java.util.Random;
 
 public class Main {
 
@@ -24,6 +23,7 @@ public class Main {
             //waits 2 seconds so the name changing can be seen
             try { Thread.sleep(2000);}
             catch(InterruptedException ex) {}
+
         }
 
         //console log all countries
@@ -52,4 +52,3 @@ public class Main {
 
 
 }
-

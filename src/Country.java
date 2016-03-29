@@ -112,6 +112,11 @@ public class Country {
         Main.GameFrame.Map.repaint();
     }
 
+    public void removeTroops(int numTroops){
+        troops -= numTroops;
+        Main.GameFrame.Map.repaint();
+    }
+
     //set or reset troops to 0
     //[Update (Adam) 13/2/16] troops should be initialised to 1 
     public void setTroops(){
