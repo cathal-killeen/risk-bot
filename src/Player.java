@@ -202,6 +202,60 @@ public class Player {
         return total;
     }
 
+    //to skip the tedius process of initialising reinforcements
+    public static void randomInitReinforcements(){
+        while(totalTroopsToAllocate() > 0) {
+            Player currPlayer = players.get(currentPlayer);
+
+            if (currPlayer.isHuman()) {
+                int troopsToAllocate = 0;
+
+                //set troopsToAllocate, 3 by default, but remainder of reinforcements if total is less than 3
+                if (currPlayer.reinforcements >= 3) {
+                    troopsToAllocate = 3;
+                } else {
+                    troopsToAllocate = currPlayer.reinforcements;
+                }
+
+                //NOTE: this also handles case where one player finishes allocation before others
+                if (troopsToAllocate > 0) {
+                    GameFrame.SideBar.log(players.get(currentPlayer).name + "'s turn\n", GameFrame.SideBar.info);
+                    //repeat while troopsToAllocate is > 0
+                    do {
+                        ArrayList<Country> owned = currPlayer.getOwnedTerritories();
+                        int randomCountryIndex = (int)(Math.random()*owned.size());
+                        Country randomCountry = owned.get(randomCountryIndex);
+                        int randNumTroops = 1 + (int)(Math.random()*troopsToAllocate);
+                        GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to", GameFrame.SideBar.prompt);
+                        GameFrame.SideBar.log(randomCountry.name, GameFrame.SideBar.userInput);
+                        GameFrame.SideBar.log("You can allocate up to " + troopsToAllocate + " troops. How many would you like to allocate?", GameFrame.SideBar.prompt);
+                        GameFrame.SideBar.log("" + randNumTroops, GameFrame.SideBar.userInput);
+
+                        players.get(currentPlayer).reinforceCountry(randomCountry, randNumTroops);
+                        troopsToAllocate -= randNumTroops;
+                        GameFrame.SideBar.log(currPlayer.name + " reinforced " + randomCountry.name + " with " + randNumTroops + " troops\n", GameFrame.SideBar.info);
+                    } while (troopsToAllocate > 0);
+                }
+                //check if neutral players have reinforcements
+                if(players.get(5).reinforcements > 0){
+                    for(int i = 2; i<6; i++){
+                        Player neutralPlayer = players.get(i-1);
+                        GameFrame.SideBar.log("Select a territory belonging to Player " + (i-1) + " to reinforce with 1 troop", GameFrame.SideBar.prompt);
+
+                        ArrayList<Country> owned = neutralPlayer.getOwnedTerritories();
+                        int randomCountryIndex = (int)(Math.random()*owned.size());
+                        Country randomCountry = owned.get(randomCountryIndex);
+                        GameFrame.SideBar.log(randomCountry.name, GameFrame.SideBar.userInput);
+                        players.get(i).reinforceCountry(randomCountry, 1);
+                        GameFrame.SideBar.log(currPlayer.name + " reinforced " + randomCountry.name + " on behalf of Player " + (i-1) + "\n", GameFrame.SideBar.info);
+                    }
+                }
+            }
+            //go to next player
+            nextPlayer();
+        }
+    }
+
     public static void initReinforcements(){
         while(totalTroopsToAllocate() > 0) {
             Player currPlayer = players.get(currentPlayer);
