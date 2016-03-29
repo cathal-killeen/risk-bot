@@ -300,10 +300,10 @@ public class Player {
                 //check if neutral players have reinforcements
                 if(players.get(5).reinforcements > 0){
                     for(int i = 2; i<6; i++){
-                        Player neutralPlayer = players.get(i-1);
+
                         GameFrame.SideBar.log("Select a territory belonging to Player " + (i-1) + " to reinforce with 1 troop", GameFrame.SideBar.prompt);
 
-                        ArrayList<Country> owned = neutralPlayer.getOwnedTerritories();
+                        ArrayList<Country> owned = players.get(i).getOwnedTerritories();
                         int randomCountryIndex = (int)(Math.random()*owned.size());
                         Country randomCountry = owned.get(randomCountryIndex);
                         GameFrame.SideBar.log(randomCountry.name, GameFrame.SideBar.userInput);

@@ -13,6 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         init();
+        TurnCycle.play();
 
         //TESTS
 
@@ -36,7 +37,7 @@ public class Main {
         printWelcomeMessage();
         Player.createPlayers();
         Player.setPlayerOrder();
-        Player.initReinforcements();
+        Player.randomInitReinforcements();
         initialisationComplete = true;
     }
 
