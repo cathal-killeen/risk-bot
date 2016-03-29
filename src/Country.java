@@ -108,6 +108,7 @@ public class Country {
 
     public void removeTroops(int defeatedTroops){
         troops -= defeatedTroops;
+        Main.GameFrame.Map.repaint();
     }
 
     //set or reset troops to 0

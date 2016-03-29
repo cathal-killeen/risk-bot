@@ -5,7 +5,6 @@
  *  Stan O'Neill: 14368166
  *  Adam Doran: 14325416
  */
-import java.util.Random;
 
 public class Main {
 
@@ -25,6 +24,7 @@ public class Main {
             catch(InterruptedException ex) {}
 
             System.out.println("Current player: " + Player.players.get(Player.nextPlayer()).name);
+
         }
 
         //console log all countries
@@ -51,7 +51,5 @@ public class Main {
                             GameFrame.SideBar.info);
     }
 
-
-}
 
 }
