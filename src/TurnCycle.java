@@ -52,7 +52,7 @@ public class TurnCycle {
         int j=0;
         for (int i=0; i<6; i++){
             boolean ownsAll = true;
-            while (Constants.CONTINENT_IDS[j] == i) {
+            while (j < Constants.CONTINENT_IDS.length && Constants.CONTINENT_IDS[j] == i) {
                 if (Country.countries.get(j).getOwner().index != Player.currentPlayer){
                     ownsAll = false;
                 }
