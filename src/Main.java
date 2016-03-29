@@ -14,6 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         init();
+        TurnCycle.play();
 
         //TEST
 
@@ -22,8 +23,6 @@ public class Main {
             //waits 2 seconds so the name changing can be seen
             try { Thread.sleep(2000);}
             catch(InterruptedException ex) {}
-
-            System.out.println("Current player: " + Player.players.get(Player.nextPlayer()).name);
 
         }
 
@@ -40,7 +39,7 @@ public class Main {
         printWelcomeMessage();
         Player.createPlayers();
         Player.setPlayerOrder();
-        Player.initReinforcements();
+        Player.randomInitReinforcements();
         initialisationComplete = true;
     }
 
