@@ -121,7 +121,7 @@ public class TurnCycle {
                                     }else{
                                         GameFrame.SideBar.log("You own this territory. Please select one that you do not currently control.\n", GameFrame.SideBar.error);
                                         defendIndex = -1;
-                                        GameFrame.SideBar.getCommand();
+                                        attackerName = GameFrame.SideBar.getCommand();
                                     }
                                 }else{
                                     GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
