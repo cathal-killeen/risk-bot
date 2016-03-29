@@ -120,56 +120,58 @@ public class TurnCycle {
     }
 
     public static void fortify(){
-        String input;
         boolean complete = false;
-        while ((input = GameFrame.SideBar.getCommand().toLowerCase()) != "skip" && !complete) {
+        while (!complete){
             //figure out way to check if there exists an link between two chosen territories
             GameFrame.SideBar.log("Please enter a territory name you wish to fortify.\n", GameFrame.SideBar.prompt);
             String toBeFortified = GameFrame.SideBar.getCommand();
             //check if input is a country
-            int x;
-            int y;
-            if ((x = Commands.isCountry(toBeFortified)) >= 0) {
-                //check if player owns the country
-                if (Country.countries.get(x).getOwner().index == Player.currentPlayer) {
-                    GameFrame.SideBar.log("Please enter the name of the territory you wish to fortify from.\n", GameFrame.SideBar.prompt);
-                    String fortifyFrom = GameFrame.SideBar.getCommand();
-                    if ((y = Commands.isCountry(fortifyFrom)) >= 0) {
-                        //check if player owns the country
-                        if (Country.countries.get(y).getOwner().index == Player.currentPlayer) {
-                            //check if there are sufficient troops
-                            if (Country.countries.get(y).getTroopCount() > 1) {
-                                //check is there a link
-                                if (adjacencyCheck(Country.countries.get(x), Country.countries.get(y))){
-                                    GameFrame.SideBar.log("How many troops do you wish to fortify with?.\n", GameFrame.SideBar.prompt);
-                                    int troops = Integer.parseInt(GameFrame.SideBar.getCommand());
-                                    if (troops > 0 && troops < Country.countries.get(y).getTroopCount()){
-                                        Country.countries.get(y).removeTroops(troops);
-                                        Country.countries.get(x).addTroops(troops);
-                                        complete = true;
+            if (!(toBeFortified.toLowerCase().contains("skip"))) {
+                int x;
+                int y;
+                if ((x = Commands.isCountry(toBeFortified)) >= 0) {
+                    //check if player owns the country
+                    if (Country.countries.get(x).getOwner().index == Player.currentPlayer) {
+                        GameFrame.SideBar.log("Please enter the name of the territory you wish to fortify from.\n", GameFrame.SideBar.prompt);
+                        String fortifyFrom = GameFrame.SideBar.getCommand();
+                        if ((y = Commands.isCountry(fortifyFrom)) >= 0) {
+                            //check if player owns the country
+                            if (Country.countries.get(y).getOwner().index == Player.currentPlayer) {
+                                //check if there are sufficient troops
+                                if (Country.countries.get(y).getTroopCount() > 1) {
+                                    //check is there a link
+                                    if (adjacencyCheck(Country.countries.get(x), Country.countries.get(y))) {
+                                        GameFrame.SideBar.log("How many troops do you wish to fortify with?.\n", GameFrame.SideBar.prompt);
+                                        int troops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                                        if (troops > 0 && troops < Country.countries.get(y).getTroopCount()) {
+                                            Country.countries.get(y).removeTroops(troops);
+                                            Country.countries.get(x).addTroops(troops);
+                                            complete = true;
+                                        } else {
+                                            GameFrame.SideBar.log("That is an invalid number of troops. Please try again.\n", GameFrame.SideBar.error);
+                                        }
                                     } else {
-                                        GameFrame.SideBar.log("That is an invalid number of troops. Please try again.\n", GameFrame.SideBar.error);
+                                        GameFrame.SideBar.log("You do not control a path between these two territories. Please make a new selection.\n", GameFrame.SideBar.error);
                                     }
                                 } else {
-                                    GameFrame.SideBar.log("You do not control a path between these two territories. Please make a new selection.\n", GameFrame.SideBar.error);
+                                    GameFrame.SideBar.log("This territory does not have sufficient troops with which to fortify. Please choose another, or type 'skip' to proceed. \n", GameFrame.SideBar.error);
                                 }
                             } else {
-                                GameFrame.SideBar.log("This territory does not have sufficient troops with which to fortify. Please choose another, or type 'skip' to proceed. \n", GameFrame.SideBar.error);
+                                GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control.\n", GameFrame.SideBar.error);
                             }
                         } else {
-                            GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control.\n", GameFrame.SideBar.error);
+                            GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
                         }
                     } else {
-                        GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
+                        GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control.\n", GameFrame.SideBar.error);
                     }
                 } else {
-                    GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control.\n", GameFrame.SideBar.error);
+                    GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
                 }
             } else {
-                GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
+                complete = true;
             }
         }
-
     }
 
     public static boolean adjacencyCheck(Country c1, Country c2){
@@ -179,7 +181,7 @@ public class TurnCycle {
                 if (Country.countries.get(index) == c2){
                     return true;
                 }
-                adjacencyCheck(Country.countries.get(index) , c2);
+                return adjacencyCheck(Country.countries.get(index) , c2);
             }
         }
         return false;
