@@ -98,14 +98,32 @@ public class Player {
     public void allocateReinforcements(int troopsToAllocate){
         do {
             GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to", GameFrame.SideBar.prompt);
-            String territoryInput = GameFrame.SideBar.getCommand();
-            int countryIndex = Country.getCountry(territoryInput);
+            int countryIndex;
+            if(isHuman()){
+                String territoryInput = GameFrame.SideBar.getCommand();
+                countryIndex = Country.getCountry(territoryInput);
+            }else{
+                Country randomCountry = getOwnedTerritories().get((int)(Math.random()*getOwnedTerritories().size()));
+                countryIndex = randomCountry.index;
+                GameFrame.SideBar.log(randomCountry.name, GameFrame.SideBar.userInput);
+                try { Thread.sleep(600);}
+                catch(InterruptedException ex) {}
+            }
+
             if (countryIndex >= 0) {
                 if (Country.countries.get(countryIndex).getOwner().index == index) {
                     GameFrame.SideBar.log("You can allocate up to " + troopsToAllocate + " troops. How many would you like to allocate?", GameFrame.SideBar.prompt);
                     int numTroops = 0;
                     while (numTroops == 0) {
-                        numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                        if(isHuman()){
+                            numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                        }else{
+                            numTroops = 1 + (int)(Math.random()*troopsToAllocate);
+                            GameFrame.SideBar.log(numTroops + "\n", GameFrame.SideBar.userInput);
+                            try { Thread.sleep(800);}
+                            catch(InterruptedException ex) {}
+                        }
+
                         if (numTroops <= troopsToAllocate && numTroops > 0) {
                             reinforceCountry(Country.countries.get(countryIndex), numTroops);
                             troopsToAllocate -= numTroops;
