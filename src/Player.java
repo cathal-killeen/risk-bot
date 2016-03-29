@@ -168,6 +168,15 @@ public class Player {
         //Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
     }
 
+    public static Boolean doesWinnerExist(){
+        for(Player player: players){
+            if(player.isWinner()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void createPlayers(){
         String[] neutralPlayerNames = {
                 "Player 1",
