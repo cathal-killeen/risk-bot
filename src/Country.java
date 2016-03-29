@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Country {
     private Ellipse2D mapNode;
     private Ellipse2D ownershipNode;
     private int[] adjacents;
-    private int troops;
+    public int troops;
 
     public boolean hasOwner(){
         if(owner == null){
@@ -129,6 +130,16 @@ public class Country {
         b.append("\n");
         b.append("Coords: ").append(coOrds.toString()).append("\n");
         return b.toString();
+    }
+
+    //check if another country is adjacentg
+    public Boolean isAdjacent(Country otherCountry){
+        for(int i = 0; i < adjacents.length; i++){
+            if(adjacents[i] == otherCountry.index){
+                return true;
+            }
+        }
+        return false;
     }
 
 

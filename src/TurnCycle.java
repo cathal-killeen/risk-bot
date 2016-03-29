@@ -19,11 +19,15 @@ public class TurnCycle {
 
             currPlayer.allocateReinforcements(reinforcements);
 
+            if(currPlayer.isHuman()){
+                attackSequence();
+            }
+
 
             Player.nextPlayer();
         }
     }
-    
+
     public static int calculateReinforcements(){
         int reinforcementsToAllocate = 0;
         int[] continentsControlled = {0, 0, 0, 0, 0, 0};
@@ -55,7 +59,65 @@ public class TurnCycle {
         return reinforcementsToAllocate;
     }
 
+    public static void attack(){
+        Player currPlayer = Player.players.get(Player.currentPlayer);
+        int attackIndex = -1;
+        int defendIndex = -1;
+
+        GameFrame.SideBar.log("ATTACK!\nIf you do not wish to attack, type skip\n", GameFrame.SideBar.info);
+        GameFrame.SideBar.log("Select a country to attack from\n",GameFrame.SideBar.prompt);
+        String attackerName = GameFrame.SideBar.getCommand();
+        if(attackerName.toLowerCase() != "skip"){
+            while(attackIndex < 0){
+                attackIndex = Country.getCountry(attackerName);
+                //if user entered correct country
+                if(attackIndex >= 0){
+                    Country attackCountry = Country.countries.get(attackIndex);
+                    //if the current player owns the country
+                    if(attackCountry.getOwner() == currPlayer){
+                        //check if country has sufficient troops
+                        if(attackCountry.troops > 1){
+                            GameFrame.SideBar.log("Please select the territory you wish to attack\n", GameFrame.SideBar.prompt);
+                            String defenderName = GameFrame.SideBar.getCommand();
+                            while(defendIndex < 0){
+                                defendIndex = Country.getCountry(defenderName);
+                                //if user entered a country
+                                if(defendIndex >= 0){
+                                    Country defendCountry = Country.countries.get(defendIndex);
+                                    //check that player DOESNT own defendCountry
+                                    if(defendCountry.getOwner() != currPlayer){
+
+                                    }else{
+                                        GameFrame.SideBar.log("You own this territory. Please select one that you do not currently control.\n", GameFrame.SideBar.error);
+                                        defendIndex = -1;
+                                        GameFrame.SideBar.getCommand();
+                                    }
+                                }else{
+                                    GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
+                                }
+                            }
+
+                        }else{
+                            GameFrame.SideBar.log("This territory does not have sufficient troops to launch an attack. Please choose another, or type 'skip' to proceed. \n", GameFrame.SideBar.error);
+                            attackIndex = -1;
+                            GameFrame.SideBar.getCommand();
+                        }
+                    }else{
+                        GameFrame.SideBar.log("You do not own " + Country.countries.get(attackIndex).name + ". Please select one that you currently control.\n", GameFrame.SideBar.error);
+                        attackIndex = -1; //to go through loop again
+                        GameFrame.SideBar.getCommand();
+                    }
+                }else{
+                    GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name.\n", GameFrame.SideBar.error);
+                    GameFrame.SideBar.getCommand();
+                }
+            }
+        }
+    }
+
     public static void attackSequence(){
+
+
         String input;
         int x;
         int y;
