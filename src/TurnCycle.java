@@ -18,7 +18,10 @@ public class TurnCycle {
             GameFrame.SideBar.log("You received " + reinforcements + " backup reinforcements\n", GameFrame.SideBar.info);
 
             currPlayer.allocateReinforcements(reinforcements);
+            //attack here
 
+            //after attack
+            fortify();
 
             Player.nextPlayer();
         }
