@@ -15,7 +15,13 @@ public class Player {
     public String name;
     public Color color;
     public int reinforcements;
+    public ArrayList<Deck.Card> cards = new ArrayList<Deck.Card>(5);
 
+    //call to add card to player's collection if applicable
+    public void drawCard(){
+            cards.add(Deck.draw());
+    }
+    
     public Player(String name, int index){
         this.index = index;
         this.name = name;
