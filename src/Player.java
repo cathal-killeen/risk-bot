@@ -116,7 +116,14 @@ public class Player {
                     int numTroops = 0;
                     while (numTroops == 0) {
                         if(isHuman()){
-                            numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                            try
+                            {
+                                numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
+                            }
+                            catch (NumberFormatException ex)
+                            {
+                                //not an integer
+                            }
                         }else{
                             numTroops = 1 + (int)(Math.random()*troopsToAllocate);
                             GameFrame.SideBar.log(numTroops + "\n", GameFrame.SideBar.userInput);
