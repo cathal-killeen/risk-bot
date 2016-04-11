@@ -21,15 +21,15 @@ public class TurnCycle {
 
                 currPlayer.allocateReinforcements(reinforcements);
                 //attack here
-                Boolean didWinAttack = false;
                 if(currPlayer.isHuman()){
-                    didWinAttack =  attackSequence();
+                    Boolean didWinAttack = attackSequence();
                     fortifySequence();
-                }
-                if(didWinAttack){
-                    GameFrame.SideBar.log("You have recieved a territory card", GameFrame.SideBar.info);
-                    Deck.Card drawnCard = currPlayer.drawCard();
-                    GameFrame.SideBar.log("{{ " + drawnCard.country + " | " + drawnCard.insignia + " }}", GameFrame.SideBar.info);
+
+                    if(didWinAttack && Card.deck.size() > 0){
+                        GameFrame.SideBar.log("You have recieved a territory card", GameFrame.SideBar.info);
+                        Card drawnCard = currPlayer.drawCard();
+                        GameFrame.SideBar.info(drawnCard.toString());
+                    }
                 }
             }
             Player.nextPlayer();

@@ -36,6 +36,7 @@ public class Main {
 
     public static void init(){
         Country.createCountries();
+        Card.createDeck();
         GameFrame = new GameFrame();
         printWelcomeMessage();
         Player.createPlayers();
