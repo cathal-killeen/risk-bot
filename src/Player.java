@@ -16,7 +16,7 @@ public class Player {
     //call to add card to player's collection if applicable
     public Deck.Card drawCard(){
 
-        cards.add(Deck.draw());
+        cards.add(Main.deck.draw());
         return cards.get(cards.size()-1);
     }
     

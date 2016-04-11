@@ -12,6 +12,7 @@ public class Main {
     public static Boolean initialisationComplete = false;
 
     public static GameFrame GameFrame;
+    public static Deck deck;
 
     public static void main(String[] args) {
         init();
@@ -40,6 +41,7 @@ public class Main {
         printWelcomeMessage();
         Player.createPlayers();
         Player.setPlayerOrder();
+        Deck deck = new Deck();
         GameFrame.SideBar.log("Would you like to randomly add initial reinforcements? (Y/n)", GameFrame.SideBar.prompt);
         String input = GameFrame.SideBar.getCommand();
         if(input.toLowerCase().contains("y")){
