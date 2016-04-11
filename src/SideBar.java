@@ -65,6 +65,22 @@ public class SideBar extends JPanel {
         catch (BadLocationException ex){}
     }
 
+    public void error(String message){
+        log(message, error);
+    }
+
+    public void prompt(String message){
+        log(message, prompt);
+    }
+
+    public void userInput(String message){
+        log(message, userInput);
+    }
+
+    public void info(String message){
+        log(message, info);
+    }
+
     //listener for when user presses enter key in CommandField
     private Action enterKeyPressed = new AbstractAction(){
         @Override
