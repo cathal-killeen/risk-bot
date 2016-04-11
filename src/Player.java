@@ -13,12 +13,36 @@ public class Player {
     public int reinforcements;
     public ArrayList<Card> cards = new ArrayList<>();
 
+    public String cardsToString(){
+        String s = "";
+        for (Card card : cards) {
+            s += card.toString() + "\n";
+        }
+        return s;
+    }
+
     //call to add card to player's collection if applicable
     public Card drawCard(){
         Card drawn = Card.deck.remove((int)(Math.random()*Card.deck.size()));
         cards.add(drawn);
         return drawn;
     }
+
+    public Boolean hasPossibleTradeIn(){
+        if(cards.size() > 3) return false;
+        int[] counts = {0,0,0};             //infantry, cavalry, artillery
+        for(Card card: cards){
+            counts[card.insignia]++;
+        }
+        int x = 0;
+        for(int i=0;i<counts.length;i++){
+            if(counts[i] > 3) return true;
+            else if(counts[i] > 1) x++;
+        }
+        if(x==counts.length) return true;
+        return false;
+    }
+
     
     public Player(String name, int index){
         this.index = index;

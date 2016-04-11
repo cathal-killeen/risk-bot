@@ -31,6 +31,8 @@ public class Card {
     //static content
     public static ArrayList<Card> deck = new ArrayList<>();
 
+    public static ArrayList<Card> tradedIn = new ArrayList<>();
+
     public static void createDeck(){
         for(Country country: Country.countries){
             deck.add(new Card(country));

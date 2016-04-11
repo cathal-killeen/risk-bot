@@ -22,6 +22,7 @@ public class TurnCycle {
                 currPlayer.allocateReinforcements(reinforcements);
                 //attack here
                 if(currPlayer.isHuman()){
+                    cardSequence();
                     Boolean didWinAttack = attackSequence();
                     fortifySequence();
 
@@ -42,6 +43,13 @@ public class TurnCycle {
 
 
     }
+
+    public static void cardSequence(){
+         if(Player.players.get(Player.currentPlayer).hasPossibleTradeIn()){
+             GameFrame.SideBar.prompt("Would you like to trade in cards for reinforcements? (Y/n)");
+         }
+    }
+
 
     public static int calculateReinforcements(){
         int reinforcementsToAllocate = 0;
