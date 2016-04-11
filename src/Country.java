@@ -52,8 +52,8 @@ public class Country {
         ownershipNode.setFrameFromCenter(
                 coOrds.getX(),
                 coOrds.getY(),
-                coOrds.getX() + nodeRadius/2,
-                coOrds.getY() + nodeRadius/2);
+                coOrds.getX() + nodeRadius - 6,
+                coOrds.getY() + nodeRadius - 6);
     }
 
     // returns continents name from Constants class
