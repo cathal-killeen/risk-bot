@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -243,8 +245,9 @@ public class Country {
     }
 
 
-
-    public void attack(Country defendCountry, int attackTroops){
+    //returns true if the attack wins, false if the defense wins
+    public Boolean attack(Country defendCountry, int attackTroops){
+        Boolean attackWins = false;
         Player attackPlayer = getOwner();
         Player defendPlayer = defendCountry.getOwner();
         Dice attackDice = new Dice();
@@ -277,6 +280,7 @@ public class Country {
         if(attackDice.highest() > defendDice.highest()){
             GameFrame.SideBar.log(attackPlayer.name + " wins! " + defendCountry.name + " loses a troop\n", GameFrame.SideBar.info);
             defendCountry.removeTroop();
+            attackWins = true;
         }else if(attackDice.highest() == defendDice.highest()){
             GameFrame.SideBar.log("Tie! " + name + " loses a troop\n", GameFrame.SideBar.info);
             removeTroop();
@@ -293,6 +297,7 @@ public class Country {
             if(attackDice.secondHighest() > defendDice.secondHighest()){
                 GameFrame.SideBar.log(attackPlayer.name + " wins! " + defendCountry.name + " loses a troop\n", GameFrame.SideBar.info);
                 defendCountry.removeTroop();
+                attackWins = true;
             }else if(attackDice.secondHighest() == defendDice.secondHighest()){
                 GameFrame.SideBar.log("Tie! " + name + " loses a troop\n", GameFrame.SideBar.info);
                 removeTroop();
@@ -308,6 +313,8 @@ public class Country {
             removeTroop();
             GameFrame.SideBar.log(attackPlayer.name + " has conquered " + defendCountry.name + "!!!\n", GameFrame.SideBar.info);
         }
+
+        return attackWins;
     }
 
 

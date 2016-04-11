@@ -21,10 +21,15 @@ public class TurnCycle {
 
                 currPlayer.allocateReinforcements(reinforcements);
                 //attack here
-
+                Boolean didWinAttack = false;
                 if(currPlayer.isHuman()){
-                    attackSequence();
+                    didWinAttack =  attackSequence();
                     fortifySequence();
+                }
+                if(didWinAttack){
+                    GameFrame.SideBar.log("You have recieved a territory card", GameFrame.SideBar.info);
+                    Deck.Card drawnCard = currPlayer.drawCard();
+                    GameFrame.SideBar.log("{{ " + drawnCard.country + " | " + drawnCard.insignia + " }}", GameFrame.SideBar.info);
                 }
             }
             Player.nextPlayer();
@@ -69,7 +74,9 @@ public class TurnCycle {
         return reinforcementsToAllocate;
     }
 
-    public static void attackSequence(){
+    //returns true if the player won an attack during their turn, false if otherwise
+    public static Boolean attackSequence(){
+        Boolean attackWon = false;
         Player currPlayer = Player.players.get(Player.currentPlayer);
         Boolean skip = false;
 
@@ -124,7 +131,10 @@ public class TurnCycle {
                                                     }
                                                     //numTroops must be less than the number of troops on the territory (as at least one has to stay behind)
                                                     if(numTroops > 1 && numTroops <= maxAttackTroops && numTroops < attackCountry.troops){
-                                                        attackCountry.attack(defendCountry, numTroops);
+                                                        Boolean attackWins = attackCountry.attack(defendCountry, numTroops);
+                                                        if(attackWins){
+                                                            attackWon = true;
+                                                        }
 
                                                     }else{
                                                         GameFrame.SideBar.log("That is an invalid number of troops to attack with. You can attack with a max of " + maxAttackTroops + " troops. Try again:\n", GameFrame.SideBar.error);
@@ -173,6 +183,7 @@ public class TurnCycle {
             }
         }
 
+        return attackWon;
     }
 
     public static void fortifySequence(){

@@ -1,9 +1,5 @@
-import org.omg.CORBA.CODESET_INCOMPATIBLE;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 /**
@@ -15,11 +11,13 @@ public class Player {
     public String name;
     public Color color;
     public int reinforcements;
-    public ArrayList<Deck.Card> cards = new ArrayList<Deck.Card>(5);
+    public ArrayList<Deck.Card> cards = new ArrayList<Deck.Card>();
 
     //call to add card to player's collection if applicable
-    public void drawCard(){
-            cards.add(Deck.draw());
+    public Deck.Card drawCard(){
+
+        cards.add(Deck.draw());
+        return cards.get(cards.size()-1);
     }
     
     public Player(String name, int index){
