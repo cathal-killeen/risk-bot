@@ -9,6 +9,11 @@ import java.awt.geom.Point2D;
 public class Constants {
     public static int[] PLAYER_ORDER = new int[6];
 
+    public static final int[] INSIGNIAS = {2,3,3,1,2,3,1,2,1,
+                                            2,1,2,3,2,1,3,1,1,
+                                            3,1,2,2,2,3,1,3,3,
+                                            2,1,2,3,2,3,2,3,1,
+                                            2,1,3,1,3,1};
     public static final int NUM_PLAYERS = 2;
     public static final int NUM_NEUTRALS = 4;
     public static final int NUM_PLAYERS_PLUS_NEUTRALS = NUM_PLAYERS + NUM_NEUTRALS;
