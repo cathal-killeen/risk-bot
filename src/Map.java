@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -188,9 +187,13 @@ class PlayerNamesBar extends JPanel{
 					for (Country country : Player.players.get(player.index).getOwnedTerritories()) {
 						territories += country.getName() + "\n";
 					}
-					JOptionPane.showMessageDialog(null, territories, player.name, JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
+					String cards = "CARDS:\n";
+					for (Card card : Player.players.get(player.index).cards) {
+						cards += card.toString() + "\n";
+					}
+					JOptionPane.showMessageDialog(null, territories + "\n" + cards, player.name, JOptionPane.INFORMATION_MESSAGE);
+				}
+			});
         }
 
 		setVisible(true);

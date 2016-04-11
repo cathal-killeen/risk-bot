@@ -28,7 +28,7 @@ public class TurnCycle {
                     if(didWinAttack && Card.deck.size() > 0){
                         GameFrame.SideBar.log("You have recieved a territory card", GameFrame.SideBar.info);
                         Card drawnCard = currPlayer.drawCard();
-                        GameFrame.SideBar.info(drawnCard.toString());
+                        GameFrame.SideBar.info(drawnCard.toString() + "\n");
                     }
                 }
             }
