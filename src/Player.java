@@ -1,3 +1,6 @@
+
+import com.sun.tools.javac.util.StringUtils;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,6 +15,7 @@ public class Player {
     public Color color;
     public int reinforcements;
     public ArrayList<Card> cards = new ArrayList<>();
+    public int[] cardValues = new int[4];
 
     public String cardsToString(){
         String s = "";
@@ -23,27 +27,123 @@ public class Player {
 
     //call to add card to player's collection if applicable
     public Card drawCard(){
-        Card drawn = Card.deck.remove((int)(Math.random()*Card.deck.size()));
+        Card drawn = Card.deck.remove(Card.deck.size()-1);
         cards.add(drawn);
+        if (drawn.insigniaString().equals("w")){
+            cardValues[0]++;
+        } else if (drawn.insigniaString().equals("i")){
+            cardValues[1]++;
+        } else if (drawn.insigniaString().equals("c")){
+            cardValues[2]++;
+        } else if (drawn.insigniaString().equals("a")){
+            cardValues[3]++;
+        }
         return drawn;
     }
 
     public Boolean hasPossibleTradeIn(){
-        if(cards.size() > 3) return false;
+        if(cards.size() < 3) return false;
         int[] counts = {0,0,0};             //infantry, cavalry, artillery
         for(Card card: cards){
             counts[card.insignia]++;
         }
         int x = 0;
         for(int i=0;i<counts.length;i++){
-            if(counts[i] > 3) return true;
+            if(counts[i] > 3){
+                tradeInCards();
+                return true;
+            }
             else if(counts[i] > 1) x++;
         }
-        if(x==counts.length) return true;
+        if(x==counts.length) {
+            tradeInCards();
+            return true;
+        }
         return false;
     }
 
-    
+    public int tradeInCards() {
+        Boolean flag;
+        int numReinforcements = 0;
+        String tradeIns = "";
+        int test[] = new int[4];
+        ArrayList<Card> tradeCards = new ArrayList<Card>(3);
+        if (cards.size() < 5) {
+            String cont = "";
+            do {
+                Main.GameFrame.SideBar.log("Would you like to trade in cards? (y/n)\n", Main.GameFrame.SideBar.prompt);
+                cont = Main.GameFrame.SideBar.getCommand();
+                if (cont == "n") {
+                    return 0;
+                } else if (cont != "n"){
+                    Main.GameFrame.SideBar.log("Invalid Input.\n", Main.GameFrame.SideBar.error);
+                }
+            } while (cont != "y" || cont != "n");
+        }
+        do {
+            flag = false;
+            Main.GameFrame.SideBar.log("Which cards would you like to trade in? (Enter insignias)\n", Main.GameFrame.SideBar.prompt);
+            tradeIns = Main.GameFrame.SideBar.getCommand();
+            System.out.println(tradeIns.length());
+            if (tradeIns.length() != 3){
+                Main.GameFrame.SideBar.log("Invalid number of cards, you must choose 3.\n", Main.GameFrame.SideBar.error);
+            } else {
+                for (int i=0; i<3; i++){
+                    tradeIns = tradeIns.toLowerCase();
+
+                    test[0] = tradeIns.length() - tradeIns.replace("w", "").length();
+                    test[1] = tradeIns.length() - tradeIns.replace("i", "").length();
+                    test[2] = tradeIns.length() - tradeIns.replace("c", "").length();
+                    test[3] = tradeIns.length() - tradeIns.replace("a", "").length();
+
+                    if (test[0] + test[1] == 3 || test[0] + test[2] == 3 || test[0] + test[3] == 3){
+                        //do they own the cards
+                        boolean anotherFlag = false;
+                        for (int l = 0; l<4; l++){
+                            if (test[0] > cardValues[0]){
+                                anotherFlag = true;
+                            }else if (test[1] > cardValues[1]){
+                                anotherFlag = true;
+                            } else if (test[2] > cardValues[2]){
+                                anotherFlag = true;
+                            } else if (test[3] > cardValues[3]){
+                                anotherFlag = true;
+                            }
+                        }
+                        if (!anotherFlag){
+                            for (int x1 = 0; x1<4; x1++){
+                                for (int x2 = 0; x2<cards.size(); x2++){
+                                    if (test[x1] > 0 && cards.get(x2).insigniaString().equals("w")){
+                                        cards.remove(x2);
+                                        test[x1]--;
+                                    } else if (test[x1] > 0 && cards.get(x2).insigniaString().equals("i")){
+                                        cards.remove(x2);
+                                        test[x1]--;
+                                    } else if (test[x1] > 0 && cards.get(x2).insigniaString().equals("c")){
+                                        cards.remove(x2);
+                                        test[x1]--;
+                                    } else if (test[x1] > 0 && cards.get(x2).insigniaString().equals("a")){
+                                        cards.remove(x2);
+                                        test[x1]--;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    for (int j = 0; j<cards.size(); j++) {
+
+                            tradeCards.add(cards.remove(j));
+
+                    }
+                }
+            }
+        } while (tradeIns.length() != 3 && !flag);
+
+        return numReinforcements;
+
+    }
+
     public Player(String name, int index){
         this.index = index;
         this.name = name;

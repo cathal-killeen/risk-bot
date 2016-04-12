@@ -14,6 +14,7 @@ public class Constants {
                                             3,1,2,2,2,3,1,3,3,
                                             2,1,2,3,2,3,2,3,1,
                                             2,1,3,1,3,1};
+    public static int REINFORCEMENTS = 0;
     public static final int NUM_PLAYERS = 2;
     public static final int NUM_NEUTRALS = 4;
     public static final int NUM_PLAYERS_PLUS_NEUTRALS = NUM_PLAYERS + NUM_NEUTRALS;
