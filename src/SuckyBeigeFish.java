@@ -1,6 +1,6 @@
 // put your code here
 
-public class YourTeamName implements Bot {
+public class SuckyBeigeFish implements Bot {
 	// The public API of YourTeamName must not change
 	// You cannot change any other classes
 	// YourTeamName may not alter the state of the board or the player objects
@@ -9,8 +9,8 @@ public class YourTeamName implements Bot {
 	
 	private BoardAPI board;
 	private PlayerAPI player;
-	
-	YourTeamName (BoardAPI inBoard, PlayerAPI inPlayer) {
+
+	SuckyBeigeFish(BoardAPI inBoard, PlayerAPI inPlayer) {
 		board = inBoard;	
 		player = inPlayer;
 		// put your code here
