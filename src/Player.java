@@ -1,531 +1,165 @@
-
-import com.sun.tools.javac.util.StringUtils;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Random;
-
-/**
- * Created by Cathal on 07/02/16.
- */
-
-public class Player {
-    public int index;
-    public String name;
-    public Color color;
-    public int reinforcements;
-    public ArrayList<Card> cards = new ArrayList<>();
-    public int[] cardValues = new int[4];
-
-    public String cardsToString(){
-        String s = "";
-        for (Card card : cards) {
-            s += card.toString() + "\n";
-        }
-        return s;
-    }
-
-    //call to add card to player's collection if applicable
-    public Card drawCard(){
-        Card drawn = Card.deck.remove(Card.deck.size()-1);
-        cards.add(drawn);
-        if (drawn.insigniaString().equals("w")){
-            cardValues[0]++;
-        } else if (drawn.insigniaString().equals("i")){
-            cardValues[1]++;
-        } else if (drawn.insigniaString().equals("c")){
-            cardValues[2]++;
-        } else if (drawn.insigniaString().equals("a")){
-            cardValues[3]++;
-        }
-        return drawn;
-    }
-
-    public Boolean hasPossibleTradeIn(){
-        if(cards.size() < 3) return false;
-        int[] counts = {0,0,0};             //infantry, cavalry, artillery
-        for(Card card: cards){
-            counts[card.insignia]++;
-        }
-        int x = 0;
-        for(int i=0;i<counts.length;i++){
-            if(counts[i] > 3){
-                tradeInCards();
-                return true;
-            }
-            else if(counts[i] > 1) x++;
-        }
-        if(x==counts.length) {
-            tradeInCards();
-            return true;
-        }
-        return false;
-    }
-
-    public int tradeInCards() {
-        Boolean flag;
-        int numReinforcements = 0;
-        String tradeIns = "";
-        int test[] = new int[4];
-        ArrayList<Card> tradeCards = new ArrayList<Card>(3);
-        if (cards.size() < 5) {
-            String cont = "";
-            do {
-                Main.GameFrame.SideBar.log("Would you like to trade in cards? (y/n)\n", Main.GameFrame.SideBar.prompt);
-                cont = Main.GameFrame.SideBar.getCommand();
-                if (cont == "n") {
-                    return 0;
-                } else if (cont != "n"){
-                    Main.GameFrame.SideBar.log("Invalid Input.\n", Main.GameFrame.SideBar.error);
-                }
-            } while (cont != "y" || cont != "n");
-        }
-        do {
-            flag = false;
-            Main.GameFrame.SideBar.log("Which cards would you like to trade in? (Enter insignias)\n", Main.GameFrame.SideBar.prompt);
-            tradeIns = Main.GameFrame.SideBar.getCommand();
-            System.out.println(tradeIns.length());
-            if (tradeIns.length() != 3){
-                Main.GameFrame.SideBar.log("Invalid number of cards, you must choose 3.\n", Main.GameFrame.SideBar.error);
-            } else {
-                for (int i=0; i<3; i++){
-                    tradeIns = tradeIns.toLowerCase();
-
-                    test[0] = tradeIns.length() - tradeIns.replace("w", "").length();
-                    test[1] = tradeIns.length() - tradeIns.replace("i", "").length();
-                    test[2] = tradeIns.length() - tradeIns.replace("c", "").length();
-                    test[3] = tradeIns.length() - tradeIns.replace("a", "").length();
-
-                    if (test[0] + test[1] == 3 || test[0] + test[2] == 3 || test[0] + test[3] == 3){
-                        //do they own the cards
-                        boolean anotherFlag = false;
-                        for (int l = 0; l<4; l++){
-                            if (test[0] > cardValues[0]){
-                                anotherFlag = true;
-                            }else if (test[1] > cardValues[1]){
-                                anotherFlag = true;
-                            } else if (test[2] > cardValues[2]){
-                                anotherFlag = true;
-                            } else if (test[3] > cardValues[3]){
-                                anotherFlag = true;
-                            }
-                        }
-                        if (!anotherFlag){
-                            for (int x1 = 0; x1<4; x1++){
-                                for (int x2 = 0; x2<cards.size(); x2++){
-                                    if (test[x1] > 0 && cards.get(x2).insigniaString().equals("w")){
-                                        cards.remove(x2);
-                                        test[x1]--;
-                                    } else if (test[x1] > 0 && cards.get(x2).insigniaString().equals("i")){
-                                        cards.remove(x2);
-                                        test[x1]--;
-                                    } else if (test[x1] > 0 && cards.get(x2).insigniaString().equals("c")){
-                                        cards.remove(x2);
-                                        test[x1]--;
-                                    } else if (test[x1] > 0 && cards.get(x2).insigniaString().equals("a")){
-                                        cards.remove(x2);
-                                        test[x1]--;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                    for (int j = 0; j<cards.size(); j++) {
-
-                            tradeCards.add(cards.remove(j));
-
-                    }
-                }
-            }
-        } while (tradeIns.length() != 3 && !flag);
-
-        return numReinforcements;
-
-    }
-
-    public Player(String name, int index){
-        this.index = index;
-        this.name = name;
-        color = Constants.PLAYER_COLORS[index];
-        if(isHuman()){
-            reinforcements = 36;
-        }else{
-            reinforcements = 24;
-        }
-    }
-
-    public Boolean isLoser(){
-        if(getOwnedTerritories().size() <= 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public Boolean isWinner(){
-        //if the other human isLoser, then this player is the winner
-        if(isHuman()){
-            for(Player player: players){
-                if(player.index != index){
-                    if(player.isHuman()){
-                        if(player.isLoser()){
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public Boolean isHuman(){
-        if(index < 2){
-            return true;
-        } else{
-            return false;
-        }
-    }
-
-    public void allocateTerritory(Country country) {
-        country.setOwner(this);
-    }
-
-    public void addReinforcements(int num) {
-        reinforcements += num;
-    }
-
-    public void reinforceCountry(Country country, int troops){
-        country.addTroops(troops);
-        reinforcements -= troops;
-        Main.GameFrame.Map.repaint();
-        Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
-    }
-
-    public void initialTerritories(int numCountries){
-        int countryIndex;
-        Random random = new Random();
-        for(int i = 0; i < numCountries; i++){
-            countryIndex = Country.availableCountries.remove(random.nextInt(Country.availableCountries.size()));
-            Country.countries.get(countryIndex).setOwner(this);
-        }
-    }
-
-    public ArrayList<Country> getOwnedTerritories(){
-        ArrayList<Country> ownedTerritories = new ArrayList<>();
-
-        for(Country country: Country.countries){
-            if(country.getOwner() == this){
-                ownedTerritories.add(country);
-            }
-        }
-
-        return ownedTerritories;
-    }
-
-    public void allocateReinforcements(int troopsToAllocate){
-        do {
-            GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to", GameFrame.SideBar.prompt);
-            int countryIndex;
-            if(isHuman()){
-                String territoryInput = GameFrame.SideBar.getCommand();
-                countryIndex = Country.getCountry(territoryInput);
-            }else{
-                Country randomCountry = getOwnedTerritories().get((int)(Math.random()*getOwnedTerritories().size()));
-                countryIndex = randomCountry.index;
-                GameFrame.SideBar.log(randomCountry.name, GameFrame.SideBar.userInput);
-                try { Thread.sleep(600);}
-                catch(InterruptedException ex) {}
-            }
-
-            if (countryIndex >= 0) {
-                if (Country.countries.get(countryIndex).getOwner().index == index) {
-                    GameFrame.SideBar.log("You can allocate up to " + troopsToAllocate + " troops. How many would you like to allocate?", GameFrame.SideBar.prompt);
-                    int numTroops = 0;
-                    while (numTroops == 0) {
-                        if(isHuman()){
-                            try
-                            {
-                                numTroops = Integer.parseInt(GameFrame.SideBar.getCommand());
-                            }
-                            catch (NumberFormatException ex)
-                            {
-                                //not an integer
-                            }
-                        }else{
-                            numTroops = 1 + (int)(Math.random()*troopsToAllocate);
-                            GameFrame.SideBar.log(numTroops + "\n", GameFrame.SideBar.userInput);
-                            try { Thread.sleep(800);}
-                            catch(InterruptedException ex) {}
-                        }
-
-                        if (numTroops <= troopsToAllocate && numTroops > 0) {
-                            reinforceCountry(Country.countries.get(countryIndex), numTroops);
-                            troopsToAllocate -= numTroops;
-                        } else {
-                            GameFrame.SideBar.log("That is an invalid number of troops. Please enter number between 1 and " + troopsToAllocate + "\n", GameFrame.SideBar.error);
-                            numTroops = 0;
-                        }
-                    }
-                } else {
-                    GameFrame.SideBar.log("You do not own this territory. Please select one that you currently control\n", GameFrame.SideBar.error);
-                }
-            } else {
-                GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name\n", GameFrame.SideBar.error);
-            }
-        } while (troopsToAllocate > 0);
-    }
-
-
-    //
-    // STATIC CONTENT
-    //
-
-    //array list of all players
-    public static ArrayList<Player> players = new ArrayList<>();
-
-    //for storing the index of the current player
-    public static int currentPlayer = -1;
-
-    //sets currentPlayer to the next player, and returns the index of the next player
-    public static int nextPlayer(){
-        int arrayIndex = -1;
-        for(int i = 0; i < Constants.PLAYER_ORDER.length; i++){
-            if(Constants.PLAYER_ORDER[i] == currentPlayer){
-                arrayIndex = i;
-            }
-        }
-
-        if(arrayIndex == Constants.PLAYER_ORDER.length-1){
-            currentPlayer = Constants.PLAYER_ORDER[0];
-        }else{
-            currentPlayer = Constants.PLAYER_ORDER[arrayIndex+1];
-        }
-
-        //redraw player name bar
-        Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
-        return currentPlayer;
-    }
-
-    public static void setPlayerOrder(){
-
-        Dice dice = new Dice();
-        int p1Roll = -1;
-        int p2Roll = -2;
-        do {
-            //if repeated, print a prompt that notifies them of the problem
-            if (p1Roll == p2Roll){
-                Main.GameFrame.SideBar.log("Both players rolled the same value. Please go again\n", Main.GameFrame.SideBar.prompt);
-            }
-            //get p1 to roll
-            Main.GameFrame.SideBar.log(players.get(0).name + ", press enter to roll dice", Main.GameFrame.SideBar.prompt);
-            Main.GameFrame.SideBar.getCommand();
-            p1Roll = dice.roll();
-            Main.GameFrame.SideBar.log("You rolled a " + p1Roll + "\n", Main.GameFrame.SideBar.info);
-
-            //get p2 to roll
-            Main.GameFrame.SideBar.log(players.get(1).name + ", press enter to roll dice", Main.GameFrame.SideBar.prompt);
-            Main.GameFrame.SideBar.getCommand();
-            p2Roll = dice.roll();
-            Main.GameFrame.SideBar.log("You rolled a " + p2Roll + "\n", Main.GameFrame.SideBar.info);
-        } while (p1Roll == p2Roll);
-
-        if (p1Roll > p2Roll){
-            Constants.PLAYER_ORDER[0] = 0;
-            Constants.PLAYER_ORDER[1] = 1;
-        } else {
-            Constants.PLAYER_ORDER[0] = 1;
-            Constants.PLAYER_ORDER[1] = 0;
-        }
-        Constants.PLAYER_ORDER[2] = 2;
-        Constants.PLAYER_ORDER[3] = 3;
-        Constants.PLAYER_ORDER[4] = 4;
-        Constants.PLAYER_ORDER[5] = 5;
-
-        nextPlayer();
-        System.out.println("initial player:" + currentPlayer);
-
-        GameFrame.SideBar.log(players.get(currentPlayer).name + " goes first", GameFrame.SideBar.info);
-        //Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
-    }
-
-    public static Boolean doesWinnerExist(){
-        for(Player player: players){
-            if(player.isWinner()){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static Player getWinner(){
-        for(Player player: players){
-            if(player.isWinner()){
-                return player;
-            }
-        }
-        return null;
-    }
-
-    public static void createPlayers(){
-        String[] neutralPlayerNames = {
-                "Player 1",
-                "Player 2",
-                "Player 3",
-                "Player 4"
-        };
-
-        for(int i = 0; i < 6; i++){
-            if(i >= 0 && i <= 1){
-                // human players
-                players.add(new Player(getPlayerName(i+1), i));
-                players.get(i).initialTerritories(9);
-                GameFrame.SideBar.log("Creating player " + players.get(i).name + "\n", GameFrame.SideBar.info);
-            }else{
-                // neutral players
-                players.add(new Player(neutralPlayerNames[i-2], i));
-                players.get(i).initialTerritories(6);
-                GameFrame.SideBar.log("Creating neutral player " + players.get(i).name + "\n", GameFrame.SideBar.info);
-            }
-            String territories = "";
-            for(Country country: players.get(i).getOwnedTerritories()){
-                territories += "> " +country.getName() + "\n";
-            }
-            GameFrame.SideBar.log("Initialising territories for "
-                                        + players.get(i).name + "\n"
-                                        + territories, Main.GameFrame.SideBar.info);
-            Main.GameFrame.Map.repaint();
-            Main.GameFrame.Map.PlayerNamesBar.putPlayerNames();
-
-            //timeout not necessary, just looks cool!
-            try {
-                Thread.sleep(750);
-            } catch(InterruptedException ex) {
-
-            }
-        }
-
-    }
-
-    public static String getPlayerName(int playerNum){
-        String name = "";
-        GameFrame.SideBar.log("Enter name for player " + playerNum + ":", GameFrame.SideBar.prompt);
-        while(name.length() == 0){
-            name = GameFrame.SideBar.getCommand();
-        }
-        return name;
-    }
-
-    //gets the total number of troops that are to be allocated by all players
-    public static int totalTroopsToAllocate(){
-        int total = 0;
-        for(Player player: players){
-            total += player.reinforcements;
-        }
-        return total;
-    }
-
-    //to skip the tedius process of initialising reinforcements
-    public static void randomInitReinforcements(){
-        while(totalTroopsToAllocate() > 0) {
-            Player currPlayer = players.get(currentPlayer);
-
-            if (currPlayer.isHuman()) {
-                int troopsToAllocate = 0;
-
-                //set troopsToAllocate, 3 by default, but remainder of reinforcements if total is less than 3
-                if (currPlayer.reinforcements >= 3) {
-                    troopsToAllocate = 3;
-                } else {
-                    troopsToAllocate = currPlayer.reinforcements;
-                }
-
-                //NOTE: this also handles case where one player finishes allocation before others
-                if (troopsToAllocate > 0) {
-                    GameFrame.SideBar.log(players.get(currentPlayer).name + "'s turn\n", GameFrame.SideBar.info);
-                    //repeat while troopsToAllocate is > 0
-                    do {
-                        ArrayList<Country> owned = currPlayer.getOwnedTerritories();
-                        int randomCountryIndex = (int)(Math.random()*owned.size());
-                        Country randomCountry = owned.get(randomCountryIndex);
-                        int randNumTroops = 1 + (int)(Math.random()*troopsToAllocate);
-                        GameFrame.SideBar.log("Please enter a territory name to allocate reinforcements to", GameFrame.SideBar.prompt);
-                        GameFrame.SideBar.log(randomCountry.name, GameFrame.SideBar.userInput);
-                        GameFrame.SideBar.log("You can allocate up to " + troopsToAllocate + " troops. How many would you like to allocate?", GameFrame.SideBar.prompt);
-                        GameFrame.SideBar.log("" + randNumTroops, GameFrame.SideBar.userInput);
-
-                        players.get(currentPlayer).reinforceCountry(randomCountry, randNumTroops);
-                        troopsToAllocate -= randNumTroops;
-                        GameFrame.SideBar.log(currPlayer.name + " reinforced " + randomCountry.name + " with " + randNumTroops + " troops\n", GameFrame.SideBar.info);
-                    } while (troopsToAllocate > 0);
-                }
-                //check if neutral players have reinforcements
-                if(players.get(5).reinforcements > 0){
-                    for(int i = 2; i<6; i++){
-
-                        GameFrame.SideBar.log("Select a territory belonging to Player " + (i-1) + " to reinforce with 1 troop", GameFrame.SideBar.prompt);
-
-                        ArrayList<Country> owned = players.get(i).getOwnedTerritories();
-                        int randomCountryIndex = (int)(Math.random()*owned.size());
-                        Country randomCountry = owned.get(randomCountryIndex);
-                        GameFrame.SideBar.log(randomCountry.name, GameFrame.SideBar.userInput);
-                        players.get(i).reinforceCountry(randomCountry, 1);
-                        GameFrame.SideBar.log(currPlayer.name + " reinforced " + randomCountry.name + " on behalf of Player " + (i-1) + "\n", GameFrame.SideBar.info);
-                    }
-                }
-            }
-            //go to next player
-            nextPlayer();
-        }
-    }
-
-    public static void initReinforcements(){
-        while(totalTroopsToAllocate() > 0) {
-            Player currPlayer = players.get(currentPlayer);
-
-            if (currPlayer.isHuman()) {
-                int troopsToAllocate = 0;
-
-                //set troopsToAllocate, 3 by default, but remainder of reinforcements if total is less than 3
-                if (currPlayer.reinforcements >= 3) {
-                    troopsToAllocate = 3;
-                } else {
-                    troopsToAllocate = currPlayer.reinforcements;
-                }
-
-                //NOTE: this also handles case where one player finishes allocation before others
-                if (troopsToAllocate > 0) {
-                    GameFrame.SideBar.log(players.get(currentPlayer).name + "'s turn\n", GameFrame.SideBar.info);
-
-                    players.get(currentPlayer).allocateReinforcements(troopsToAllocate);
-                }
-                //check if neutral players have reinforcements
-                if(players.get(5).reinforcements > 0){
-                    for(int i = 2; i<6; i++){
-                        GameFrame.SideBar.log("Select a territory belonging to Player " + (i-1) + " to reinforce with 1 troop", GameFrame.SideBar.prompt);
-                        int countryIndex = -1;
-                        do {
-                            String territoryInput = GameFrame.SideBar.getCommand();
-                            countryIndex = Country.getCountry(territoryInput);
-                            if(countryIndex >= 0){
-                                if(Country.countries.get(countryIndex).getOwner().index == i){
-                                    players.get(i).reinforceCountry(Country.countries.get(countryIndex), 1);
-                                    GameFrame.SideBar.log(currPlayer.name + " reinforced " + Country.countries.get(countryIndex).name + " on behalf of Player " + (i-1) + "\n", GameFrame.SideBar.info);
-                                }else{
-                                    GameFrame.SideBar.log("Player " + (i-1) + " does not own " + Country.countries.get(countryIndex).name + ". Please select a territory owned by Player " + (i-1) + "\n", GameFrame.SideBar.error);
-                                    countryIndex = -1;
-                                }
-                            }else{
-                                GameFrame.SideBar.log("That doesn't appear to be a territory. Please enter a valid territory name\n", GameFrame.SideBar.error);
-                            }
-                        }while(countryIndex <= 0);
-                    }
-                }
-            }
-            //go to next player
-            nextPlayer();
-        }
-    }
-
-
+import java.util.*;
+import java.util.Collections;
+
+public class Player implements PlayerAPI {
+	
+	private int id;
+	private String name = "";
+	private int numUnits = 0;
+	private ArrayList<Integer> dice = new ArrayList<Integer>();
+	private int battleLoss = 0;
+	private ArrayList<Card> cards = new ArrayList<Card>();
+	private boolean isBot = false;
+	private Bot bot;
+	
+	Player (int inId) {
+		id = inId;
+		return;
+	}
+	
+	public void setName (String inName) {
+		name = inName;
+		return;
+	}
+	
+	public void setBot (Bot inBot) {
+		isBot = true;
+		bot = inBot;
+		return;
+	}
+	
+	public Bot getBot () {
+		return bot;
+	}
+		
+	public void rollDice (int numDice) {
+		dice.clear();
+		for (int j=0; j<numDice; j++) {
+				dice.add(1 + (int)(Math.random() * 6));   
+		}
+		Collections.sort(dice, Collections.reverseOrder());
+		return;
+	}
+
+	public void addUnits (int inNum) {
+		numUnits = numUnits + inNum;
+		return;
+	}
+	
+	public void subtractUnits (int inNum) {
+		numUnits = numUnits - inNum;
+		return;
+	}
+	
+	public void addCard (Card inCard) {
+		cards.add(inCard);
+		return;
+	}
+	
+	public void addCards (ArrayList<Card> inCards) {
+		cards.addAll(inCards);
+		return;
+	}
+	
+	private Card subtractCard (int cardInsigniaId) {
+		Card discard = new Card();
+		boolean currentFound = false;
+		for (int j=0; (j<cards.size()) && !currentFound; j++) {
+			if (cardInsigniaId == cards.get(j).getInsigniaId()) {
+				discard = cards.remove(j);
+				currentFound = true;
+			}
+		}
+		return discard;
+	}
+	
+	public ArrayList<Card> subtractCards (int[] cardInsigniaIds) {
+		// precondition: check the cards are available
+		ArrayList<Card> discards = new ArrayList<Card>();
+		for (int i=0; i<cardInsigniaIds.length; i++) {
+			discards.add(subtractCard(cardInsigniaIds[i]));
+		}
+		return discards;
+	}
+
+	public boolean isCardsAvailable (int[] cardInsigniaIds) {
+		boolean currentFound = true;      // just to start the loop
+		ArrayList<Card> copyCards = new ArrayList<Card>(cards);
+		for (int i=0; (i<cardInsigniaIds.length) && currentFound; i++) {
+			currentFound = false;
+			for (int j=0; (j<copyCards.size()) && !currentFound; j++) {
+				if (cardInsigniaIds[i] == copyCards.get(j).getInsigniaId()) {
+					copyCards.remove(j);
+					currentFound = true;
+				}
+			}
+		}
+		return currentFound;
+	}
+	
+	public boolean isForcedExchange () {
+		return (cards.size()>=GameData.MAX_NUM_CARDS);
+	}
+	
+	public boolean isOptionalExchange () {
+		boolean found = false;
+		int[] set = new int[Deck.SET_SIZE];
+		for (int i=0; (i<Deck.NUM_SETS) && !found; i++) {
+			for (int j=0; j<Deck.SET_SIZE; j++) {
+				set[j] = Deck.SETS[i][j];
+			}
+			found = isCardsAvailable(set);
+		}
+		return found;
+	}
+	
+	public boolean isBot () {
+		return isBot;
+	}
+
+	public int getId () {
+		return id;
+	}
+	
+	public String getName () {
+		return name;
+	}
+	
+	public int getNumUnits () {
+		return numUnits;
+	}
+
+	public ArrayList<Integer> getDice () {
+		return dice;
+	}
+	
+	public int getDie (int dieId) {
+		return dice.get(dieId);
+	}
+	
+	public void resetBattleLoss () {
+		battleLoss = 0;
+		return;
+	}
+	
+	public void addBattleLoss () {
+		battleLoss++;
+		return;
+	}
+	
+	public int getBattleLoss () {
+		return battleLoss;
+	}
+	
+	public ArrayList<Card> getCards () {
+		ArrayList<Card> copyCards = new ArrayList<Card>(cards);
+		return copyCards;
+	}
+	
+	public ArrayList<Card> removeCards () {
+		ArrayList<Card> allCards = new ArrayList<Card>(cards);
+		cards.clear();
+		return allCards;
+	}
+		
 }
