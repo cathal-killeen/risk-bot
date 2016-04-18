@@ -3,4 +3,5 @@
 out/
 *.project
 META-INF/
+.idea/
 
