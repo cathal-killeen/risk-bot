@@ -1,5 +1,7 @@
 // put your code here
 
+import com.sun.tools.internal.jxc.ap.Const;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -170,6 +172,35 @@ public class SuckyBeigeFish implements Bot {
         return groups;
     }
 
+    //class for checking info on possible attack
+    class Attack{
+        Country attacker;
+        Country defender;
+
+        public Attack(Country a, Country d){
+            attacker = a;
+            defender = d;
+        }
+
+        public int troopDifference(){
+            return attacker.numUnits() - defender.numUnits();
+        }
+
+        public int troopRatio(){
+            return (int)((attacker.numUnits()/defender.numUnits()) * 100);
+        }
+
+
+        public Boolean isPossible(){
+            if(attacker.index != defender.index && attacker.isAdjacent(defender) && attacker.numUnits() > 1){
+                return true;
+            }
+            return false;
+        }
+
+
+    }
+
 
     //Player class for tracking each of the players on the board - named member so not to clash with Main Player class
     class Member{
@@ -335,6 +366,16 @@ public class SuckyBeigeFish implements Bot {
 
         public ArrayList<Country> getOwnedAdjacents(){
             return getOwnedAdjacents(new ArrayList<Country>());
+        }
+
+        //check if adjacent to another country
+        public Boolean isAdjacent(Country country){
+            for(int i=0; i<adjacents.length; i++) {
+                if(country.index == adjacents[i]){
+                    return true;
+                }
+            }
+            return false;
         }
 
         //get the neighboring countries owned by the same person as this country
