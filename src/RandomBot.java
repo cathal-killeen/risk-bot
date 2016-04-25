@@ -492,9 +492,11 @@ public class RandomBot implements Bot {
         }
 
         //get the group of countries that this country belongs to - ie all of the countries connected and owned by the same player
-        public ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
-            ArrayList<Country> countryGroup = new ArrayList<>();
-            countryGroup.add(this);
+        private ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
+            ArrayList<Country> thisCountry = new ArrayList<>();
+            thisCountry.add(this);
+
+            ArrayList<Country> countryGroup = mergeCountryGroups(new ArrayList<Country>(), thisCountry);
 
             ArrayList<Country> ownedAdjacents = getOwnedAdjacents(excludeList);
             if(ownedAdjacents.size() > 0){

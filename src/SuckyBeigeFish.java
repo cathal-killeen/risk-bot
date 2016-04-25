@@ -1,8 +1,6 @@
 // put your code here
 
 
-import sun.java2d.SurfaceDataProxy;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,6 +19,8 @@ public class SuckyBeigeFish implements Bot {
     private ArrayList<Member> members;
 
     private ArrayList<Turn> turns = new ArrayList<>();
+
+    private Attack lastAttack;
 
 	SuckyBeigeFish(BoardAPI inBoard, PlayerAPI inPlayer) {
 		board = inBoard;	
@@ -115,13 +115,13 @@ public class SuckyBeigeFish implements Bot {
                 String defendName = attack.defender.name.replaceAll("\\s", "");
 
                 command = attackName + " " + defendName + " " + attack.attacker.maxPossibleAttackTroops();
+                lastAttack = attack;
             }else{
                 command = "skip";
             }
         }else{
             command = "skip";
         }
-
 
 		return(command);
 	}
@@ -136,14 +136,25 @@ public class SuckyBeigeFish implements Bot {
 	public String getMoveIn (int attackCountryId) {
 		String command = "";
 		// put your code here
-		command = "0";
+        Fortify fortify = new Fortify(lastAttack);
+		command += fortify.numTroops();
 		return(command);
 	}
 
 	public String getFortify () {
 		String command = "";
 		// put code here
-		command = "skip";
+        ArrayList<Fortify> possibleFortify = getPossibleFortify();
+        if(possibleFortify.size() > 0){
+            Collections.sort(possibleFortify, compareFortifyByTroops);
+            Fortify fortify = possibleFortify.get(possibleFortify.size()-1);
+            String donator = fortify.donator.name.replaceAll("\\s", "");
+            String reciever = fortify.reciever.name.replaceAll("\\s", "");
+
+            command = donator + " " + reciever + " " + fortify.numTroops();
+        }else{
+            command = "skip";
+        }
 
         //fortify is the last step in each turn
         turns.add(new Turn());
@@ -272,6 +283,20 @@ public class SuckyBeigeFish implements Bot {
 
     }
 
+    private ArrayList<Fortify> getPossibleFortify(){
+        ArrayList<Fortify> list = new ArrayList<>();
+        for(CountryGroup group: members.get(myId()).getOwnedCountryGroups()){
+            if(group.hasOuter() && group.hasInner()){
+                Fortify f = new Fortify(group.strongestInner(), group.weakestOuter());
+                if(f.isPossible()){
+                    list.add(f);
+                    f.toString();
+                }
+            }
+        }
+        return list;
+    }
+
     class Fortify{
         Country donator;
         Country reciever;
@@ -279,6 +304,11 @@ public class SuckyBeigeFish implements Bot {
         public Fortify(Country d, Country r){
             donator = d;
             reciever = r;
+        }
+
+        public Fortify(Attack attack){
+            donator = attack.attacker;
+            reciever = attack.defender;
         }
 
         public int numTroops(){
@@ -293,6 +323,12 @@ public class SuckyBeigeFish implements Bot {
                 return true;
             }
             return false;
+        }
+
+        public String toString(){
+            return donator.name + "(" + donator.numUnits() + ") " +
+                    "--(" + numTroops() + ")--> " +
+                    reciever.name + "(" + reciever.numUnits() + ")";
         }
     }
 
@@ -397,6 +433,14 @@ public class SuckyBeigeFish implements Bot {
 
         CountryGroup(ArrayList<Country> g){
             list = g;
+        }
+
+        public Boolean hasInner(){
+            return (innerCountries().size() > 0);
+        }
+
+        public Boolean hasOuter(){
+            return (outerCountries().size() > 0);
         }
 
         public Country strongestInner(){
@@ -578,10 +622,13 @@ public class SuckyBeigeFish implements Bot {
             return getCountryGroup(new ArrayList<Country>());
         }
 
+
         //get the group of countries that this country belongs to - ie all of the countries connected and owned by the same player
-        public ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
-            ArrayList<Country> countryGroup = new ArrayList<>();
-            countryGroup.add(this);
+        private ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
+            ArrayList<Country> thisCountry = new ArrayList<>();
+            thisCountry.add(this);
+
+            ArrayList<Country> countryGroup = mergeCountryGroups(new ArrayList<Country>(), thisCountry);
 
             ArrayList<Country> ownedAdjacents = getOwnedAdjacents(excludeList);
             if(ownedAdjacents.size() > 0){
@@ -638,6 +685,14 @@ public class SuckyBeigeFish implements Bot {
             return new Double(a.troopRatio()).compareTo(new Double(b.troopRatio()));
         }
     };
+
+    Comparator<Fortify> compareFortifyByTroops = new Comparator<Fortify>() {
+        @Override
+        public int compare(Fortify a, Fortify b) {
+            return new Integer(a.numTroops()).compareTo(new Integer(b.numTroops()));
+        }
+    };
+
 
     //*******
     //TEST AREA
