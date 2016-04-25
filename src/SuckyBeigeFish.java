@@ -82,16 +82,30 @@ public class SuckyBeigeFish implements Bot {
         command = country;
 		return(command);
 	}
-	
-	public String getCardExchange () {
-		String command = "";
-		// put your code here
 
+    public String getCardExchange () {
+        String command = "";
+        // put your code here
+        if(player.getCards().size() >= 5){
+            ArrayList<String> possibleTradeIns = getTradeIns();
+            //if there are zero possible tradeins, resort to wild cards
+            if(possibleTradeIns.size() == 0) {
+                ArrayList<String> wildTradeIns = getWildTradeIns();
+                if(wildTradeIns.size() == 0){
+                    command = "skip";
+                }else{
+                    command = wildTradeIns.get(0);
+                }
+            }else{
+                command = possibleTradeIns.get(0);
+            }
 
+        }else{
+            command = "skip";
+        }
 
-		command = "skip";
-		return(command);
-	}
+        return(command);
+    }
 
 	public String getBattle () {
 		String command = "";
@@ -99,11 +113,26 @@ public class SuckyBeigeFish implements Bot {
 
         ArrayList<Attack> possibleAttacks = members.get(myId()).getPossibleAttacks();
         Collections.sort(possibleAttacks, compareAttackByRatio);
-        for(Attack a: possibleAttacks){
-            System.out.println(a);
+        //test
+//        for(Attack a: possibleAttacks){
+//            System.out.println(a);
+//        }
+
+        if(possibleAttacks.size() != 0){
+            Attack attack = possibleAttacks.get(possibleAttacks.size()-1);
+            if(attack.troopDifference() > 0){
+                String attackName = attack.attacker.name.replaceAll("\\s", "");
+                String defendName = attack.defender.name.replaceAll("\\s", "");
+
+                command = attackName + " " + defendName + " " + attack.attacker.maxPossibleAttackTroops();
+            }else{
+                command = "skip";
+            }
+        }else{
+            command = "skip";
         }
 
-		command = "skip";
+
 		return(command);
 	}
 
@@ -176,6 +205,59 @@ public class SuckyBeigeFish implements Bot {
         return groups;
     }
 
+    private ArrayList<String> getTradeIns(){
+        ArrayList<Card> myCards = player.getCards();
+        int[] counters = {0,0,0,0};         //infantry, cavalry, artillery, wild;
+        for(Card card: myCards){
+            counters[card.getInsigniaId()]++;
+        }
+
+        ArrayList<String> tradeIns = new ArrayList<>();
+        if(counters[0] >= 3){
+            tradeIns.add(new String("iii"));
+        }
+        if(counters[1] >= 3){
+            tradeIns.add(new String("ccc"));
+        }
+        if(counters[2] >= 3){
+            tradeIns.add(new String("aaa"));
+        }
+        if(counters[0] > 1 && counters[1] > 1 && counters[2] > 1){
+            tradeIns.add(new String("ica"));
+        }
+
+        return tradeIns;
+    }
+
+    private ArrayList<String> getWildTradeIns(){
+        ArrayList<Card> myCards = player.getCards();
+        int[] c = {0,0,0,0};         //infantry, cavalry, artillery, wild;
+        for(Card card: myCards){
+            c[card.getInsigniaId()]++;
+        }
+
+        ArrayList<String> tradeIns = new ArrayList<>();
+        if(c[3] >= 3){
+            tradeIns.add(new String("www"));
+        }
+        if(c[3] >= 1 && (c[0]+c[1]+c[2]) >= 2){
+            if(c[0] >= 2){  tradeIns.add(new String("iiw"));}
+            if(c[1] >= 2){  tradeIns.add(new String("ccw"));}
+            if(c[2] >= 2){  tradeIns.add(new String("aaw"));}
+
+            if(c[0]>1 && c[1]>1){   tradeIns.add(new String("icw"));}
+            if(c[1]>1 && c[2]>1){   tradeIns.add(new String("wca"));}
+            if(c[0]>1 && c[2]>1){   tradeIns.add(new String("iwc"));}
+        }
+        if(c[3] >= 2 && (c[0]+c[1]+c[2]) >= 1){
+            if(c[0] >= 1){  tradeIns.add(new String("iww"));}
+            if(c[1] >= 1){  tradeIns.add(new String("cww"));}
+            if(c[2] >= 1){  tradeIns.add(new String("aww"));}
+        }
+
+        return tradeIns;
+    }
+
     //class for checking info on possible attack
     class Attack{
         Country attacker;
@@ -196,7 +278,7 @@ public class SuckyBeigeFish implements Bot {
 
 
         public Boolean isPossible(){
-            if(attacker.index != defender.index && attacker.isAdjacent(defender) && attacker.numUnits() > 1){
+            if(attacker.index != defender.index && attacker.owner() != defender.owner() && attacker.isAdjacent(defender) && attacker.numUnits() > 1){
                 return true;
             }
             return false;
@@ -389,6 +471,14 @@ public class SuckyBeigeFish implements Bot {
 
         public ArrayList<Country> getOwnedAdjacents(){
             return getOwnedAdjacents(new ArrayList<Country>());
+        }
+
+        public int maxPossibleAttackTroops(){
+            if(numUnits() > 3){
+                return 3;
+            }else{
+                return numUnits()-1;
+            }
         }
 
         //check if adjacent to another country

@@ -71,10 +71,24 @@ public class RandomBot implements Bot {
     public String getCardExchange () {
         String command = "";
         // put your code here
+        if(player.isForcedExchange()){
+            ArrayList<String> possibleTradeIns = getTradeIns();
+            //if there are zero possible tradeins, resort to wild cards
+            if(possibleTradeIns.size() == 0) {
+                ArrayList<String> wildTradeIns = getWildTradeIns();
+                if(wildTradeIns.size() == 0){
+                    command = "skip";
+                }else{
+                    command = wildTradeIns.get(0);
+                }
+            }else{
+                command = possibleTradeIns.get(0);
+            }
 
+        }else{
+            command = "skip";
+        }
 
-
-        command = "skip";
         return(command);
     }
 
@@ -82,8 +96,17 @@ public class RandomBot implements Bot {
         String command = "";
         // put your code here
 
+        ArrayList<Attack> possibleAttacks = members.get(myId()).getPossibleAttacks();
+        if(possibleAttacks.size() != 0){
+            Attack attack = possibleAttacks.get((int)(Math.random() * possibleAttacks.size() -1));
+            String attackName = attack.attacker.name.replaceAll("\\s", "");
+            String defendName = attack.defender.name.replaceAll("\\s", "");
 
-        command = "skip";
+            command = attackName + " " + defendName + " " + attack.attacker.maxPossibleAttackTroops();
+        }else{
+            command = "skip";
+        }
+
         return(command);
     }
 
@@ -124,6 +147,59 @@ public class RandomBot implements Bot {
 
     }
 
+    private ArrayList<String> getTradeIns(){
+        ArrayList<Card> myCards = player.getCards();
+        int[] counters = {0,0,0,0};         //infantry, cavalry, artillery, wild;
+        for(Card card: myCards){
+            counters[card.getInsigniaId()]++;
+        }
+
+        ArrayList<String> tradeIns = new ArrayList<>();
+        if(counters[0] >= 3){
+            tradeIns.add(new String("iii"));
+        }
+        if(counters[1] >= 3){
+            tradeIns.add(new String("ccc"));
+        }
+        if(counters[2] >= 3){
+            tradeIns.add(new String("aaa"));
+        }
+        if(counters[0] > 1 && counters[1] > 1 && counters[2] > 1){
+            tradeIns.add(new String("ica"));
+        }
+
+        return tradeIns;
+    }
+
+    private ArrayList<String> getWildTradeIns(){
+        ArrayList<Card> myCards = player.getCards();
+        int[] c = {0,0,0,0};         //infantry, cavalry, artillery, wild;
+        for(Card card: myCards){
+            c[card.getInsigniaId()]++;
+        }
+
+        ArrayList<String> tradeIns = new ArrayList<>();
+        if(c[3] >= 3){
+            tradeIns.add(new String("www"));
+        }
+        if(c[3] >= 1 && (c[0]+c[1]+c[2]) >= 2){
+            if(c[0] >= 2){  tradeIns.add(new String("iiw"));}
+            if(c[1] >= 2){  tradeIns.add(new String("ccw"));}
+            if(c[2] >= 2){  tradeIns.add(new String("aaw"));}
+
+            if(c[0]>1 && c[1]>1){   tradeIns.add(new String("icw"));}
+            if(c[1]>1 && c[2]>1){   tradeIns.add(new String("wca"));}
+            if(c[0]>1 && c[2]>1){   tradeIns.add(new String("iwc"));}
+        }
+        if(c[3] >= 2 && (c[0]+c[1]+c[2]) >= 1){
+            if(c[0] >= 1){  tradeIns.add(new String("iww"));}
+            if(c[1] >= 1){  tradeIns.add(new String("cww"));}
+            if(c[2] >= 1){  tradeIns.add(new String("aww"));}
+        }
+
+        return tradeIns;
+    }
+
     //creates a list of all the countries on the board - country data can then be easily accessed by using 'countries.get(countryId)'
     private ArrayList<Country> createCountriesList(){
         ArrayList<Country> list = new ArrayList<>();
@@ -154,6 +230,41 @@ public class RandomBot implements Bot {
             }
         }
         return groups;
+    }
+
+    //class for checking info on possible attack
+    class Attack{
+        Country attacker;
+        Country defender;
+
+        public Attack(Country a, Country d){
+            attacker = a;
+            defender = d;
+        }
+
+        public int troopDifference(){
+            return attacker.numUnits() - defender.numUnits();
+        }
+
+        public double troopRatio(){
+            return (double)attacker.numUnits()/defender.numUnits();
+        }
+
+
+        public Boolean isPossible(){
+            if(attacker.index != defender.index && attacker.owner() != defender.owner() && attacker.isAdjacent(defender) && attacker.numUnits() > 1){
+                return true;
+            }
+            return false;
+        }
+
+        public String toString(){
+            return attacker.owner() + ": " + attacker.name + "(" + attacker.numUnits() + ")" + " -> " +
+                    defender.owner() + ": " + defender.name + "(" + defender.numUnits() + ")" + ", " +
+                    troopRatio();
+        }
+
+
     }
 
 
@@ -187,8 +298,21 @@ public class RandomBot implements Bot {
             return ownedTerritories;
         }
 
+        public ArrayList<Attack> getPossibleAttacks(){
+            ArrayList<Attack> attacks = new ArrayList<>();
+            for(Country country: ownedCountries()){
+                for(int i=0; i<country.adjacents.length; i++){
+                    Attack a = new Attack(country, countries.get(country.adjacents[i]));
+                    if(a.isPossible()){
+                        attacks.add(a);
+                    }
+                }
+            }
+            return attacks;
+        }
+
         //returns a list of all of the country groups owned by this player
-        private ArrayList<CountryGroup> getOwnedCountryGroups(){
+        public ArrayList<CountryGroup> getOwnedCountryGroups(){
             ArrayList<CountryGroup> groups = new ArrayList<>();
             ArrayList<Country> exclude = new ArrayList<>();
             for(Country country: ownedCountries()){
@@ -323,6 +447,24 @@ public class RandomBot implements Bot {
             return getOwnedAdjacents(new ArrayList<Country>());
         }
 
+        public int maxPossibleAttackTroops(){
+            if(numUnits() > 3){
+                return 3;
+            }else{
+                return numUnits()-1;
+            }
+        }
+
+        //check if adjacent to another country
+        public Boolean isAdjacent(Country country){
+            for(int i=0; i<adjacents.length; i++) {
+                if(country.index == adjacents[i]){
+                    return true;
+                }
+            }
+            return false;
+        }
+
         //get the neighboring countries owned by the same person as this country
         private ArrayList<Country> getOwnedAdjacents(ArrayList<Country> excludeList){
             ArrayList<Country> adjacentsList = new ArrayList<>();
@@ -395,6 +537,13 @@ public class RandomBot implements Bot {
         }
     };
 
+    Comparator<Attack> compareAttackByRatio = new Comparator<Attack>() {
+        @Override
+        public int compare(Attack a, Attack b) {
+            return new Double(a.troopRatio()).compareTo(new Double(b.troopRatio()));
+        }
+    };
+
     //*******
     //TEST AREA
     //*******
@@ -417,4 +566,3 @@ public class RandomBot implements Bot {
         return;
     }
 }
-
