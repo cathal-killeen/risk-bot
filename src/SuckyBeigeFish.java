@@ -1,6 +1,8 @@
 // put your code here
 
 
+import sun.java2d.SurfaceDataProxy;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -270,6 +272,30 @@ public class SuckyBeigeFish implements Bot {
 
     }
 
+    class Fortify{
+        Country donator;
+        Country reciever;
+
+        public Fortify(Country d, Country r){
+            donator = d;
+            reciever = r;
+        }
+
+        public int numTroops(){
+            if(donator.numUnits() == 2){
+                return 1;
+            }
+            return (int)((donator.numUnits()/3)*2) -1;
+        }
+
+        public Boolean isPossible(){
+            if(donator.numUnits() > 1 && donator.doesLinkExist(reciever)){
+                return true;
+            }
+            return false;
+        }
+    }
+
 
     //Player class for tracking each of the players on the board - named member so not to clash with Main Player class
     class Member{
@@ -373,6 +399,46 @@ public class SuckyBeigeFish implements Bot {
             list = g;
         }
 
+        public Country strongestInner(){
+            ArrayList<Country> inner = innerCountries();
+            Collections.sort(inner, compareCountryByUnits);
+            if(inner.size() == 0){
+                return null;
+            }else{
+                return inner.get(inner.size()-1);
+            }
+        }
+
+        public Country weakestOuter(){
+            ArrayList<Country> outer = outerCountries();
+            Collections.sort(outer, compareCountryByUnits);
+            if(outer.size() == 0){
+                return null;
+            }else{
+                return outer.get(0);
+            }
+        }
+
+        public ArrayList<Country> outerCountries(){
+            ArrayList<Country> outer = new ArrayList<>();
+            for(Country country: list){
+                if(country.isOuter()){
+                    outer.add(country);
+                }
+            }
+            return outer;
+        }
+
+        public ArrayList<Country> innerCountries(){
+            ArrayList<Country> inner = new ArrayList<>();
+            for(Country country: list){
+                if(country.isInner()){
+                    inner.add(country);
+                }
+            }
+            return inner;
+        }
+
         public int size(){
             return list.size();
         }
@@ -444,6 +510,20 @@ public class SuckyBeigeFish implements Bot {
 
         public int numUnits(){
             return board.getNumUnits(index);
+        }
+
+        public Boolean isInner(){
+            for(int i=0; i<adjacents.length;i++){
+                Country adj = countries.get(adjacents[i]);
+                if(adj.owner() == enemyId()){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public Boolean isOuter(){
+            return !isInner();
         }
 
         public ArrayList<Country> getOwnedAdjacents(){
@@ -534,6 +614,10 @@ public class SuckyBeigeFish implements Bot {
                 }
             }
             return false;
+        }
+
+        public Boolean doesLinkExist(Country c){
+            return groupHasCountry(getCountryGroup(), c);
         }
 
         public String toString(){
