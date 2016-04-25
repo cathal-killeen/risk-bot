@@ -1,6 +1,5 @@
 // put your code here
 
-import com.sun.tools.internal.jxc.ap.Const;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,6 +97,11 @@ public class SuckyBeigeFish implements Bot {
 		String command = "";
 		// put your code here
 
+        ArrayList<Attack> possibleAttacks = members.get(myId()).getPossibleAttacks();
+        Collections.sort(possibleAttacks, compareAttackByRatio);
+        for(Attack a: possibleAttacks){
+            System.out.println(a);
+        }
 
 		command = "skip";
 		return(command);
@@ -186,8 +190,8 @@ public class SuckyBeigeFish implements Bot {
             return attacker.numUnits() - defender.numUnits();
         }
 
-        public int troopRatio(){
-            return (int)((attacker.numUnits()/defender.numUnits()) * 100);
+        public double troopRatio(){
+            return (double)attacker.numUnits()/defender.numUnits();
         }
 
 
@@ -196,6 +200,12 @@ public class SuckyBeigeFish implements Bot {
                 return true;
             }
             return false;
+        }
+
+        public String toString(){
+            return attacker.owner() + ": " + attacker.name + "(" + attacker.numUnits() + ")" + " -> " +
+                    defender.owner() + ": " + defender.name + "(" + defender.numUnits() + ")" + ", " +
+                    troopRatio();
         }
 
 
@@ -232,8 +242,21 @@ public class SuckyBeigeFish implements Bot {
             return ownedTerritories;
         }
 
+        public ArrayList<Attack> getPossibleAttacks(){
+            ArrayList<Attack> attacks = new ArrayList<>();
+            for(Country country: ownedCountries()){
+                for(int i=0; i<country.adjacents.length; i++){
+                    Attack a = new Attack(country, countries.get(country.adjacents[i]));
+                    if(a.isPossible()){
+                        attacks.add(a);
+                    }
+                }
+            }
+            return attacks;
+        }
+
         //returns a list of all of the country groups owned by this player
-        private ArrayList<CountryGroup> getOwnedCountryGroups(){
+        public ArrayList<CountryGroup> getOwnedCountryGroups(){
             ArrayList<CountryGroup> groups = new ArrayList<>();
             ArrayList<Country> exclude = new ArrayList<>();
             for(Country country: ownedCountries()){
@@ -447,6 +470,13 @@ public class SuckyBeigeFish implements Bot {
     Comparator<Country> compareCountryByUnits = new Comparator<Country>(){
         public int compare(Country a, Country b){
             return new Integer(a.numUnits()).compareTo(new Integer(b.numUnits()));
+        }
+    };
+
+    Comparator<Attack> compareAttackByRatio = new Comparator<Attack>() {
+        @Override
+        public int compare(Attack a, Attack b) {
+            return new Double(a.troopRatio()).compareTo(new Double(b.troopRatio()));
         }
     };
 
