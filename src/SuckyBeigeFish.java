@@ -24,13 +24,17 @@ public class SuckyBeigeFish implements Bot {
         countries = createCountriesList();  //create country class for tracking each country
         members = createMembersList();      //create member list for tracking each player
         turns.add(new Turn());              //add first turn
+
+        //tests
+        logAllCountries();
+
 		return;
 	}
 	
 	public String getName () {
 		String command = "";
 		// put your code here
-		command = "BOT";
+		command = "SBFbot";
 		return(command);
 	}
 
@@ -105,7 +109,7 @@ public class SuckyBeigeFish implements Bot {
 
     private ArrayList<Member> createMembersList(){
         ArrayList<Member> list = new ArrayList<>();
-        for(int i=0; i<GameData.NUM_PLAYERS; i++){
+        for(int i=0; i<GameData.NUM_PLAYERS_PLUS_NEUTRALS; i++){
             list.add(new Member(i));
         }
         return list;
@@ -118,6 +122,13 @@ public class SuckyBeigeFish implements Bot {
 
         public Member(int ind){
             index = ind;
+        }
+
+        public Boolean isNetural(){
+            if(index>=GameData.NUM_PLAYERS){
+                return true;
+            }
+            return false;
         }
 
         public ArrayList<Country> ownedCountries(){
@@ -145,6 +156,41 @@ public class SuckyBeigeFish implements Bot {
         public Boolean didWinOnce(){
             if(attacksWon>0){
                 return true;
+            }
+            return false;
+        }
+    }
+
+    // a country group is a group of countries linked together owned by the same person
+    class CountryGroup{
+        public ArrayList<Country> list;
+
+        public int size(){
+            return list.size();
+        }
+
+        public int owner(){
+            if(list.size() == 0) {
+                return -1;
+            }else{
+                return list.get(0).owner();
+            }
+        }
+
+        public int totalUnits(){
+            int total = 0;
+            for(Country country: list){
+                total += country.numUnits();
+            }
+            return total;
+        }
+
+        //check if certain country is contained in countrygroup
+        public Boolean hasCountry(Country country){
+            for(Country member: list){
+                if(member == country){
+                    return true;
+                }
             }
             return false;
         }
@@ -242,6 +288,19 @@ public class SuckyBeigeFish implements Bot {
             return false;
         }
 
+        public String toString(){
+            return name;
+        }
+
+    }
+
+
+
+    //TEST AREA
+    private void logAllCountries(){
+        for(Country country: countries){
+            System.out.println(country.toString());
+        }
     }
 }
 
