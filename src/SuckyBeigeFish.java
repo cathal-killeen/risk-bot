@@ -1,6 +1,8 @@
 // put your code here
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SuckyBeigeFish implements Bot {
 	// The public API of YourTeamName must not change
@@ -26,7 +28,7 @@ public class SuckyBeigeFish implements Bot {
         turns.add(new Turn());              //add first turn
 
         //tests
-        logAllCountries();
+        //logAllCountries();
 
 		return;
 	}
@@ -39,21 +41,44 @@ public class SuckyBeigeFish implements Bot {
 	}
 
 	public String getReinforcement () {
-        logAllCountryGroups(); //test
-
-		String command = "";
+        String command = "";
 		// put your code here
-		command = GameData.COUNTRY_NAMES[(int)(Math.random() * GameData.NUM_COUNTRIES)];
-		command = command.replaceAll("\\s", "");
-		command += " 1";
+        String country = "";
+
+        ArrayList<Country> borderingEnemy = members.get(enemyId()).getEnemyNeighbors(myId());
+        //get the least protected territory bordering the enemy
+        if(borderingEnemy.size() != 0){
+            Collections.sort(borderingEnemy, compareCountryByUnits);
+            country = borderingEnemy.get(0).name;
+        }else{
+            //if no countries are bordering the enemy - select least protected country
+            ArrayList<Country> myCountries = members.get(myId()).ownedCountries();
+            Collections.sort(borderingEnemy, compareCountryByUnits);
+            country = myCountries.get(0).name;
+        }
+        //replace spaces in country name
+        country = country.replaceAll("\\s", "");
+		command = country + " 1";
 		return(command);
 	}
 	
 	public String getPlacement (int forPlayer) {
 		String command = "";
 		// put your code here
-		command = members.get(forPlayer).getRandomOwned();
-		command = command.replaceAll("\\s", "");
+        String country = "";
+
+        ArrayList<Country> borderingEnemy = members.get(enemyId()).getEnemyNeighbors(forPlayer);
+        //get the least protected territory bordering the enemy
+        if(borderingEnemy.size() != 0){
+            Collections.sort(borderingEnemy, compareCountryByUnits);
+            country = borderingEnemy.get(0).name;
+        }else{
+            //if no countries are bordering the enemy - select random
+            country = members.get(forPlayer).getRandomOwned();
+        }
+        //replace spaces in country name
+        country = country.replaceAll("\\s", "");
+        command = country;
 		return(command);
 	}
 	
@@ -99,6 +124,19 @@ public class SuckyBeigeFish implements Bot {
         turns.add(new Turn());
 		return(command);
 	}
+
+    private int myId(){
+        return player.getId();
+    }
+
+    //assuming its a 2 player game and the players are assigned before the neutrals
+    private int enemyId(){
+        if(myId() == 0){
+            return 1;
+        }
+        return 0;
+
+    }
 
     //creates a list of all the countries on the board - country data can then be easily accessed by using 'countries.get(countryId)'
     private ArrayList<Country> createCountriesList(){
@@ -161,6 +199,37 @@ public class SuckyBeigeFish implements Bot {
                 }
             }
             return ownedTerritories;
+        }
+
+        //returns a list of all of the country groups owned by this player
+        private ArrayList<CountryGroup> getOwnedCountryGroups(){
+            ArrayList<CountryGroup> groups = new ArrayList<>();
+            ArrayList<Country> exclude = new ArrayList<>();
+            for(Country country: ownedCountries()){
+                //if this country is not in the excluded list of countries
+                if(!country.groupHasCountry(exclude, country)){
+                    ArrayList<Country> group = country.getCountryGroup();
+                    groups.add(new CountryGroup(group));
+                    //add all of these countries to the excluded group
+                    exclude = country.mergeCountryGroups(exclude, group);
+                }
+            }
+            return groups;
+        }
+
+        //returns a list of countries belonging to enemy that border all of my countries
+        public ArrayList<Country> getEnemyNeighbors(int enemy){
+            ArrayList<Country> borderEnemies = new ArrayList<>();
+            for(Country myCountry: ownedCountries()){
+                for(int i=0; i<myCountry.adjacents.length; i++){
+                    //if neighboring country is owned by enemy
+                    Country borderCountry = countries.get(myCountry.adjacents[i]);
+                    if(borderCountry.owner() == enemy){
+                        borderEnemies.add(borderCountry);
+                    }
+                }
+            }
+            return borderEnemies;
         }
     }
 
@@ -292,10 +361,8 @@ public class SuckyBeigeFish implements Bot {
 
         //get the group of countries that this country belongs to - ie all of the countries connected and owned by the same player
         public ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
-            ArrayList<Country> thisCountry = new ArrayList<>();
-            thisCountry.add(this);
-
-            ArrayList<Country> countryGroup = mergeCountryGroups(new ArrayList<Country>(), thisCountry);
+            ArrayList<Country> countryGroup = new ArrayList<>();
+            countryGroup.add(this);
 
             ArrayList<Country> ownedAdjacents = getOwnedAdjacents(excludeList);
             if(ownedAdjacents.size() > 0){
@@ -336,24 +403,32 @@ public class SuckyBeigeFish implements Bot {
 
     }
 
+    Comparator<Country> compareCountryByUnits = new Comparator<Country>(){
+        public int compare(Country a, Country b){
+            return new Integer(a.numUnits()).compareTo(new Integer(b.numUnits()));
+        }
+    };
 
-
+    //*******
     //TEST AREA
+    //*******
+
     private void logAllCountries(){
+        Collections.sort(countries, compareCountryByUnits);
         for(Country country: countries){
             System.out.println(country.toString());
         }
+        return;
     }
 
-
-    private Boolean wasLogged = false;
     private void logAllCountryGroups(){
-        if(!wasLogged){
-            for(CountryGroup group: getAllCountryGroups()){
-                System.out.println(group.toString());
-            }
+
+        for(CountryGroup group: getAllCountryGroups()){
+            System.out.println(group.toString());
         }
-        wasLogged = true;
+
+        System.out.println("\n");
+        return;
     }
 }
 
