@@ -86,20 +86,8 @@ public class SuckyBeigeFish implements Bot {
     public String getCardExchange () {
         String command = "";
         // put your code here
-        if(player.getCards().size() >= 5){
-            ArrayList<String> possibleTradeIns = getTradeIns();
-            //if there are zero possible tradeins, resort to wild cards
-            if(possibleTradeIns.size() == 0) {
-                ArrayList<String> wildTradeIns = getWildTradeIns();
-                if(wildTradeIns.size() == 0){
-                    command = "skip";
-                }else{
-                    command = wildTradeIns.get(0);
-                }
-            }else{
-                command = possibleTradeIns.get(0);
-            }
-
+        if(player.isForcedExchange()){
+            command = getTradeIns();
         }else{
             command = "skip";
         }
@@ -139,7 +127,7 @@ public class SuckyBeigeFish implements Bot {
 	public String getDefence (int countryId) {
 		String command = "";
 		// put your code here
-		command = "1";
+		command += countries.get(countryId).maxPossibleDefendTroops();
 		return(command);
 	}
 
@@ -205,58 +193,47 @@ public class SuckyBeigeFish implements Bot {
         return groups;
     }
 
-    private ArrayList<String> getTradeIns(){
-        ArrayList<Card> myCards = player.getCards();
-        int[] counters = {0,0,0,0};         //infantry, cavalry, artillery, wild;
-        for(Card card: myCards){
-            counters[card.getInsigniaId()]++;
-        }
-
-        ArrayList<String> tradeIns = new ArrayList<>();
-        if(counters[0] >= 3){
-            tradeIns.add(new String("iii"));
-        }
-        if(counters[1] >= 3){
-            tradeIns.add(new String("ccc"));
-        }
-        if(counters[2] >= 3){
-            tradeIns.add(new String("aaa"));
-        }
-        if(counters[0] > 1 && counters[1] > 1 && counters[2] > 1){
-            tradeIns.add(new String("ica"));
-        }
-
-        return tradeIns;
-    }
-
-    private ArrayList<String> getWildTradeIns(){
+    private String getTradeIns(){
         ArrayList<Card> myCards = player.getCards();
         int[] c = {0,0,0,0};         //infantry, cavalry, artillery, wild;
         for(Card card: myCards){
             c[card.getInsigniaId()]++;
+            System.out.println(card.getCountryName() + ": " + card.getInsigniaId());
         }
 
-        ArrayList<String> tradeIns = new ArrayList<>();
-        if(c[3] >= 3){
-            tradeIns.add(new String("www"));
+        if(c[0] >= 3){
+            return "iii";
+        }
+        if(c[1] >= 3){
+            return "ccc";
+        }
+        if(c[2] >= 3){
+            return "aaa";
+        }
+        if(c[0] >= 1 && c[1] >= 1 && c[2] >= 1){
+            return "ica";
         }
         if(c[3] >= 1 && (c[0]+c[1]+c[2]) >= 2){
-            if(c[0] >= 2){  tradeIns.add(new String("iiw"));}
-            if(c[1] >= 2){  tradeIns.add(new String("ccw"));}
-            if(c[2] >= 2){  tradeIns.add(new String("aaw"));}
+            if(c[0] >= 2){  return "iiw";}
+            if(c[1] >= 2){  return "ccw";}
+            if(c[2] >= 2){  return "aaw";}
 
-            if(c[0]>1 && c[1]>1){   tradeIns.add(new String("icw"));}
-            if(c[1]>1 && c[2]>1){   tradeIns.add(new String("wca"));}
-            if(c[0]>1 && c[2]>1){   tradeIns.add(new String("iwc"));}
+            if(c[0]>=1 && c[1]>=1){ return "icw";}
+            if(c[1]>=1 && c[2]>=1){ return "wca";}
+            if(c[0]>=1 && c[2]>=1){ return "iwc";}
         }
         if(c[3] >= 2 && (c[0]+c[1]+c[2]) >= 1){
-            if(c[0] >= 1){  tradeIns.add(new String("iww"));}
-            if(c[1] >= 1){  tradeIns.add(new String("cww"));}
-            if(c[2] >= 1){  tradeIns.add(new String("aww"));}
+            if(c[0] >= 1){ return "iww";}
+            if(c[1] >= 1){ return "cww";}
+            if(c[2] >= 1){ return "aww";}
+        }
+        if(c[3] >= 3){
+            return "www";
         }
 
-        return tradeIns;
+        return "";
     }
+
 
     //class for checking info on possible attack
     class Attack{
@@ -478,6 +455,14 @@ public class SuckyBeigeFish implements Bot {
                 return 3;
             }else{
                 return numUnits()-1;
+            }
+        }
+
+        public int maxPossibleDefendTroops(){
+            if(numUnits() == 1){
+                return 1;
+            }else{
+                return 2;
             }
         }
 

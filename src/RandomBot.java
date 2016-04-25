@@ -72,19 +72,7 @@ public class RandomBot implements Bot {
         String command = "";
         // put your code here
         if(player.isForcedExchange()){
-            ArrayList<String> possibleTradeIns = getTradeIns();
-            //if there are zero possible tradeins, resort to wild cards
-            if(possibleTradeIns.size() == 0) {
-                ArrayList<String> wildTradeIns = getWildTradeIns();
-                if(wildTradeIns.size() == 0){
-                    command = "skip";
-                }else{
-                    command = wildTradeIns.get(0);
-                }
-            }else{
-                command = possibleTradeIns.get(0);
-            }
-
+            command = getTradeIns();
         }else{
             command = "skip";
         }
@@ -147,28 +135,44 @@ public class RandomBot implements Bot {
 
     }
 
-    private ArrayList<String> getTradeIns(){
+    private String getTradeIns(){
         ArrayList<Card> myCards = player.getCards();
-        int[] counters = {0,0,0,0};         //infantry, cavalry, artillery, wild;
+        int[] c = {0,0,0,0};         //infantry, cavalry, artillery, wild;
         for(Card card: myCards){
-            counters[card.getInsigniaId()]++;
+            c[card.getInsigniaId()]++;
         }
 
-        ArrayList<String> tradeIns = new ArrayList<>();
-        if(counters[0] >= 3){
-            tradeIns.add(new String("iii"));
+        if(c[0] >= 3){
+            return "iii";
         }
-        if(counters[1] >= 3){
-            tradeIns.add(new String("ccc"));
+        if(c[1] >= 3){
+            return "ccc";
         }
-        if(counters[2] >= 3){
-            tradeIns.add(new String("aaa"));
+        if(c[2] >= 3){
+            return "aaa";
         }
-        if(counters[0] > 1 && counters[1] > 1 && counters[2] > 1){
-            tradeIns.add(new String("ica"));
+        if(c[0] >= 1 && c[1] >= 1 && c[2] >= 1){
+            return "ica";
+        }
+        if(c[3] >= 1 && (c[0]+c[1]+c[2]) >= 2){
+            if(c[0] >= 2){  return "iiw";}
+            if(c[1] >= 2){  return "ccw";}
+            if(c[2] >= 2){  return "aaw";}
+
+            if(c[0]>=1 && c[1]>=1){ return "icw";}
+            if(c[1]>=1 && c[2]>=1){ return "wca";}
+            if(c[0]>=1 && c[2]>=1){ return "iwc";}
+        }
+        if(c[3] >= 2 && (c[0]+c[1]+c[2]) >= 1){
+            if(c[0] >= 1){ return "iww";}
+            if(c[1] >= 1){ return "cww";}
+            if(c[2] >= 1){ return "aww";}
+        }
+        if(c[3] >= 3){
+            return "www";
         }
 
-        return tradeIns;
+        return "";
     }
 
     private ArrayList<String> getWildTradeIns(){
