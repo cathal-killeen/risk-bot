@@ -11,13 +11,19 @@ public class SuckyBeigeFish implements Bot {
 	
 	private BoardAPI board;
 	private PlayerAPI player;
+
     private ArrayList<Country> countries;
+    private ArrayList<Member> members;
+
+    private ArrayList<Turn> turns = new ArrayList<>();
 
 	SuckyBeigeFish(BoardAPI inBoard, PlayerAPI inPlayer) {
 		board = inBoard;	
 		player = inPlayer;
 		// put your code here
-        countries = createCountriesList();
+        countries = createCountriesList();  //create country class for tracking each country
+        members = createMembersList();      //create member list for tracking each player
+        turns.add(new Turn());              //add first turn
 		return;
 	}
 	
@@ -48,6 +54,9 @@ public class SuckyBeigeFish implements Bot {
 	public String getCardExchange () {
 		String command = "";
 		// put your code here
+
+
+
 		command = "skip";
 		return(command);
 	}
@@ -55,6 +64,8 @@ public class SuckyBeigeFish implements Bot {
 	public String getBattle () {
 		String command = "";
 		// put your code here
+
+
 		command = "skip";
 		return(command);
 	}
@@ -77,6 +88,9 @@ public class SuckyBeigeFish implements Bot {
 		String command = "";
 		// put code here
 		command = "skip";
+
+        //fortify is the last step in each turn
+        turns.add(new Turn());
 		return(command);
 	}
 
@@ -89,7 +103,52 @@ public class SuckyBeigeFish implements Bot {
         return list;
     }
 
+    private ArrayList<Member> createMembersList(){
+        ArrayList<Member> list = new ArrayList<>();
+        for(int i=0; i<GameData.NUM_PLAYERS; i++){
+            list.add(new Member(i));
+        }
+        return list;
+    }
 
+
+    //Player class for tracking each of the players on the board - named member so not to clash with Main Player class
+    class Member{
+        public int index;
+
+        public Member(int ind){
+            index = ind;
+        }
+
+        public ArrayList<Country> ownedCountries(){
+            ArrayList<Country> ownedTerritories = new ArrayList<>();
+            for(Country country: countries){
+                if(country.owner() == index){
+                    ownedTerritories.add(country);
+                }
+            }
+            return ownedTerritories;
+        }
+    }
+
+
+    //Turn class for storing info about each turn - eg. checking if at least one attack was succesful during this turn
+    class Turn{
+        public int attacksStarted;
+        public int attacksWon;
+
+        public Turn(){
+            attacksStarted = 0;
+            attacksWon = 0;
+        }
+
+        public Boolean didWinOnce(){
+            if(attacksWon>0){
+                return true;
+            }
+            return false;
+        }
+    }
 
     //internal country class for storing and retrieving info about ALL countries
     class Country{
