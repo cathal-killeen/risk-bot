@@ -39,6 +39,8 @@ public class SuckyBeigeFish implements Bot {
 	}
 
 	public String getReinforcement () {
+        logAllCountryGroups(); //test
+
 		String command = "";
 		// put your code here
 		command = GameData.COUNTRY_NAMES[(int)(Math.random() * GameData.NUM_COUNTRIES)];
@@ -50,7 +52,7 @@ public class SuckyBeigeFish implements Bot {
 	public String getPlacement (int forPlayer) {
 		String command = "";
 		// put your code here
-		command = GameData.COUNTRY_NAMES[(int)(Math.random() * GameData.NUM_COUNTRIES)];
+		command = members.get(forPlayer).getRandomOwned();
 		command = command.replaceAll("\\s", "");
 		return(command);
 	}
@@ -115,6 +117,21 @@ public class SuckyBeigeFish implements Bot {
         return list;
     }
 
+    private ArrayList<CountryGroup> getAllCountryGroups(){
+        ArrayList<CountryGroup> groups = new ArrayList<>();
+        ArrayList<Country> exclude = new ArrayList<>();
+        for(Country country: countries){
+            //if this country is not in the excluded list of countries
+            if(!country.groupHasCountry(exclude, country)){
+                ArrayList<Country> group = country.getCountryGroup();
+                groups.add(new CountryGroup(group));
+                //add all of these countries to the excluded group
+                exclude = country.mergeCountryGroups(exclude, group);
+            }
+        }
+        return groups;
+    }
+
 
     //Player class for tracking each of the players on the board - named member so not to clash with Main Player class
     class Member{
@@ -122,6 +139,11 @@ public class SuckyBeigeFish implements Bot {
 
         public Member(int ind){
             index = ind;
+        }
+
+        public String getRandomOwned(){
+            ArrayList<Country> owned = ownedCountries();
+            return owned.get((int)(Math.random() * owned.size() -1)).name;
         }
 
         public Boolean isNetural(){
@@ -165,6 +187,10 @@ public class SuckyBeigeFish implements Bot {
     class CountryGroup{
         public ArrayList<Country> list;
 
+        CountryGroup(ArrayList<Country> g){
+            list = g;
+        }
+
         public int size(){
             return list.size();
         }
@@ -194,6 +220,22 @@ public class SuckyBeigeFish implements Bot {
             }
             return false;
         }
+
+        public String toString(){
+            String s = "Owner " + owner() + ": ";
+            s += size() + " countries: ";
+            s += totalUnits() + " units: ";
+            int ind = 0;
+            for(Country country: list){
+                if(ind > 0){
+                    s += ", ";
+                }
+                s+=country.name;
+                ind++;
+            }
+            return s;
+        }
+
     }
 
     //internal country class for storing and retrieving info about ALL countries
@@ -249,7 +291,7 @@ public class SuckyBeigeFish implements Bot {
         }
 
         //get the group of countries that this country belongs to - ie all of the countries connected and owned by the same player
-        private ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
+        public ArrayList<Country> getCountryGroup(ArrayList<Country> excludeList){
             ArrayList<Country> thisCountry = new ArrayList<>();
             thisCountry.add(this);
 
@@ -267,7 +309,7 @@ public class SuckyBeigeFish implements Bot {
         }
 
         //merges two arraylists of countries together - ensuring duplicates are removed
-        private ArrayList<Country> mergeCountryGroups(ArrayList<Country> g1, ArrayList<Country> g2){
+        public ArrayList<Country> mergeCountryGroups(ArrayList<Country> g1, ArrayList<Country> g2){
             for(Country member: g2){
                 //if g1 doesnt already contain member of g2
                 if(!groupHasCountry(g1,member)){
@@ -289,7 +331,7 @@ public class SuckyBeigeFish implements Bot {
         }
 
         public String toString(){
-            return name;
+            return name + ": " + numUnits();
         }
 
     }
@@ -301,6 +343,17 @@ public class SuckyBeigeFish implements Bot {
         for(Country country: countries){
             System.out.println(country.toString());
         }
+    }
+
+
+    private Boolean wasLogged = false;
+    private void logAllCountryGroups(){
+        if(!wasLogged){
+            for(CountryGroup group: getAllCountryGroups()){
+                System.out.println(group.toString());
+            }
+        }
+        wasLogged = true;
     }
 }
 
