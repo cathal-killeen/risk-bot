@@ -277,7 +277,12 @@ public class RandomBot implements Bot {
 
         public String getRandomOwned(){
             ArrayList<Country> owned = ownedCountries();
-            return owned.get((int)(Math.random() * owned.size() -1)).name;
+            if(owned.size() > 0){
+                return owned.get((int)((Math.random() * owned.size()) -1)).name;
+            }else{
+                return "";
+            }
+
         }
 
         public Boolean isNetural(){

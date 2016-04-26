@@ -133,17 +133,31 @@ public class SuckyBeigeFish implements Bot {
 	public String getMoveIn (int attackCountryId) {
 		String command = "";
 		// put your code here
-        command = "0";
-		return(command);
+        Fortify fortify = new Fortify(lastAttack);
+        		command += fortify.numTroops();
+        return(command);
 	}
 
 	public String getFortify () {
 		String command = "";
 		// put code here
+
+
         command = "skip";
 
 		return(command);
 	}
+
+    //end of public API functions
+
+
+
+
+
+
+
+
+
 
     private int myId(){
         return player.getId();
@@ -158,6 +172,7 @@ public class SuckyBeigeFish implements Bot {
 
     }
 
+
     //creates a list of all the countries on the board - country data can then be easily accessed by using 'countries.get(countryId)'
     private ArrayList<Country> createCountriesList(){
         ArrayList<Country> list = new ArrayList<>();
@@ -167,6 +182,7 @@ public class SuckyBeigeFish implements Bot {
         return list;
     }
 
+    //create list of memebers (players and neutrals)
     private ArrayList<Member> createMembersList(){
         ArrayList<Member> list = new ArrayList<>();
         for(int i=0; i<GameData.NUM_PLAYERS_PLUS_NEUTRALS; i++){
@@ -175,21 +191,7 @@ public class SuckyBeigeFish implements Bot {
         return list;
     }
 
-    private ArrayList<CountryGroup> getAllCountryGroups(){
-        ArrayList<CountryGroup> groups = new ArrayList<>();
-        ArrayList<Country> exclude = new ArrayList<>();
-        for(Country country: countries){
-            //if this country is not in the excluded list of countries
-            if(!country.groupHasCountry(exclude, country)){
-                ArrayList<Country> group = country.getCountryGroup();
-                groups.add(new CountryGroup(group));
-                //add all of these countries to the excluded group
-                exclude = country.mergeCountryGroups(exclude, group);
-            }
-        }
-        return groups;
-    }
-
+    //gets the tradeins -- this functions saves the Wild cards until the end
     private String getTradeIns(){
         ArrayList<Card> myCards = player.getCards();
         int[] c = {0,0,0,0};         //infantry, cavalry, artillery, wild;
@@ -388,25 +390,6 @@ public class SuckyBeigeFish implements Bot {
                 }
             }
             return borderEnemies;
-        }
-    }
-
-
-    //Turn class for storing info about each turn - eg. checking if at least one attack was succesful during this turn
-    class Turn{
-        public int attacksStarted;
-        public int attacksWon;
-
-        public Turn(){
-            attacksStarted = 0;
-            attacksWon = 0;
-        }
-
-        public Boolean didWinOnce(){
-            if(attacksWon>0){
-                return true;
-            }
-            return false;
         }
     }
 
@@ -676,27 +659,5 @@ public class SuckyBeigeFish implements Bot {
         }
     };
 
-
-    //*******
-    //TEST AREA
-    //*******
-
-    private void logAllCountries(){
-        Collections.sort(countries, compareCountryByUnits);
-        for(Country country: countries){
-            System.out.println(country.toString());
-        }
-        return;
-    }
-
-    private void logAllCountryGroups(){
-
-        for(CountryGroup group: getAllCountryGroups()){
-            System.out.println(group.toString());
-        }
-
-        System.out.println("\n");
-        return;
-    }
 }
 
