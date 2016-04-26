@@ -25,6 +25,26 @@ public class SuckyBeigeFish2 implements Bot {
 
 		return;
 	}
+	public class Attack{
+		int attacker, defender, expectedTroops;
+		double probability = 0;
+
+		public Attack(int a, int d){
+			attacker = a;
+			defender = d;
+			if (a >= d) {
+				probability = calculateProb(a, d);
+			}
+		}
+
+		public double calculateProb(int a, int d){
+			double prob = 0;
+			
+
+
+			return prob;
+		}
+	}
 
 	private void getBoardEquity(){
 		int owner;
