@@ -30,13 +30,24 @@ public class SuckyBeigeFish2 implements Bot {
 		int owner;
 		myCountries = 0;
 		enemyCountries = 0;
+		int[][] continents = new int[2][6];
+		for (int i=0; i<6; i++){
+			continents[0][i] = 0;
+			continents[1][i] = 0;
+		}
 		for (int i=0; i< GameData.NUM_COUNTRIES; i++){
 			owner = board.getOccupier(i);
 			if (owner == myId){
 				myCountries++;
+				continents[0][GameData.CONTINENT_IDS[i]]++;
 			} else if (owner == enemyId){
 				enemyCountries++;
+				continents[1][GameData.CONTINENT_IDS[i]]++;
 			}
+		}
+		for (int i=0;i<6; i++){
+			myContinents[i] = (double)continents[0][i]/(double)GameData.CONTINENT_COUNTRIES[i].length;
+			enemyContinents[i] = (double)continents[1][i]/(double)GameData.CONTINENT_COUNTRIES[i].length;
 		}
 	}
 
