@@ -1,5 +1,7 @@
 // put your code here
 
+import java.util.ArrayList;
+
 public class SuckyBeigeFish2 implements Bot {
 	// The public API of YourTeamName must not change
 	// You cannot change any other classes
@@ -11,6 +13,9 @@ public class SuckyBeigeFish2 implements Bot {
 	private PlayerAPI player;
 	private int myId, enemyId, myCountries, enemyCountries;
 	private double[] myContinents, enemyContinents;
+	private ArrayList<Attack> possibleAttacks = new ArrayList<Attack>();
+	//Decides the minimum probability required to consider an attack
+	private double minProbability = 0.6;
 
 	SuckyBeigeFish2 (BoardAPI inBoard, PlayerAPI inPlayer) {
 		board = inBoard;
@@ -39,10 +44,25 @@ public class SuckyBeigeFish2 implements Bot {
 
 		public double calculateProb(int a, int d){
 			double prob = 0;
-			
+
 
 
 			return prob;
+		}
+	}
+
+	private void getPossibleAttacks(){
+		for (int i=0; i<GameData.NUM_COUNTRIES; i++){
+			if (board.getOccupier(i) == myId){
+				for (int j=0; j<GameData.ADJACENT[i].length; j++){
+					if (board.getOccupier(GameData.ADJACENT[i][j]) == enemyId){
+						possibleAttacks.add(new Attack(board.getNumUnits(i), board.getNumUnits(GameData.ADJACENT[i][j])));
+						if (possibleAttacks.get(possibleAttacks.size()-1).probability <= minProbability){
+							possibleAttacks.remove(possibleAttacks.size()-1);
+						}
+					}
+				}
+			}
 		}
 	}
 
