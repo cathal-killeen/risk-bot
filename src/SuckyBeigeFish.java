@@ -141,9 +141,17 @@ public class SuckyBeigeFish implements Bot {
 	public String getFortify () {
 		String command = "";
 		// put code here
+//        ArrayList<Fortify> fortifies = members.get(myId()).getPossibleFortifys();
+//        if(fortifies.size() > 0){
+//            Collections.sort(fortifies, compareFortifyByTroops);
+//            Fortify fortify = fortifies.get(fortifies.size()-1);
+//            String donator = fortify.donator.name.replaceAll("\\s", "");
+//            String reciever = fortify.reciever.name.replaceAll("\\s", "");
+//
+//            command = donator + " " + reciever + " " + fortify.numTroops();
+//        }else {
+            command = "skip";
 
-
-        command = "skip";
 
 		return(command);
 	}
@@ -268,19 +276,19 @@ public class SuckyBeigeFish implements Bot {
 
     }
 
-    private ArrayList<Fortify> getPossibleFortify(){
-        ArrayList<Fortify> list = new ArrayList<>();
-        for(CountryGroup group: members.get(myId()).getOwnedCountryGroups()){
-            if(group.hasOuter() && group.hasInner()){
-                Fortify f = new Fortify(group.strongestInner(), group.weakestOuter());
-                if(f.isPossible()){
-                    list.add(f);
-                    f.toString();
-                }
-            }
-        }
-        return list;
-    }
+//    private ArrayList<Fortify> getPossibleFortify(){
+//        ArrayList<Fortify> list = new ArrayList<>();
+//        for(CountryGroup group: members.get(myId()).getOwnedCountryGroups()){
+//            if(group.hasOuter() && group.hasInner()){
+//                Fortify f = new Fortify(group.strongestInner(), group.weakestOuter());
+//                if(f.isPossible()){
+//                    list.add(f);
+//                    f.toString();
+//                }
+//            }
+//        }
+//        return list;
+//    }
 
     class Fortify{
         Country donator;
@@ -338,6 +346,97 @@ public class SuckyBeigeFish implements Bot {
             return false;
         }
 
+        public ArrayList<Fortify> getPossibleFortifys(){
+            ArrayList<Fortify> fortifys = new ArrayList<>();
+            ArrayList<Country> group = new ArrayList<>();
+            for(Country seed: getCountryGroupSeeds()){
+                group = seed.getCountryGroup();
+                if(hasInner(seed) && hasOuter(seed)){
+                    Fortify f = new Fortify(getStrongestInner(seed), getWeakestOuter(seed));
+                    if(f.isPossible()){
+                        fortifys.add(f);
+                    }
+                }
+            }
+            return fortifys;
+        }
+
+        private ArrayList<Country> getInners(Country seed){
+            ArrayList<Country> group = seed.getCountryGroup();
+            ArrayList<Country> inners = new ArrayList<>();
+            if(group.size() > 1){
+                for(Country country: group){
+                    if(country.isInner()){
+                        inners.add(country);
+                    }
+                }
+            }
+            return group;
+        }
+
+        private Boolean hasInner(Country seed){
+            ArrayList<Country> group = seed.getCountryGroup();
+            for(Country country: group){
+                if(country.isInner()){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private Boolean hasOuter(Country seed){
+            ArrayList<Country> group = seed.getCountryGroup();
+            for(Country country: group){
+                if(country.isOuter()){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private Country getWeakestOuter(Country seed){
+            ArrayList<Country> group = seed.getCountryGroup();
+            Country weakest = seed;
+            int w = 10000;
+            for(Country country: group){
+                if(country.isInner() && country.numUnits() < w){
+                    weakest = country;
+                    w = weakest.numUnits();
+                }
+            }
+            return weakest;
+        }
+
+        private Country getStrongestInner(Country seed){
+            ArrayList<Country> group = seed.getCountryGroup();
+            Country strongest = seed;
+            int s = 0;
+            for(Country country: group){
+                if(country.isInner() && country.numUnits() > s){
+                    strongest = country;
+                    s = strongest.numUnits();
+                }
+            }
+            return strongest;
+        }
+
+        private ArrayList<Country> getCountryGroupSeeds(){
+            ArrayList<Country> owned = ownedCountries();
+            ArrayList<Country> seeds = new ArrayList<>();
+            ArrayList<Country> exclude = new ArrayList<>();
+
+            for(Country country: owned){
+                if(country.groupHasCountry(exclude, country)){
+                    //skip
+                }else{
+                    seeds.add(country);
+                    exclude = country.mergeCountryGroups(exclude,country.getCountryGroup());
+                }
+            }
+
+            return seeds;
+        }
+
         public ArrayList<Country> ownedCountries(){
             ArrayList<Country> ownedTerritories = new ArrayList<>();
             for(Country country: countries){
@@ -361,22 +460,6 @@ public class SuckyBeigeFish implements Bot {
             return attacks;
         }
 
-        //returns a list of all of the country groups owned by this player
-        public ArrayList<CountryGroup> getOwnedCountryGroups(){
-            ArrayList<CountryGroup> groups = new ArrayList<>();
-            ArrayList<Country> exclude = new ArrayList<>();
-            for(Country country: ownedCountries()){
-                //if this country is not in the excluded list of countries
-                if(!country.groupHasCountry(exclude, country)){
-                    ArrayList<Country> group = country.getCountryGroup();
-                    groups.add(new CountryGroup(group));
-                    //add all of these countries to the excluded group
-                    exclude = country.mergeCountryGroups(exclude, group);
-                }
-            }
-            return groups;
-        }
-
         //returns a list of countries belonging to enemy that border all of my countries
         public ArrayList<Country> getEnemyNeighbors(int enemy){
             ArrayList<Country> borderEnemies = new ArrayList<>();
@@ -391,109 +474,6 @@ public class SuckyBeigeFish implements Bot {
             }
             return borderEnemies;
         }
-    }
-
-    // a country group is a group of countries linked together owned by the same person
-    class CountryGroup{
-        public ArrayList<Country> list;
-
-        CountryGroup(ArrayList<Country> g){
-            list = g;
-        }
-
-        public Boolean hasInner(){
-            return (innerCountries().size() > 0);
-        }
-
-        public Boolean hasOuter(){
-            return (outerCountries().size() > 0);
-        }
-
-        public Country strongestInner(){
-            ArrayList<Country> inner = innerCountries();
-            Collections.sort(inner, compareCountryByUnits);
-            if(inner.size() == 0){
-                return null;
-            }else{
-                return inner.get(inner.size()-1);
-            }
-        }
-
-        public Country weakestOuter(){
-            ArrayList<Country> outer = outerCountries();
-            Collections.sort(outer, compareCountryByUnits);
-            if(outer.size() == 0){
-                return null;
-            }else{
-                return outer.get(0);
-            }
-        }
-
-        public ArrayList<Country> outerCountries(){
-            ArrayList<Country> outer = new ArrayList<>();
-            for(Country country: list){
-                if(country.isOuter()){
-                    outer.add(country);
-                }
-            }
-            return outer;
-        }
-
-        public ArrayList<Country> innerCountries(){
-            ArrayList<Country> inner = new ArrayList<>();
-            for(Country country: list){
-                if(country.isInner()){
-                    inner.add(country);
-                }
-            }
-            return inner;
-        }
-
-        public int size(){
-            return list.size();
-        }
-
-        public int owner(){
-            if(list.size() == 0) {
-                return -1;
-            }else{
-                return list.get(0).owner();
-            }
-        }
-
-        public int totalUnits(){
-            int total = 0;
-            for(Country country: list){
-                total += country.numUnits();
-            }
-            return total;
-        }
-
-        //check if certain country is contained in countrygroup
-        public Boolean hasCountry(Country country){
-            for(Country member: list){
-                if(member == country){
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public String toString(){
-            String s = "Owner " + owner() + ": ";
-            s += size() + " countries: ";
-            s += totalUnits() + " units: ";
-            int ind = 0;
-            for(Country country: list){
-                if(ind > 0){
-                    s += ", ";
-                }
-                s+=country.name;
-                ind++;
-            }
-            return s;
-        }
-
     }
 
     //internal country class for storing and retrieving info about ALL countries
