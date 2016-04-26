@@ -7,7 +7,7 @@ public final class GameData {
 	public static final int NUM_COUNTRIES = 42;
 	public static final int INIT_COUNTRIES_PLAYER = 9;
 	public static final int INIT_COUNTRIES_NEUTRAL = 6;
-	public static final int NUM_REINFORCE_ROUNDS = 2; // DEFAULT VALUE IS 9, CHANGE TO SPEED THE GAME UP
+	public static final int NUM_REINFORCE_ROUNDS = 9; // DEFAULT VALUE IS 9, CHANGE TO SPEED THE GAME UP
 	public static final int ATTACK_MIN_IN_COUNTRY = 2;
 	public static final int ATTACK_MAX = 3;
 	public static final int DEFEND_MAX = 2;

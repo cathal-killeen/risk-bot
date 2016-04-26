@@ -26,15 +26,12 @@ public class RandomBot implements Bot {
     private ArrayList<Country> countries;
     private ArrayList<Member> members;
 
-    private ArrayList<Turn> turns = new ArrayList<>();
-
     RandomBot(BoardAPI inBoard, PlayerAPI inPlayer) {
         board = inBoard;
         player = inPlayer;
         // put your code here
         countries = createCountriesList();  //create country class for tracking each country
         members = createMembersList();      //create member list for tracking each player
-        turns.add(new Turn());              //add first turn
 
         //tests
         //logAllCountries();
@@ -117,8 +114,6 @@ public class RandomBot implements Bot {
         // put code here
         command = "skip";
 
-        //fortify is the last step in each turn
-        turns.add(new Turn());
         return(command);
     }
 

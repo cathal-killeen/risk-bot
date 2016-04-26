@@ -18,8 +18,6 @@ public class SuckyBeigeFish implements Bot {
     private ArrayList<Country> countries;
     private ArrayList<Member> members;
 
-    private ArrayList<Turn> turns = new ArrayList<>();
-
     private Attack lastAttack;
 
 	SuckyBeigeFish(BoardAPI inBoard, PlayerAPI inPlayer) {
@@ -28,7 +26,6 @@ public class SuckyBeigeFish implements Bot {
 		// put your code here
         countries = createCountriesList();  //create country class for tracking each country
         members = createMembersList();      //create member list for tracking each player
-        turns.add(new Turn());              //add first turn
 
         //tests
         //logAllCountries();
@@ -136,28 +133,15 @@ public class SuckyBeigeFish implements Bot {
 	public String getMoveIn (int attackCountryId) {
 		String command = "";
 		// put your code here
-        Fortify fortify = new Fortify(lastAttack);
-		command += fortify.numTroops();
+        command = "0";
 		return(command);
 	}
 
 	public String getFortify () {
 		String command = "";
 		// put code here
-        ArrayList<Fortify> possibleFortify = getPossibleFortify();
-        if(possibleFortify.size() > 0){
-            Collections.sort(possibleFortify, compareFortifyByTroops);
-            Fortify fortify = possibleFortify.get(possibleFortify.size()-1);
-            String donator = fortify.donator.name.replaceAll("\\s", "");
-            String reciever = fortify.reciever.name.replaceAll("\\s", "");
+        command = "skip";
 
-            command = donator + " " + reciever + " " + fortify.numTroops();
-        }else{
-            command = "skip";
-        }
-
-        //fortify is the last step in each turn
-        turns.add(new Turn());
 		return(command);
 	}
 
@@ -211,7 +195,6 @@ public class SuckyBeigeFish implements Bot {
         int[] c = {0,0,0,0};         //infantry, cavalry, artillery, wild;
         for(Card card: myCards){
             c[card.getInsigniaId()]++;
-            System.out.println(card.getCountryName() + ": " + card.getInsigniaId());
         }
 
         if(c[0] >= 3){
