@@ -1,0 +1,7 @@
+*.idea
+*.iml
+out/
+*.project
+META-INF/
+.idea/
+
