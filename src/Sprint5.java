@@ -19,7 +19,7 @@ public class Sprint5 {
 		for (playerId=0; playerId<GameData.NUM_PLAYERS_PLUS_NEUTRALS; playerId++) {
 			players[playerId] = new Player (playerId);
 			if (playerId == 0) {
-				players[playerId].setBot(new SuckyBeigeFish2(board,players[playerId]));
+				players[playerId].setBot(new RandomBot(board,players[playerId]));
 			}
 			if (playerId == 1) {
 				players[playerId].setBot(new SuckyBeigeFish(board,players[playerId]));
