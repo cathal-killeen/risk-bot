@@ -166,16 +166,28 @@ public class Board implements BoardAPI {
 		}
 		return !found;
 	}
-	
+
 	public boolean isGameOver () {
-		boolean gameOver = true;
-		int firstOccupier = occupier[0];
-		for (int i=0; (i<GameData.NUM_COUNTRIES) && gameOver; i++) {
-			if  ( (!occupied[i]) || (occupier[i] != firstOccupier) ) {
-				gameOver = false;
+		boolean gameOver;
+		boolean[] playerFound = {false,false};
+		int playerId;
+		for (int i=0; i<GameData.NUM_COUNTRIES; i++) {
+			playerId = getOccupier(i);
+			if (playerId < GameData.NUM_PLAYERS) {
+				playerFound[playerId] = true;
 			}
 		}
-		winnerId = firstOccupier;
+		if (playerFound[0] && playerFound[1]) {
+			gameOver = false;
+		} else {
+			gameOver = true;
+			if (playerFound[0]) {
+				winnerId = 0;
+			}
+			else {
+				winnerId = 1;
+			}
+		}
 		return gameOver;
 	}
 	
