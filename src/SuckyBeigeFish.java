@@ -53,8 +53,10 @@ public class SuckyBeigeFish implements Bot {
         }else{
             //if no countries are bordering the enemy - select least protected country
             ArrayList<Country> myCountries = members.get(myId()).ownedCountries();
-            Collections.sort(borderingEnemy, compareCountryByUnits);
-            country = myCountries.get(0).name;
+            if (myCountries.size() > 0) {
+                Collections.sort(borderingEnemy, compareCountryByUnits);
+                country = myCountries.get(0).name;
+            }
         }
         //replace spaces in country name
         country = country.replaceAll("\\s", "");
@@ -157,14 +159,6 @@ public class SuckyBeigeFish implements Bot {
 	}
 
     //end of public API functions
-
-
-
-
-
-
-
-
 
 
     private int myId(){

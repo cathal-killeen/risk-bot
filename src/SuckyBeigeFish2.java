@@ -16,9 +16,13 @@ public class SuckyBeigeFish2 implements Bot {
 	private int myId, enemyId, myCountries, enemyCountries;
 	private double[] myContinents, enemyContinents;
 	private ArrayList<Attack> possibleAttacks = new ArrayList<Attack>();
+	private ArrayList<Attack> refinedAttacks = new ArrayList<Attack>();
+	private ArrayList<Country> borderCountries;
+	private ArrayList<Country> borderlessCountries;
+
 	private Attack lastAttack;
 	//Decides the minimum probability required to consider an attack
-	private double minProbability = 0.6;
+	private double minProbability = 0.5;
 	//matrix of probabilities taken from Jason Osborne's "Markov Chains for the RISK Board Game Revisited"
 	//for armies > 10, ratio is calculated and prob. approximated.
 	private double[][] probabilityMatrix = {{0.417, 0.106, 0.027, 0.007, 0.002, 0, 0, 0, 0, 0},
@@ -42,6 +46,181 @@ public class SuckyBeigeFish2 implements Bot {
 		myContinents = new double[6];
 		enemyContinents = new double[6];
 	}
+
+
+	public String getName () {
+		String command = "";
+		// put your code here
+		command = "SBFbot2.0";
+		return(command);
+	}
+
+	public String getReinforcement () {
+		String command = "";
+		String country = "";
+		// put your code here
+		borderCountries = new ArrayList<Country>();
+		getBorderCountries(0);
+		//get the least protected territory bordering the enemy
+		if(borderCountries.size() != 0){
+			Collections.sort(borderCountries, compareCountryByUnits);
+			country = borderCountries.get(0).name;
+		} else {
+			getBorderCountries(-1);
+			Collections.sort(borderCountries, compareCountryByUnits);
+			country = borderCountries.get(0).name;
+		}
+		//replace spaces in country name
+		country = country.replaceAll("\\s", "");
+		command = country + " 1";
+		return(command);
+	}
+
+	public String getPlacement (int forPlayer) {
+		String command = "";
+		// put your code here
+		command = GameData.COUNTRY_NAMES[(int)(Math.random() * GameData.NUM_COUNTRIES)];
+		command = command.replaceAll("\\s", "");
+		return(command);
+	}
+
+	public String getCardExchange () {
+		String command = "";
+		// put your code here
+		if(player.isForcedExchange()){
+			command = getTradeIns();
+		}else{
+			command = "skip";
+		}
+
+		return(command);
+	}
+
+	public String getBattle () {
+		String command = "";
+		// put your code here
+		getBoardEquity();
+		possibleAttacks = new ArrayList<Attack>();
+		getPossibleAttacks();
+		refinedAttacks = new ArrayList<Attack>();
+		getRefinedAttacks();
+		Collections.sort(refinedAttacks, compareAttackByProb);
+		if (refinedAttacks.size() > 0) {
+			Attack chosenAttack = refinedAttacks.get(refinedAttacks.size() - 1);
+			lastAttack = chosenAttack;
+
+			String attackName = GameData.COUNTRY_NAMES[chosenAttack.aID].replaceAll("\\s", "");
+			String defendName =  GameData.COUNTRY_NAMES[chosenAttack.dID].replaceAll("\\s", "");
+			int troops;
+			if (chosenAttack.attacker > 3){
+				troops = 3;
+			} else {
+				troops = chosenAttack.attacker-1;
+			}
+			command = attackName + " " + defendName + " " + troops;
+		} else {
+			command = "skip";
+		}
+		return(command);
+	}
+
+	public String getDefence (int countryId) {
+		String command = "";
+		// put your code here
+		if (board.getNumUnits(countryId) >= 2){
+			command += 2;
+		} else {
+			command += 1;
+		}
+		return(command);
+	}
+
+	public String getMoveIn (int attackCountryId) {
+		String command = "";
+		// put your code here
+		Fortify fortify = new Fortify(lastAttack);
+		command += fortify.numTroops();
+		return(command);
+	}
+
+	public String getFortify () {
+		String command = "";
+		// put code here
+		borderlessCountries = new ArrayList<Country>();
+		getBorderlessCountries();
+		Collections.sort(borderlessCountries, compareCountryByUnits);
+		if (borderlessCountries.size() > 0) {
+			possibleAttacks = new ArrayList<Attack>();
+			getPossibleAttacks();
+			Collections.sort(possibleAttacks, compareAttackByProb);
+			int i = 0;
+			while (possibleAttacks.size() > i && (!board.isConnected(borderlessCountries.get(borderlessCountries.size() - 1).index, possibleAttacks.get(i).aID))) {
+				i++;
+			}
+			if (possibleAttacks.size() > i) {
+				String donator = GameData.COUNTRY_NAMES[borderlessCountries.get(borderlessCountries.size() - 1).index].replaceAll("\\s", "");
+				String reciever = GameData.COUNTRY_NAMES[possibleAttacks.get(i).aID].replaceAll("\\s", "");
+				int troops = 0;
+				if (borderlessCountries.get(borderlessCountries.size() - 1).numUnits() > 1){
+					if (borderlessCountries.get(borderlessCountries.size() - 1).numUnits() == 2){
+						troops = 1;
+					} else {
+						troops = borderlessCountries.get(borderlessCountries.size() - 1).numUnits() * 2 / 3;
+					}
+					command = donator + " " + reciever + " " + troops;
+				} else {
+					command = "skip";
+				}
+			} else {
+				command = "skip";
+			}
+		} else {
+			command = "skip";
+		}
+		return(command);
+	}
+
+	//END OF PUBLIC API
+	private String getTradeIns(){
+		ArrayList<Card> myCards = player.getCards();
+		int[] c = {0,0,0,0};         //infantry, cavalry, artillery, wild;
+		for(Card card: myCards){
+			c[card.getInsigniaId()]++;
+		}
+
+		if(c[0] >= 3){
+			return "iii";
+		}
+		if(c[1] >= 3){
+			return "ccc";
+		}
+		if(c[2] >= 3){
+			return "aaa";
+		}
+		if(c[0] >= 1 && c[1] >= 1 && c[2] >= 1){
+			return "ica";
+		}
+		if(c[3] >= 1 && (c[0]+c[1]+c[2]) >= 2){
+			if(c[0] >= 2){  return "iiw";}
+			if(c[1] >= 2){  return "ccw";}
+			if(c[2] >= 2){  return "aaw";}
+
+			if(c[0]>=1 && c[1]>=1){ return "icw";}
+			if(c[1]>=1 && c[2]>=1){ return "wca";}
+			if(c[0]>=1 && c[2]>=1){ return "iwc";}
+		}
+		if(c[3] >= 2 && (c[0]+c[1]+c[2]) >= 1){
+			if(c[0] >= 1){ return "iww";}
+			if(c[1] >= 1){ return "cww";}
+			if(c[2] >= 1){ return "aww";}
+		}
+		if(c[3] >= 3){
+			return "www";
+		}
+
+		return "";
+	}
+
 	public class Attack{
 		int attacker, defender, aID, dID;
 		double probability = 0;
@@ -50,7 +229,7 @@ public class SuckyBeigeFish2 implements Bot {
 			aID = a;
 			dID = d;
 			attacker = board.getNumUnits(a);
-			defender = board.getNumUnits(GameData.ADJACENT[a][d]);
+			defender = board.getNumUnits(d);
 			//not >= as is essentially a-1 >= d as at least one attacker must remain behind
 			if (attacker > defender) {
 				probability = calculateProb(attacker, defender);
@@ -59,15 +238,14 @@ public class SuckyBeigeFish2 implements Bot {
 
 		public double calculateProb(int a, int d){
 			double prob = 0;
-			double ratio = (double)(a-1)/(double)d;
 			if (a-1 <= 10 && d <= 10){
 				prob = probabilityMatrix[a-1-1][d-1];
-			} else {
+			} else if (a-1 > d){
 				while (d > 10){
 					a-=10;
 					d-= 10;
 				}
-				if (a <= 20) {
+				if (a <= 20 && d >= 2) {
 					prob = probabilityMatrix[a/2-1][d/2-1];
 				} else {
 					prob = 1;
@@ -77,15 +255,35 @@ public class SuckyBeigeFish2 implements Bot {
 		}
 	}
 
-	public void sortAttacksByProbability(){
-		Collections.sort(possibleAttacks, compareAttackByProb);
-	}
-	Comparator<Attack> compareAttackByProb = new Comparator<Attack>() {
-		@Override
-		public int compare(Attack a, Attack b) {
-			return new Double(a.probability).compareTo(b.probability);
+	class Country {
+		public int index;
+		public String name;
+		public int continent;
+		public int[] adjacents;
+
+		public Country(int ind) {
+			index = ind;
+			name = GameData.COUNTRY_NAMES[index];
+			continent = GameData.CONTINENT_IDS[index];
+			adjacents = GameData.ADJACENT[index];
 		}
-	};
+
+		public int owner(){return board.getOccupier(index);}
+
+		public Boolean hasOwner(){return board.isOccupied(index);}
+
+		public int numUnits(){ return board.getNumUnits(index);}
+	}
+
+	private void getRefinedAttacks(){
+		for (int i=0; i<possibleAttacks.size(); i++){
+			if (possibleAttacks.get(i).probability >= minProbability) {
+				refinedAttacks.add(possibleAttacks.get(i));
+				int defenderCont = GameData.CONTINENT_IDS[possibleAttacks.get(i).dID];
+				refinedAttacks.get(refinedAttacks.size()-1).probability += refinedAttacks.get(refinedAttacks.size()-1).probability * 0.5 * (Math.pow(myContinents[defenderCont], 2) + Math.pow(enemyContinents[defenderCont], 2));
+			}
+		}
+	}
 
 	private void getPossibleAttacks(){
 		for (int i=0; i<GameData.NUM_COUNTRIES; i++){
@@ -93,10 +291,41 @@ public class SuckyBeigeFish2 implements Bot {
 				for (int j=0; j<GameData.ADJACENT[i].length; j++){
 					if (board.getOccupier(GameData.ADJACENT[i][j]) != myId){
 						possibleAttacks.add(new Attack(i, GameData.ADJACENT[i][j]));
-						if (possibleAttacks.get(possibleAttacks.size()-1).probability <= minProbability){
-							possibleAttacks.remove(possibleAttacks.size()-1);
+					}
+				}
+			}
+		}
+	}
+
+	private void getBorderCountries(int flag){
+		for (int i=0; i<GameData.NUM_COUNTRIES; i++){
+			if (board.getOccupier(i) == myId){
+				for (int j=0; j<GameData.ADJACENT[i].length; j++){
+					if (flag == -1) {
+						if (board.getOccupier(GameData.ADJACENT[i][j]) != myId) {
+							borderCountries.add(new Country(i));
+						}
+					} else {
+						if (board.getOccupier(GameData.ADJACENT[i][j]) == enemyId) {
+							borderCountries.add(new Country(i));
 						}
 					}
+				}
+			}
+		}
+	}
+
+	private void getBorderlessCountries(){
+		for (int i=0; i<GameData.NUM_COUNTRIES; i++){
+			if (board.getOccupier(i) == myId){
+				boolean flag = true;
+				for (int j=0; j<GameData.ADJACENT[i].length; j++){
+					if (board.getOccupier(GameData.ADJACENT[i][j]) != myId) {
+						flag = false;
+					}
+				}
+				if (flag){
+					borderlessCountries.add(new Country(i));
 				}
 			}
 		}
@@ -134,69 +363,51 @@ public class SuckyBeigeFish2 implements Bot {
 		return 0;
 	}
 
-	public String getName () {
-		String command = "";
-		// put your code here
-		command = "BOT";
-		return(command);
+	class Fortify{
+		int donator;
+		int receiver;
+
+		public Fortify(Country d, Country r){
+			donator = d.index;
+			receiver = r.index;
+		}
+
+		public Fortify(Attack attack){
+			donator = attack.aID;
+			receiver = attack.dID;
+		}
+
+		public int numTroops(){
+			if(board.getNumUnits(donator) == 2){
+				return 1;
+			}
+			return (board.getNumUnits(donator)/3)*2 -1;
+		}
+
+		public Boolean isPossible(){
+			if(board.getNumUnits(donator) > 1 && board.isConnected(donator, receiver)){
+				return true;
+			}
+			return false;
+		}
+
+		public String toString(){
+			return GameData.COUNTRY_NAMES[donator] + "(" + board.getNumUnits(donator) + ") " +
+					"--(" + numTroops() + ")--> " +
+					GameData.COUNTRY_NAMES[receiver] + "(" + board.getNumUnits(receiver) + ")";
+		}
 	}
 
-	public String getReinforcement () {
-		String command = "";
-		// put your code here
-		command = GameData.COUNTRY_NAMES[(int)(Math.random() * GameData.NUM_COUNTRIES)];
-		command = command.replaceAll("\\s", "");
-		command += " 1";
-		return(command);
-	}
-
-	public String getPlacement (int forPlayer) {
-		String command = "";
-		// put your code here
-		command = GameData.COUNTRY_NAMES[(int)(Math.random() * GameData.NUM_COUNTRIES)];
-		command = command.replaceAll("\\s", "");
-		return(command);
-	}
-
-	public String getCardExchange () {
-		String command = "";
-		// put your code here
-		command = "skip";
-		return(command);
-	}
-
-	public String getBattle () {
-		String command = "";
-		// put your code here
-		getBoardEquity();
-		getPossibleAttacks();
-		sortAttacksByProbability();
-
-		Attack chosenAttack;
-		lastAttack = chosenAttack;
-		command = "skip";
-		return(command);
-	}
-
-	public String getDefence (int countryId) {
-		String command = "";
-		// put your code here
-		command = "1";
-		return(command);
-	}
-
-	public String getMoveIn (int attackCountryId) {
-		String command = "";
-		// put your code here
-		command = "0";
-		return(command);
-	}
-
-	public String getFortify () {
-		String command = "";
-		// put code here
-		command = "skip";
-		return(command);
-	}
+	Comparator<Attack> compareAttackByProb = new Comparator<Attack>() {
+		@Override
+		public int compare(Attack a, Attack b) {
+			return new Double(a.probability).compareTo(b.probability);
+		}
+	};
+	Comparator<Country> compareCountryByUnits = new Comparator<Country>(){
+		public int compare(Country a, Country b){
+			return new Integer(a.numUnits()).compareTo(new Integer(b.numUnits()));
+		}
+	};
 
 }
