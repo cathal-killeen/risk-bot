@@ -1,5 +1,7 @@
 // put your code here
 
+import com.sun.javafx.geom.AreaOp;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,6 +21,8 @@ public class SuckyBeigeFish2 implements Bot {
 	private ArrayList<Attack> refinedAttacks = new ArrayList<Attack>();
 	private ArrayList<Country> borderCountries;
 	private ArrayList<Country> borderlessCountries;
+
+	private ArrayList<Country> countries;
 
 	private Attack lastAttack;
 	//Decides the minimum probability required to consider an attack
@@ -45,6 +49,8 @@ public class SuckyBeigeFish2 implements Bot {
 		enemyId = getEnemyId();
 		myContinents = new double[6];
 		enemyContinents = new double[6];
+
+		countries = createCountriesList();
 	}
 
 
@@ -79,8 +85,20 @@ public class SuckyBeigeFish2 implements Bot {
 	public String getPlacement (int forPlayer) {
 		String command = "";
 		// put your code here
-		command = GameData.COUNTRY_NAMES[(int)(Math.random() * GameData.NUM_COUNTRIES)];
-		command = command.replaceAll("\\s", "");
+		String country = "";
+
+		ArrayList<Country> borderingEnemy = getEnemyNeutralNeighbors(forPlayer);
+		//get the least protected territory bordering the enemy
+		if(borderingEnemy.size() != 0){
+			Collections.sort(borderingEnemy, compareCountryByUnits);
+			country = borderingEnemy.get(0).name;
+		}else{
+			//if no countries are bordering the enemy - select random
+			country = getRandomOwned(forPlayer);
+		}
+		//replace spaces in country name
+		country = country.replaceAll("\\s", "");
+		command = country;
 		return(command);
 	}
 
@@ -219,6 +237,42 @@ public class SuckyBeigeFish2 implements Bot {
 		}
 
 		return "";
+	}
+
+	//creates a list of all the countries on the board - country data can then be easily accessed by using 'countries.get(countryId)'
+	private ArrayList<Country> createCountriesList(){
+		ArrayList<Country> list = new ArrayList<>();
+		for(int i=0; i<GameData.NUM_COUNTRIES; i++){
+			list.add(new Country(i));
+		}
+		return list;
+	}
+
+	//returns a list of countries belonging to enemy that border all of my countries
+	private ArrayList<Country> getEnemyNeutralNeighbors(int neutralId){
+		ArrayList<Country> borderEnemies = new ArrayList<>();
+		for(Country country: countries){
+			if(country.owner() == enemyId){
+				for(int i=0; i<country.adjacents.length; i++){
+					//if neighboring country is owned by enemy
+					Country borderCountry = countries.get(country.adjacents[i]);
+					if(borderCountry.owner() == neutralId){
+						borderEnemies.add(borderCountry);
+					}
+				}
+			}
+		}
+		return borderEnemies;
+	}
+
+	private String getRandomOwned(int forPlayer){
+		ArrayList<Country> owned = new ArrayList<>();
+		for(Country country: countries){
+			if(country.owner() == forPlayer){
+				owned.add(country);
+			}
+		}
+		return owned.get((int)(Math.random() * owned.size() -1)).name;
 	}
 
 	public class Attack{
