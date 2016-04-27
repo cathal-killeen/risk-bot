@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="sprint-3:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0d1a6bd-d898-414d-9b71-ae0d107c8475" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tmp/SuckyBeigeFish.java" afterPath="$PROJECT_DIR$/src/SuckyBeigeFish.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="89dcc9e7-6390-4434-9593-acc33c1bfd20" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Sprint5.java" afterPath="$PROJECT_DIR$/src/Sprint5.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SuckyBeigeFish2.java" afterPath="$PROJECT_DIR$/src/SuckyBeigeFish2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <ignored path="COLLEGE_GIT.iws" />
+    <ignored path="Risk.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,46 +26,18 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="COLLEGE_GIT" />
+    <favorites_list name="Risk" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PlayerAPI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PlayerAPI.java">
+      <file leaf-file-name="UI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bot.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Bot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardAPI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BoardAPI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GameData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
-              <folding />
+            <state vertical-scroll-proportion="-2.2962964">
+              <caret line="110" column="31" selection-start-line="110" selection-start-column="31" selection-end-line="110" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,37 +45,18 @@
       <file leaf-file-name="SuckyBeigeFish.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.1034484">
-              <caret line="145" column="83" selection-start-line="145" selection-start-column="83" selection-end-line="145" selection-end-column="83" />
+            <state vertical-scroll-proportion="-7.2222223">
+              <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#getName#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getReinforcement#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getPlacement#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getCardExchange#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getBattle#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getDefence#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getMoveIn#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#enemyId#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#createCountriesList#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#createMembersList#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getTradeIns#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="class#Attack#0;class#SuckyBeigeFish#0" expanded="false" />
+                <element signature="e#5137#5138#0" expanded="true" />
+                <element signature="e#5174#5175#0" expanded="true" />
                 <element signature="e#7497#7498#0" expanded="true" />
                 <element signature="e#7569#7570#0" expanded="true" />
                 <element signature="e#7606#7607#0" expanded="true" />
                 <element signature="e#7684#7685#0" expanded="true" />
-                <element signature="e#8249#8303#0" expanded="false" />
-                <element signature="class#Fortify#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getRandomOwned#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#isNetural#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getPossibleFortifys#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getInners#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#hasInner#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#hasOuter#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getWeakestOuter#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getStrongestInner#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#getCountryGroupSeeds#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
+                <element signature="e#9887#9888#0" expanded="true" />
+                <element signature="e#9922#9923#0" expanded="true" />
                 <element signature="e#15380#15381#0" expanded="true" />
                 <element signature="e#15435#15436#0" expanded="true" />
                 <element signature="e#15471#15472#0" expanded="true" />
@@ -111,91 +67,87 @@
                 <element signature="e#15979#15980#0" expanded="true" />
                 <element signature="e#16035#16036#0" expanded="true" />
                 <element signature="e#16109#16110#0" expanded="true" />
-                <element signature="method#mergeCountryGroups#0;class#Country#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="method#groupHasCountry#0;class#Country#0;class#SuckyBeigeFish#0" expanded="false" />
-                <element signature="class#19744:19934" expanded="false" />
-                <element signature="class#19990:20183" expanded="false" />
+                <element signature="e#17560#17561#0" expanded="true" />
+                <element signature="e#17632#17633#0" expanded="true" />
+                <element signature="e#19300#19301#0" expanded="true" />
+                <element signature="e#19368#19369#0" expanded="true" />
+                <element signature="e#19403#19404#0" expanded="true" />
+                <element signature="e#19458#19459#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SuckyBeigeFish2.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish2.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5163044">
-              <caret line="163" column="92" selection-start-line="163" selection-start-column="92" selection-end-line="163" selection-end-column="92" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#705#713#0" expanded="true" />
-                <element signature="e#774#782#0" expanded="true" />
-                <element signature="method#SuckyBeigeFish2#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getName#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getReinforcement#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getPlacement#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getCardExchange#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getDefence#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getMoveIn#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getTradeIns#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="class#Attack#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#Attack#0;class#Attack#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#calculateProb#0;class#Attack#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="class#Country#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getBoardEquity#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="method#getEnemyId#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="class#Fortify#0;class#SuckyBeigeFish2#0" expanded="false" />
-                <element signature="class#11480:11626" expanded="false" />
-                <element signature="e#11556#11557#0" expanded="true" />
-                <element signature="e#11622#11623#0" expanded="true" />
-                <element signature="class#11677:11824" expanded="false" />
-                <element signature="e#11742#11743#0" expanded="true" />
-                <element signature="e#11820#11821#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArrayList.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/ArrayList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="652" column="0" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sprint5.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Sprint5.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Sprint5.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.724138">
-              <caret line="26" column="46" selection-start-line="26" selection-start-column="46" selection-end-line="26" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.55452865">
+              <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UI.java">
+      <file leaf-file-name="GameData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/GameData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.206897">
-              <caret line="315" column="0" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Player.java">
+      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="38.310345">
-              <caret line="6" column="23" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="23" />
+            <state vertical-scroll-proportion="-12.851851">
+              <caret line="167" column="5" selection-start-line="167" selection-start-column="5" selection-end-line="167" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RandomBot.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RandomBot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="275.44446">
+              <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#17803#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Card.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Card.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Parse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Parse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.037037">
+              <caret line="129" column="52" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -208,19 +160,46 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/GameFrame.java" />
+        <option value="$PROJECT_DIR$/src/Commands.java" />
+        <option value="$PROJECT_DIR$/src/Dice.java" />
+        <option value="/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/lang/NumberFormatException.java" />
+        <option value="$PROJECT_DIR$/src/SideBar.java" />
+        <option value="$PROJECT_DIR$/src/Deck.java" />
+        <option value="$PROJECT_DIR$/src/Constants.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Country.java" />
+        <option value="$PROJECT_DIR$/src/Map.java" />
+        <option value="$PROJECT_DIR$/src/Card.java" />
+        <option value="$PROJECT_DIR$/src/Player.java" />
+        <option value="$PROJECT_DIR$/src/TurnCycle.java" />
+        <option value="$PROJECT_DIR$/src/bot/Board.java" />
         <option value="$PROJECT_DIR$/src/YourTeamName.java" />
-        <option value="$PROJECT_DIR$/tmp/SuckyBeigeFish.java" />
-        <option value="$PROJECT_DIR$/src/Sprint5.java" />
+        <option value="$PROJECT_DIR$/src/suckyBeigeFish.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/GameData.java" />
+        <option value="$PROJECT_DIR$/src/RandomBot.java" />
         <option value="$PROJECT_DIR$/src/SuckyBeigeFish.java" />
-        <option value="$PROJECT_DIR$/src/SuckyBeigeFish2.java" />
+        <option value="$PROJECT_DIR$/src/Board.java" />
+        <option value="$PROJECT_DIR$/src/Sprint5.java" />
       </list>
     </option>
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1376" />
-    <option name="height" value="744" />
+    <option name="x" value="37" />
+    <option name="y" value="23" />
+    <option name="width" value="1596" />
+    <option name="height" value="982" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -243,36 +222,33 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="COLLEGE_GIT" />
+              <option name="myItemId" value="Risk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="COLLEGE_GIT" />
+              <option name="myItemId" value="Risk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="COLLEGE_GIT" />
+              <option name="myItemId" value="Risk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="COLLEGE_GIT" />
+              <option name="myItemId" value="Risk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="COLLEGE_GIT" />
+              <option name="myItemId" value="Risk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -280,18 +256,78 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Risk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Risk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Risk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Risk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="FullScreen" value="false" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\adam\Desktop\COLLEGE_GIT\src" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/resources" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Sprint5">
+    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Risk" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="Sprint5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Sprint5" />
@@ -303,7 +339,7 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="COLLEGE_GIT" />
+      <module name="Risk" />
       <envs />
       <method />
     </configuration>
@@ -331,15 +367,6 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
-      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
-      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
-      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -361,19 +388,9 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
-      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
-      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
-      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
-      <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
@@ -432,70 +449,8 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="SCRATCH_FILE_ID" value="0" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="COLLEGE_GIT" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
       <envs />
       <method />
     </configuration>
@@ -520,7 +475,7 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="OUTPUT_DIRECTORY" />
       <option name="ANNOTATION_TYPE" />
       <option name="ENV_VARIABLES" />
@@ -535,107 +490,73 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Application.Sprint5" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Sprint5" />
     </list>
     <recent_temporary>
-      <list size="1">
+      <list size="2">
         <item index="0" class="java.lang.String" itemvalue="Application.Sprint5" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a0d1a6bd-d898-414d-9b71-ae0d107c8475" name="Default" comment="" />
-      <created>1461680171238</created>
+      <changelist id="89dcc9e7-6390-4434-9593-acc33c1bfd20" name="Default" comment="" />
+      <created>1456769546040</created>
       <option name="number" value="Default" />
-      <updated>1461680171238</updated>
+      <updated>1456769546040</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
-    <editor active="false" />
+    <frame x="37" y="23" width="1596" height="982" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.179198" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31325302" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Board.java</url>
-          <line>170</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/SuckyBeigeFish.java</url>
-          <line>143</line>
-          <properties />
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/SuckyBeigeFish2.java</url>
-          <line>99</line>
-          <properties />
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="22" />
+      <option name="time" value="1" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -644,126 +565,28 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/InfoPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.206897">
-          <caret line="40" column="33" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="33" />
-          <folding>
-            <element signature="method#subtractUnits#0;class#Board#0" expanded="false" />
-            <element signature="method#calcBattle#0;class#Board#0" expanded="false" />
-            <element signature="method#calcCardExchange#0;class#Board#0" expanded="false" />
-            <element signature="method#isAdjacent#0;class#Board#0" expanded="false" />
-            <element signature="method#isConnected#0;class#Board#0" expanded="false" />
-            <element signature="method#isConnected#1;class#Board#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlayerAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="38.310345">
-          <caret line="6" column="23" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Sprint5.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.724138">
-          <caret line="26" column="46" selection-start-line="26" selection-start-column="46" selection-end-line="26" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BoardAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/UI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.206897">
-          <caret line="315" column="0" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="652" column="0" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
+          <caret line="85" column="4" selection-start-line="85" selection-start-column="4" selection-end-line="85" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.1034484">
-          <caret line="145" column="83" selection-start-line="145" selection-start-column="83" selection-end-line="145" selection-end-column="83" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getName#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getReinforcement#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getPlacement#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getCardExchange#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getBattle#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getDefence#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getMoveIn#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#enemyId#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#createCountriesList#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#createMembersList#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getTradeIns#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="class#Attack#0;class#SuckyBeigeFish#0" expanded="false" />
+            <element signature="e#5137#5138#0" expanded="true" />
+            <element signature="e#5174#5175#0" expanded="true" />
             <element signature="e#7497#7498#0" expanded="true" />
             <element signature="e#7569#7570#0" expanded="true" />
             <element signature="e#7606#7607#0" expanded="true" />
             <element signature="e#7684#7685#0" expanded="true" />
-            <element signature="e#8249#8303#0" expanded="false" />
-            <element signature="class#Fortify#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getRandomOwned#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#isNetural#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getPossibleFortifys#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getInners#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#hasInner#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#hasOuter#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getWeakestOuter#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getStrongestInner#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#getCountryGroupSeeds#0;class#Member#0;class#SuckyBeigeFish#0" expanded="false" />
+            <element signature="e#9887#9888#0" expanded="true" />
+            <element signature="e#9922#9923#0" expanded="true" />
             <element signature="e#15380#15381#0" expanded="true" />
             <element signature="e#15435#15436#0" expanded="true" />
             <element signature="e#15471#15472#0" expanded="true" />
@@ -774,46 +597,567 @@
             <element signature="e#15979#15980#0" expanded="true" />
             <element signature="e#16035#16036#0" expanded="true" />
             <element signature="e#16109#16110#0" expanded="true" />
-            <element signature="method#mergeCountryGroups#0;class#Country#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="method#groupHasCountry#0;class#Country#0;class#SuckyBeigeFish#0" expanded="false" />
-            <element signature="class#19744:19934" expanded="false" />
-            <element signature="class#19990:20183" expanded="false" />
+            <element signature="e#17560#17561#0" expanded="true" />
+            <element signature="e#17632#17633#0" expanded="true" />
+            <element signature="e#19300#19301#0" expanded="true" />
+            <element signature="e#19368#19369#0" expanded="true" />
+            <element signature="e#19403#19404#0" expanded="true" />
+            <element signature="e#19458#19459#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish2.java">
+    <entry file="file://$PROJECT_DIR$/src/BoardAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5163044">
-          <caret line="163" column="92" selection-start-line="163" selection-start-column="92" selection-end-line="163" selection-end-column="92" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Deck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InfoPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="64" column="24" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="85" column="4" selection-start-line="85" selection-start-column="4" selection-end-line="85" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#705#713#0" expanded="true" />
-            <element signature="e#774#782#0" expanded="true" />
-            <element signature="method#SuckyBeigeFish2#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getName#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getReinforcement#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getPlacement#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getCardExchange#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getDefence#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getMoveIn#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getTradeIns#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="class#Attack#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#Attack#0;class#Attack#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#calculateProb#0;class#Attack#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="class#Country#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getBoardEquity#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="method#getEnemyId#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="class#Fortify#0;class#SuckyBeigeFish2#0" expanded="false" />
-            <element signature="class#11480:11626" expanded="false" />
-            <element signature="e#11556#11557#0" expanded="true" />
-            <element signature="e#11622#11623#0" expanded="true" />
-            <element signature="class#11677:11824" expanded="false" />
-            <element signature="e#11742#11743#0" expanded="true" />
-            <element signature="e#11820#11821#0" expanded="true" />
+            <element signature="e#5137#5138#0" expanded="true" />
+            <element signature="e#5174#5175#0" expanded="true" />
+            <element signature="e#7497#7498#0" expanded="true" />
+            <element signature="e#7569#7570#0" expanded="true" />
+            <element signature="e#7606#7607#0" expanded="true" />
+            <element signature="e#7684#7685#0" expanded="true" />
+            <element signature="e#9887#9888#0" expanded="true" />
+            <element signature="e#9922#9923#0" expanded="true" />
+            <element signature="e#15380#15381#0" expanded="true" />
+            <element signature="e#15435#15436#0" expanded="true" />
+            <element signature="e#15471#15472#0" expanded="true" />
+            <element signature="e#15525#15526#0" expanded="true" />
+            <element signature="e#15557#15558#0" expanded="true" />
+            <element signature="e#15612#15613#0" expanded="true" />
+            <element signature="e#15938#15939#0" expanded="true" />
+            <element signature="e#15979#15980#0" expanded="true" />
+            <element signature="e#16035#16036#0" expanded="true" />
+            <element signature="e#16109#16110#0" expanded="true" />
+            <element signature="e#17560#17561#0" expanded="true" />
+            <element signature="e#17632#17633#0" expanded="true" />
+            <element signature="e#19300#19301#0" expanded="true" />
+            <element signature="e#19368#19369#0" expanded="true" />
+            <element signature="e#19403#19404#0" expanded="true" />
+            <element signature="e#19458#19459#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sprint5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="58" selection-start-line="58" selection-start-column="58" selection-end-line="58" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="64" column="24" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlayerAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5137#5138#0" expanded="true" />
+            <element signature="e#5174#5175#0" expanded="true" />
+            <element signature="e#7497#7498#0" expanded="true" />
+            <element signature="e#7569#7570#0" expanded="true" />
+            <element signature="e#7606#7607#0" expanded="true" />
+            <element signature="e#7684#7685#0" expanded="true" />
+            <element signature="e#9887#9888#0" expanded="true" />
+            <element signature="e#9922#9923#0" expanded="true" />
+            <element signature="e#15380#15381#0" expanded="true" />
+            <element signature="e#15435#15436#0" expanded="true" />
+            <element signature="e#15471#15472#0" expanded="true" />
+            <element signature="e#15525#15526#0" expanded="true" />
+            <element signature="e#15557#15558#0" expanded="true" />
+            <element signature="e#15612#15613#0" expanded="true" />
+            <element signature="e#15938#15939#0" expanded="true" />
+            <element signature="e#15979#15980#0" expanded="true" />
+            <element signature="e#16035#16036#0" expanded="true" />
+            <element signature="e#16109#16110#0" expanded="true" />
+            <element signature="e#17560#17561#0" expanded="true" />
+            <element signature="e#17632#17633#0" expanded="true" />
+            <element signature="e#19300#19301#0" expanded="true" />
+            <element signature="e#19368#19369#0" expanded="true" />
+            <element signature="e#19403#19404#0" expanded="true" />
+            <element signature="e#19458#19459#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sprint5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5137#5138#0" expanded="true" />
+            <element signature="e#5174#5175#0" expanded="true" />
+            <element signature="e#7497#7498#0" expanded="true" />
+            <element signature="e#7569#7570#0" expanded="true" />
+            <element signature="e#7606#7607#0" expanded="true" />
+            <element signature="e#7684#7685#0" expanded="true" />
+            <element signature="e#9887#9888#0" expanded="true" />
+            <element signature="e#9922#9923#0" expanded="true" />
+            <element signature="e#15380#15381#0" expanded="true" />
+            <element signature="e#15435#15436#0" expanded="true" />
+            <element signature="e#15471#15472#0" expanded="true" />
+            <element signature="e#15525#15526#0" expanded="true" />
+            <element signature="e#15557#15558#0" expanded="true" />
+            <element signature="e#15612#15613#0" expanded="true" />
+            <element signature="e#15938#15939#0" expanded="true" />
+            <element signature="e#15979#15980#0" expanded="true" />
+            <element signature="e#16035#16036#0" expanded="true" />
+            <element signature="e#16109#16110#0" expanded="true" />
+            <element signature="e#17560#17561#0" expanded="true" />
+            <element signature="e#17632#17633#0" expanded="true" />
+            <element signature="e#19300#19301#0" expanded="true" />
+            <element signature="e#19368#19369#0" expanded="true" />
+            <element signature="e#19403#19404#0" expanded="true" />
+            <element signature="e#19458#19459#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sprint5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5137#5138#0" expanded="true" />
+            <element signature="e#5174#5175#0" expanded="true" />
+            <element signature="e#7497#7498#0" expanded="true" />
+            <element signature="e#7569#7570#0" expanded="true" />
+            <element signature="e#7606#7607#0" expanded="true" />
+            <element signature="e#7684#7685#0" expanded="true" />
+            <element signature="e#9887#9888#0" expanded="true" />
+            <element signature="e#9922#9923#0" expanded="true" />
+            <element signature="e#15380#15381#0" expanded="true" />
+            <element signature="e#15435#15436#0" expanded="true" />
+            <element signature="e#15471#15472#0" expanded="true" />
+            <element signature="e#15525#15526#0" expanded="true" />
+            <element signature="e#15557#15558#0" expanded="true" />
+            <element signature="e#15612#15613#0" expanded="true" />
+            <element signature="e#15938#15939#0" expanded="true" />
+            <element signature="e#15979#15980#0" expanded="true" />
+            <element signature="e#16035#16036#0" expanded="true" />
+            <element signature="e#16109#16110#0" expanded="true" />
+            <element signature="e#17560#17561#0" expanded="true" />
+            <element signature="e#17632#17633#0" expanded="true" />
+            <element signature="e#19300#19301#0" expanded="true" />
+            <element signature="e#19368#19369#0" expanded="true" />
+            <element signature="e#19403#19404#0" expanded="true" />
+            <element signature="e#19458#19459#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Risk.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/lang/NumberFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7352941">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources/map_grey.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitcommands.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.7777777">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="430" column="0" selection-start-line="430" selection-start-column="0" selection-end-line="430" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30050084">
+          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BoardAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.025041737">
+          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Deck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.2754591">
+          <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CommandPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5993322">
+          <caret line="41" column="19" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InfoPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.050083473">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5275459">
+          <caret line="64" column="24" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlayerAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.050083473">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MapPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.3806343">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2962964">
+          <caret line="110" column="31" selection-start-line="110" selection-start-column="31" selection-end-line="110" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.037037">
+          <caret line="129" column="52" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RandomBot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="275.44446">
+          <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#17803#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.851851">
+          <caret line="167" column="5" selection-start-line="167" selection-start-column="5" selection-end-line="167" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SuckyBeigeFish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.2222223">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5137#5138#0" expanded="true" />
+            <element signature="e#5174#5175#0" expanded="true" />
+            <element signature="e#7497#7498#0" expanded="true" />
+            <element signature="e#7569#7570#0" expanded="true" />
+            <element signature="e#7606#7607#0" expanded="true" />
+            <element signature="e#7684#7685#0" expanded="true" />
+            <element signature="e#9887#9888#0" expanded="true" />
+            <element signature="e#9922#9923#0" expanded="true" />
+            <element signature="e#15380#15381#0" expanded="true" />
+            <element signature="e#15435#15436#0" expanded="true" />
+            <element signature="e#15471#15472#0" expanded="true" />
+            <element signature="e#15525#15526#0" expanded="true" />
+            <element signature="e#15557#15558#0" expanded="true" />
+            <element signature="e#15612#15613#0" expanded="true" />
+            <element signature="e#15938#15939#0" expanded="true" />
+            <element signature="e#15979#15980#0" expanded="true" />
+            <element signature="e#16035#16036#0" expanded="true" />
+            <element signature="e#16109#16110#0" expanded="true" />
+            <element signature="e#17560#17561#0" expanded="true" />
+            <element signature="e#17632#17633#0" expanded="true" />
+            <element signature="e#19300#19301#0" expanded="true" />
+            <element signature="e#19368#19369#0" expanded="true" />
+            <element signature="e#19403#19404#0" expanded="true" />
+            <element signature="e#19458#19459#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sprint5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55452865">
+          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>Risk:jar2</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Risk</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
